@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "angular": "^1.5.2",
     "angular-route": "~1.4.0",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
@@ -14,7 +15,9 @@
     "jquery": "^2.2.2",
     "bootstrap": "^3.3.6",
     "angular-bootstrap": "^1.2.4",
-    "angular-animate": "^1.5.2",
-    "angular": "^1.5.2"
+    "angular-animate": "^1.5.2"
+  },
+  "resolutions": {
+    "angular": "~1.5.2"
   }
 }
