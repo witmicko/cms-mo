@@ -1,0 +1,309 @@
+/* admin */
+
+.adminEvent {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.adminEventSelected {
+    background-color: #adad85;
+}
+
+.submitN {
+    color: green;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 12px;
+}
+
+.btnResetCentre {
+    margin: 0 auto;
+    display: block;
+}
+
+textarea#csv {
+    max-width: 100%;
+    min-height: 200px;
+    display: block;
+    width: 100%;
+}
+
+/* events css start */
+
+.rl_font_2_5 {
+    font-size: 2.5em;
+}
+
+.rl_font_2_0 {
+    font-size: 2.0em;
+}
+
+.rl_font_1_8 {
+    font-size: 1.8em;
+}
+
+.rl_font_1_5 {
+    font-size: 1.5em;
+}
+
+.rl_font_1_2 {
+    font-size: 1.2em;
+}
+
+.rl_text_color_black {
+    color: black;
+}
+
+.rl_padding_top_10 {
+    padding-top: 10px;
+}
+
+.rl_padding_bottom_10 {
+    padding-bottom: 10px;
+}
+
+.rl_margin_top_10 {
+    margin-top: 10px;
+}
+
+.rl_margin_bottom_10 {
+    margin-bottom: 10px;
+}
+
+/* borders */
+
+.rl_brd_dotted {
+    border-style: dotted;
+}
+
+.rl_brd_dashed {
+    border-style: dashed;
+}
+
+.rl_brd_solid {
+    border-style: solid;
+}
+
+.rl_brd_double {
+    border-style: double;
+}
+
+.rl_brd_groove {
+    border-style: groove;
+}
+
+.rl_brd_ridge {
+    border-style: ridge;
+}
+
+.rl_brd_inset {
+    border-style: inset;
+}
+
+.rl_brd_outset {
+    border-style: outset;
+}
+
+.rl_brd_none {
+    border-style: none;
+}
+
+.rl_brd_hidden {
+    border-style: hidden;
+}
+
+.rl_brd_mix {
+    border-style: dotted dashed solid double;
+}
+
+.rl_brd_clr_red {
+    border-color: red;
+}
+
+.rl_brd_clr_black {
+    border-color: black;
+}
+
+.rl_brd_clr_blue {
+    border-color: blue;
+}
+
+.rl_brd_clr_green {
+    border-color: green;
+}
+
+.rl_brd_clr_white {
+    border-color: white;
+}
+
+.rl_bkg_color_blue {
+    background-color: blue;
+}
+
+.rl_bkg_color_blue1 {
+    background-color: #66ccff;
+}
+
+.rl_bkg_color_yellow {
+    background-color: yellow;
+}
+
+.rl_bkg_color_red {
+    background-color: red;
+}
+
+.rl_bkg_color_clr_black {
+    background-color: black;
+}
+
+.rl_bkg_color_green {
+    background-color: green;
+}
+
+.rl_bkg_color_olive {
+    background-color: #E5E184;
+}
+
+.rl_bkg_color_mauve {
+    background-color: #CC99FF;
+}
+
+.rl_bkg_color_orange {
+    background-color: #FBBC05;
+}
+
+.rl_bkg_color_white {
+    background-color: white;
+}
+
+.rl_bkg_color_item1 {
+    background-color: #E6E68A;
+}
+
+.rl_bkg_color_item2 {
+    background-color: #EBEBA1;
+}
+
+.rl_padding_left_15 {
+    padding-left: 15px;
+}
+
+.rl_padding_left_20 {
+    padding-left: 15px;
+}
+
+/* rounded corners */
+
+.rl_rcorners15 {
+    border-radius: 15px;
+}
+
+.rl_rcorners20 {
+    border-radius: 20px;
+}
+
+.rl_rcorners25 {
+    border-radius: 25px;
+}
+
+.rl_rcorners30 {
+    border-radius: 30px;
+}
+
+.rl_box_shadow1 {
+    box-shadow: 10px 10px 5px #888888;
+}
+
+/* panel areas of the edit hover colour in the background when on that section */
+.rl_hover_light_blue:hover {
+    background-color: #BBDDFF;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 14px;
+}
+
+.rl_hover_lime:hover {
+    background-color: #ABEEBB;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 14px;
+}
+
+.rl_hover_straw:hover {
+    background-color: #D6BF86;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 14px;
+}
+
+.rl_hover_grey:hover {
+    background-color: #cccccc;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 14px;
+}
+
+.attendeeindex {
+    font-size: 1.2em;
+}
+
+.dataEntryPanel:hover {
+    background-color: #BBDDFF;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 14px;
+}
+
+.workshopattendee {
+    margin-right: 0;
+    margin-left: 0;
+    border: 1px solid #333;
+    border-radius: 14px;
+}
+
+.workshopattendee:nth-child(even) {
+    background-color: #ffff99;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 15px;
+    border-radius: 14px;
+}
+
+.workshopattendee:nth-child(odd) {
+    background-color: #ffffcc;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 15px;
+    border-radius: 14px;
+}
+
+.workshopattendee:hover {
+    background-color: cyan;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 14px;
+}
+
+.attendeedataentry .table {
+    width: 96%;
+    max-width: 96%;
+    margin-bottom: 10px;
+}
+
+/* not working
+.attendeedetails_template1     .control-label {
+   padding-top: 7px;
+   margin-bottom: 0;
+
+}
+*/
+/* events css end 
+
+
+
+
+
+
+
+

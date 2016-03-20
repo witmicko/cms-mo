@@ -1,0 +1,167 @@
+<div class="seminarattendees">
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Seminar Attendee(s)</h3>
+        </div>
+        <div class="col-md-3">
+            <h3>Attendees = {{attendees.length}}</h3>
+        </div>
+        <div class="col-md-4 ">
+
+            <h3 style="color:red" ng-if="attendees.length==attendeesMax">Maximum attendees per submission is
+                {{attendeesMax}}</h3>
+        </div>
+    </div>
+    <div class="row">
+
+        <form class="form-horizontal " role="form" name="attendeeForm" ng-disabled="isSavingForm">
+            <ng-form name="seminarDetails">
+                <div class="col-md-4 no-print form-horizontal">  <!-- left data entry panel -->
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Choice</label>                 <!-- option._meta_order -->
+                        <div class="col-md-9">
+                            <select class="form-control " ng-model='formMeta.currentEditTemp.choice' name="Choice"
+                                    required
+                                    ng-options='option.name as option.name for option in attendeeChoices  '>
+                                <option value="">Choice for this attendee / delegate</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">First Name</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control " required name="Firstname2"
+                                   ng-model="formMeta.currentEditTemp.firstname" ng-minlength="1" ng-maxlength="32"
+                                   placeholder="Attendee First Name">
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Lastname</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control " required name="Lastname2"
+                                   ng-model="formMeta.currentEditTemp.lastname" ng-minlength="2" ng-maxlength="48"
+                                   placeholder="Attendee Last Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="_meta.attendees_meta.request_position==true">
+                        <label class="col-md-3 control-label">Position</label>
+                        <div class="col-md-9">
+
+                            <select class="form-control " ng-model='formMeta.currentEditTemp.position' name="Position2"
+                                    ng-options='option.name as option.name for option in attendeePositions' required>
+                                <option value="">Select attendee position</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group" ng-if="_meta.attendees_meta.request_lunch==true">
+                        <label class="col-md-3 control-label">Lunch</label>
+                        <div class="col-md-3">
+                            Yes
+                            <input type="checkbox"
+                                   ng-model="formMeta.currentEditTemp.lunch"
+                                   ng-true-value="true"
+                                   ng-false-value="false"/>
+                            No
+                            <input type="checkbox"
+                                   ng-model="formMeta.currentEditTemp.lunch"
+                                   ng-true-value="false"
+                                   ng-false-value="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group no-print">
+                        <div class="col-md-6">
+                            <input type="button" value="Clear Attendee" class="btn-xs btn-primary"
+                                   ng-click="resetCurrentEdit()" ng-dblclick="false">
+                            <input type="button" value="Add Attendee" class="btn-xs btn-primary"
+                                   ng-click="addAttendeeRow()" ng-dblclick="false"
+                                   ng-disabled="seminarDetails.$invalid ||  attendeeLimitReached()"" >
+                        </div>
+                    </div>
+
+                </div> <!-- left data entry panel -->
+            </ng-form>
+        </form>
+        <div class="col-md-8">  <!-- list of attendees -->
+            <table class="table attendeelist">
+                <thead>
+                <tr>
+                    <th class="dummy">
+                    </th>
+                    <th class="choice">Choice
+                    </th>
+                    <th class="firstname">First Name
+                    </th>
+                    <th class="lastname">Last Name
+                    </th>
+                    <th class="position" ng-show="_meta.attendees_meta.request_position==true">Position
+                    </th>
+                    <th class="lunch" ng-show="_meta.attendees_meta.request_lunch==true">Lunch
+                    </th>
+                    <th class="tasks no-print">Tasks
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-show="attendees.length==0">
+                    <td colspan="3" style="font-size:1.5em;color:red">{{zeroAttendees}}</td>
+                </tr>
+                <tr ng-repeat="attendee in formData.attendees  track by $id($index)"
+                    ng-class="{selectedEdit: $index === formMeta.currentEditTempIndex}">
+                    <td>
+                        <label class="attendeeindex">{{$index+1}})</label>
+                    </td>
+                    <td class="choice">
+
+                        {{attendee.choice}}
+                    </td>
+                    <td class="firstname">
+                        {{attendee.firstname}}
+                    </td>
+                    <td class="lastname">
+                        {{attendee.lastname}}
+                    </td>
+                    <td class="position" ng-show="_meta.attendees_meta.request_position==true">
+                        {{attendee.position}}
+                    </td>
+                    <td class="lunch" ng-show="_meta.attendees_meta.request_lunch==true">
+                        Yes
+                        <input type="checkbox"
+                               ng-model="attendee.lunch"
+                               ng-true-value="true"
+                               ng-false-value="false"/>
+                        No
+                        <input type="checkbox"
+                               ng-model="attendee.lunch"
+                               ng-true-value="false"
+                               ng-false-value="true"/>
+                    </td>
+                    <td class="tasks no-print">
+                        <div>
+                            <input type="button" value="Edit" class="btn-primary btn-xs"
+                                   ng-click="editAttendeeRow($index)"/>
+
+                            <input type="button" value="X" class="btn-warning  btn-xs"
+                                   ng-click="removeAttendeeRow($index)"/>
+                        </div>
+
+                    </td>
+
+                </tr>
+                <tbody>
+            </table>
+        </div>  <!-- list of attendees -->
+    </div>
+</div>
+
+ 
