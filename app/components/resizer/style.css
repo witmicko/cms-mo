@@ -12,7 +12,7 @@
     bottom: 0;
     left: 50% /* 200 + 6*/;
     right: 0;
-    overflow: hidden;
+    overflow: auto;
 
 }
 
