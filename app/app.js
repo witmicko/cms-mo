@@ -14,11 +14,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: "/index",
             views: {
                 "builder": {
-                    templateUrl: "view1/index.viewA.html",
+                    templateUrl: "view1/builder/builder.html",
                     controller: "builderCtrl"
                 },
                 "preview": {
-                    templateUrl: "view1/index.viewB.html",
+                    templateUrl: "view1/preview/preview.html",
                     controller: "EventsCtrl"
                 }
             }
