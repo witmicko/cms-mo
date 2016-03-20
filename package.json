@@ -18,7 +18,8 @@
     "shelljs": "^0.2.6"
   },
   "dependencies": {
-    "bower":"1.7.7 "
+    "bower":"1.7.7 ",
+    "http-server": "^0.6.1"
   },
   "scripts": {
     "postinstall": "bower install",
