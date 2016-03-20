@@ -1,0 +1,66 @@
+  <div class="contactdataentry">
+ 
+	  	 <div class="row" > 
+						<div class="col-md-12" > 
+					   <h3>
+						Contact details for person in relation to this form/data. {{contactsValid }}		
+						</h3>
+						</div>
+		 </div>	 
+		 
+		 <ng-form name="contactDetails">
+		  <div class="row form-horizontal" > 
+		  
+				<div class="col-md-6" >  <!-- left column -->
+													<div class="form-group">
+														<label class="col-md-3 control-label">First Name</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty" required name="firstname" ng-model="formData.contact.firstname" ng-minlength="2" ng-maxlength="32" placeholder="Contact First Name">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-3 control-label">Last Name</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty" required name="lastname" ng-model="formData.contact.lastname" ng-minlength="2" ng-maxlength="48" placeholder="Contact Last Name">
+														</div>
+													</div>													
+				</div>
+				<div class="col-md-6" >  <!-- right column -->
+ 												<div class="form-group">
+												<label class="col-md-3 control-label">Email</label>
+												<div class="col-md-9">
+													<input type="email" class="form-control ng-valid ng-dirty" required name="emailc1" ng-model="formData.contact.email" ng-minlength="3" ng-maxlength="48" placeholder="contact email address">
+												</div>
+											</div>
+										<div class="form-group">
+												<label class="col-md-3 control-label">Email Confirmation</label>
+												<div class="col-md-9">
+													<input type="email" class="form-control ng-valid ng-dirty" required name="emailc2" ng-model="formData.contact.email2"  ng-match="email" ng-minlength="3" ng-maxlength="32" placeholder="contact email address">
+												</div>
+ 											</div>
+			 								
+											
+											
+				</div>				
+		 
+</div>
+	 
+	 </ng-form>
+		<div class="row">	
+	
+	 		 			<div class="form-group col-md-8 no-print">
+												 	 					
+									<input type="button"   value="Clear contact details"  class="btn-xs btn-primary"   ng-click="resetCurrentEdit()"          ng-dblclick="false">
+ 							 				 
+								</div>	
+ 	 		 			<div class="form-group col-md-4 no-print">
+										 	 					
+			 			<span  ng-hide="emailsMatch()" style="font-size:1.0em; text-align: right;  color:red" >Contact emails have to match!</span>	
+	 	 				 
+								</div>
+	</div>	
+ 
+	 </div>
+	 
+	 
+	 								

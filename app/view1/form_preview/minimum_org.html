@@ -1,0 +1,98 @@
+<div class="organisationdetails_template1">
+<!-- minimum -->
+   <div class="row">
+      <div class="col-md-12" >
+         <h3>{{formMeta.organisationUIText}} Details</h3>
+      </div>
+						<!--
+    <div class="col-md-4" >
+             <div class="form-group">
+                     <label class="col-md-3 control-label">Select</label>                                                                
+                     <div class="col-md-9">
+                        <select class="form-control ng-valid ng-dirty" ng-model='formMeta.organisationchoice' name="organisationid"   
+                           ng-options='option.orgId as option.name for option in  formMeta.organisationList'>
+                           <option value="">Identify {{formMeta.organisationUIText}}</option>
+                        </select>
+                     </div>
+                  </div>	 
+      </div>
+			-->
+			 </div>
+<form class="form-horizontal ng-valid ng-dirty" role="form" name="organisationForm">
+						
+<ng-form name="organisationDetails">			
+               <fieldset ng-disabled="isSavingForm">			
+			
+      <div class="row">
+         <div class="col-md-6" > <!-- left column -->
+               <div class="form-group">
+                  <label class="col-md-3 control-label">{{formMeta.organisationUISectorNoText}}</label>
+                  <div class="col-md-5">
+                     <input type="text" class="form-control ng-valid ng-dirty" required name="orgid" ng-model="formData.organisation.id" ng-minlength="2" ng-maxlength="32" placeholder="unique {{formMeta.organisationUIText}} identifer">
+                  </div>
+								 
+	                  <div class="col-md-4">			 					
+                     <input type="button"   value="{{formMeta.organisationUIText}} Search"  class="btn-xs btn-primary no-print"   ng-click="organisationSearch()"    ng-dblclick="false">                
+                  </div>							 
+								 
+               </div>
+                  <div class="form-group">
+                     <label class="col-md-3 control-label">{{formMeta.organisationUIText}} Name</label>
+                     <div class="col-md-9">
+                        <input type="text" class="form-control ng-valid ng-dirty" required name="orgname" ng-model="formData.organisation.name" ng-minlength="1" ng-maxlength="32" placeholder="{{formMeta.organisationUIText}} name">
+                     </div>
+                  </div>
+	
+					</div>
+         <div class="col-md-6" > <!-- right column -->
+	       
+                  <div class="form-group">
+                     <label class="col-md-3 control-label">Email</label>
+                     <div class="col-md-9">
+                        <input type="email" class="form-control ng-valid ng-dirty" required name="email" ng-model="formData.organisation.email" ng-minlength="6" ng-maxlength="48" placeholder="{{formMeta.organisationUIText}} email address" >
+                     </div>
+                  </div>
+							 
+		        <div class="form-group">
+                     <label class="col-md-3 control-label">Email Confirmation</label>
+                     <div class="col-md-9">
+                        <input type="email" class="form-control ng-valid ng-dirty" required name="email" ng-model="formData.organisation.email2" ng-minlength="6" ng-maxlength="48" placeholder="{{formMeta.organisationUIText}} email address" >
+                     </div>
+                  </div>
+				       <div class="col-md-8" >
+		 <!-- spacer -->
+                  </div>						
+	       <div class="col-md-4" >
+					 
+                    	 					
+                    <span  ng-hide="emailsMatch()" style="font-size:1.0em; text-align: right;  color:red" >{{formMeta.organisationUIText}} Emails have to match!</span>
+                      
+                  </div>												
+									
+					</div>		
+					
+					</div>
+					
+					  <div class="row">
+						<div class="col-md-8 form-group" >
+										 
+                     	 					
+                        <input type="button"   value="Clear {{formMeta.organisationUIText}} Details"  class="btn-xs btn-primary no-print"   ng-click="resetCurrentEdit()"          ng-dblclick="false">
+                      
+                
+							</div>
+         <div class="col-md-4" >
+					 
+                    	 					
+                    <span  ng-hide="emailsMatch()" style="font-size:1.5em; text-align: right; background-color:red" >{{formMeta.organisationUIText}} Emails have to match!</span>
+                      
+                  </div>					
+
+         </div>
+				 </fieldset>
+     </ng-form>	
+		 </form>
+</div>
+
+
+ 

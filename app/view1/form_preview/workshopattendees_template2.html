@@ -1,0 +1,89 @@
+
+ <div class="workshopattendees">
+ <div class="row">
+ <div class="col-md-3" > 
+ <h3>Workshop Attendee(s)</h3>
+ </div>
+ <div class="col-md-3" > 
+ <h3>Attendees = {{attendees.length}}</h3>
+ </div>
+	 <div class="col-md-2 no-print">			 													 
+											<input type="submit" value="Add Attendee" ng-disabled="attendeeLimitReached()" class="btn-xs btn-primary btnToBottom"      ng-click= "addAttendeeRow()"   ng-dblclick="false"   >
+		 
+		 </div>
+		 
+		 	 <div class="col-md-4 ">			 													 
+ 
+												<h3 style="color:red" ng-if="attendees.length==attendeesMax">Maximum attendees per submission is {{attendeesMax}}</h3>
+		 </div>
+ </div>
+
+<ng-form name="workshopDetails">
+   <fieldset ng-disabled="isSavingForm"> 
+  		 							
+
+ 			  <div ng-repeat="attendee in formData.attendees"  class="workshopattendee"   >		   <!-- one attendee -->
+ <div class="row" >
+ <div class="col-md-12 form-group ws_attendee" > 
+	<label class="col-md-1 attendeeindex">{{$index+1}})</label>
+							<label class="col-md-1 control-label">First Name</label>
+								<div class="col-md-2">
+									<input type="text" class="form-control ng-valid ng-dirty" required name="Firstname2" ng-model="attendee.firstname" ng-minlength="1" ng-maxlength="32" placeholder="Attendee First Name">
+								</div>		
+								<label class="col-md-1 control-label">Last Name</label>                                
+								<div class="col-md-2">
+									<input type="text" class="form-control ng-valid ng-dirty" required name="Lastname2" ng-model="attendee.lastname" ng-minlength="2" ng-maxlength="48" placeholder="Attendee Last Name">
+									</div>
+								
+							<label class="col-md-1 control-label">Position</label>
+								<div class="col-md-2">
+									<select class="form-control ng-valid ng-dirty" ng-model='attendee.position' name="Position2" 	 ng-options='option.name as option.name for option in attendeePositions'  required >
+										 <option value="">Select attendee position</option>
+									</select>				
+								</div>								
+							
+							<div class="col-md-2 no-print">
+													<input type="button" value="X" class="btn-warning  btn-xs" ng-click="removeAttendeeRow($index)"/>		
+							</div>	
+</div> <!-- attendee name row -->
+	 
+ 
+<div class="row form-group">
+ 
+			<div class="col-md-12" > 
+			  
+ <div ng-repeat="w in workshopsMeta.workshops"  class="col-md-12"  ng-show="w.visible==true"  >
+  <div class="col-md-2" > </div>
+ <!-- only one of the next two labels appear in each iteration -->
+ <label class="col-md-1 control-label" ng-if="$index==0">Workshop(s)</label>
+ <label class="col-md-1 control-label" ng-if="!$index==0"> </label>
+ 							<label class="col-md-2 control-label {{w.css}} ">{{w.session}}</label>
+								<div class="col-md-3">
+								 
+
+								 <!-- now put in the workshops that can be chosen each time, model is an array 
+								 data source for options is a string array NOT an arry of objects.
+								 Using ng-options
+								 -->
+								 
+									<select ng-model="formData.attendees[$parent.$index].choices[$index].workshop" ng-options="choice as choice for (idx,choice) in w.choices" class="form-control ng-valid ng-dirty"  name="workshopchoice" 	   required >
+										 <option value="">Select workshop</option>
+									</select>		
+ 								
+								</div>	
+ 	</div>	
+ 
+	</div>
+ 		 
+			  </div>
+			  				
+			  </div> 		   
+ </div> <!-- one attendee -->
+   </fieldset>							 
+</ng-form> 
+ <!--
+ 
+ -->
+ 
+ 
+  </div>
