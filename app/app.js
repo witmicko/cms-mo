@@ -1,17 +1,25 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+var app = angular.module('myApp', [
     'ui.router',
     'mo.resizer',
     'ui.bootstrap'
-]).config(['$stateProvider', function ($stateProvider) {
+]);
+app.config(function ($stateProvider,$urlRouterProvider) {
+    $urlRouterProvider.otherwise("/index");
     $stateProvider
         .state('index', {
-            url: "",
+            url: "/index",
             views: {
-                "viewA": {templateUrl: "view1/index.viewA.html"},
-                "viewB": {templateUrl: "view1/index.viewB.html"}
+                "builder": {
+                    templateUrl: "view1/index.viewA.html",
+                    controller: "builderCtrl"
+                },
+                "preview": {
+                    templateUrl: "view1/index.viewB.html",
+                    controller: "builderCtrl"
+                }
             }
         })
         .state('route1', {
@@ -28,4 +36,21 @@ angular.module('myApp', [
                 "viewB": {template: "route2.viewB"}
             }
         })
-}]);
+});
+
+app.controller('builderCtrl', function($scope) {
+
+    // we will store all of our form data in this object
+    $scope.hello = "hellooooo";
+
+    // function to process the form
+    // $scope.processForm = function() {
+    //     alert('awesome!');
+    // };
+
+});
+
+
+app.run(function($rootScope) {
+    $rootScope.$on("$stateChangeError", console.log.bind(console));
+});
