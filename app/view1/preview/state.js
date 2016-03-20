@@ -54,7 +54,7 @@ appEventService.service('OrganisationStateTemplate1', function () {
 
         switch (useTemplate) {
             case "organisation_minimum":
-                myState.formMeta.template = "view1/form_preview/minimum_org.html";
+                myState.formMeta.template = "view1/preview/form_preview/minimum_org.html";
                 myState.formData.organisation = {
                     "id": "",
                     "name": "",
@@ -64,7 +64,7 @@ appEventService.service('OrganisationStateTemplate1', function () {
                 };
                 break;
             case "organisation_maximum":
-                myState.formMeta.template = "view1/form_preview/maximum_org.html";
+                myState.formMeta.template = "view1/preview/form_preview/maximum_org.html";
                 myState.formData.organisation = {
                     "id": "",
                     "name": "",
