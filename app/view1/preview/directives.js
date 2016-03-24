@@ -1,21 +1,14 @@
 var genericApp = angular.module('myApp');
 
 
-//**********************
-
-//              contactdetailstemplate1
-
-// the parent container is responsible for maintaining the state
-
-// ************************
-
-genericApp.directive('contactdetailstemplate1', ['$compile', '$templateCache',
+genericApp.directive('contactdetailstemplate1',
+    [
+        '$compile',
+        '$templateCache',
 
     function ($compile, $templateCache) {
-
-// a directive to allow a list of names to be edited
         var getTemplateUrl = function () {
-            return "view1/form_preview/contactDetails_template1.html";
+            return "view1/preview/form_preview/contactDetails_template1.html";
         };
 
         return {
@@ -23,7 +16,7 @@ genericApp.directive('contactdetailstemplate1', ['$compile', '$templateCache',
             require: '^form',
 
             // this could become switchable if necessary
-            templateUrl: "view1/form_preview/contactDetails_template1.html",
+            templateUrl: "view1/preview/form_preview/contactDetails_template1.html",
 
             restrict: 'E',
             scope: { // local $scope
@@ -56,8 +49,6 @@ genericApp.directive('contactdetailstemplate1', ['$compile', '$templateCache',
 
             controller: function ($scope) { // not dollar
                 console.log("contact details  controller");
-
-
                 $scope.emailsMatch = function () {
                     if ($scope.formData === undefined)
                         return true; // may be no structure on first rendering
@@ -65,10 +56,6 @@ genericApp.directive('contactdetailstemplate1', ['$compile', '$templateCache',
                 }
 
                 $scope.resetCurrentEdit = function () {
-                    // need to get this from the state
-                    // or for every key set to ""
-                    //  $scope.formData.contact = {"lastname": "", "firstname": "", "email":"",  "email2":""};
-
                     for (var key in $scope.formData.contact) {
                         // check also if property is not inherited from prototype
                         if ($scope.formData.contact.hasOwnProperty(key)) {
@@ -77,160 +64,131 @@ genericApp.directive('contactdetailstemplate1', ['$compile', '$templateCache',
                     }
                     $scope.contact = $scope.formData.contact;
                 }
-
-            } // controller
+            }
         };
     }]); // contactdetailstemplate1
 
-//**********************
 
-//              organisationdetailstemplate1
+genericApp.directive('organisationdetailstemplate1',
+    [
+        '$compile',
+        '$templateCache',
+        'OrganisationStateTemplate1',
+        '$templateRequest',
+        '$q',
 
-// ************************
+        function ($compile, $templateCache, orgState, $templateRequest, $q) {
 
+            return {
+                restrict: 'E',
 
-genericApp.directive('organisationdetailstemplate1', ['$compile', '$templateCache', 'OrganisationStateTemplate1', '$templateRequest', '$q',
+                scope: { // local $scope         // its the attribute that is normalised to the value of :
+                    organisation: "=",  // the data structure to populate
+                    organisationUIText: "=", //text to display etc school etc
+                    organisationUISectorNoText: "=", // school roll number etc
+                    extraMeta: "=",
+                    useTemplate: "=",
+                    globalReset: "&",
+                    globalRedraw: "&",
+                    organisationValid: "="
+                },
 
-    function ($compile, $templateCache, orgState, $templateRequest, $q) {
+                link: function (scope, element, attrs) {  // make sure the form has data
 
-// a directive to allow a list of names to be edited
-        var getTemplateUrl = function (useTemplate) {
+                    scope.organisationUIText = scope.organisationUIText || "Organisation";
+                    scope.organisationUISectorNoText = scope.organisationUISectorNoText || "Organisation Id";
 
-        };
-
-        var templateDetails = null;
-
-        return {
-
-            //   templateUrl: getTemplateUrl(),  // compiled dynamically in the link function
-
-            restrict: 'E',
-
-            scope: { // local $scope         // its the attribute that is normalised to the value of :
-                organisation: "=",  // the data structure to populate
-                organisationUIText: "=", //text to display etc school etc
-                organisationUISectorNoText: "=", // school roll number etc
-                extraMeta: "=",
-                useTemplate: "=",
-                globalReset: "&",
-                globalRedraw: "&",
-                organisationValid: "="
-            },
-
-            link: function (scope, element, attrs) {  // make sure the form has data
-
-                scope.organisationUIText = scope.organisationUIText || "Organisation";
-                scope.organisationUISectorNoText = scope.organisationUISectorNoText || "Organisation Id";
-
-                //scope.globalReset =   scope.globalReset || 0;
-                scope.formMeta = {
-                    "organisationUIText": scope.organisationUIText,
-                    "organisationUISectorNoText": scope.organisationUISectorNoText
-                };
+                    //scope.globalReset =   scope.globalReset || 0;
+                    scope.formMeta = {
+                        "organisationUIText": scope.organisationUIText,
+                        "organisationUISectorNoText": scope.organisationUISectorNoText
+                    };
 
 
-                var deferred = $q.defer();
+                    var deferred = $q.defer();
 
-                var resetForm = function () {
-                    var fieldsRequired;
-                    // this was fulfilled aready
-                    // revist later to reset the promise as it remembers its outcome!!!
-                    //   if (deferred.promise.state == "fulfilled") return true;
+                    var resetForm = function () {
+                        var fieldsRequired;
+                        console.log("organisation resetForm()");
+                        fieldsRequired = orgState.fn.setTemplateRequirements(scope.useTemplate);
 
-                    console.log("organisation resetForm()");
-                    fieldsRequired = orgState.fn.setTemplateRequirements(scope.useTemplate);
+                        if (scope.organisation == null) { // set the fields based on the template
+                            scope.organisation = angular.copy(fieldsRequired);
+                        }
 
-                    if (scope.organisation == null) { // set the fields based on the template
-                        scope.organisation = angular.copy(fieldsRequired);
-                    }
+                        $templateRequest(orgState.formMeta.template).then(function (html) {
+                            var template = angular.element(html); // Convert the html to an actual DOM node
+                            element.html(template); // Append it to the directive element
 
-                    // scope.formMeta = orgState.formMeta;
-
-                    $templateRequest(orgState.formMeta.template).then(function (html) {
-                        var template = angular.element(html); // Convert the html to an actual DOM node
-                        // append vs
-                        element.html(template); // Append it to the directive element
-
-                        //  filter out unused keys/values
-                        // templateDetails.data are the required keys, remove any discard the rest
-
-                        // set the relevant the scope values
-
-                        scope.formData = {};   // this is the local formData when in the subview
-                        scope.formData.organisation = scope.organisation; // wire back to parent formData
+                            scope.formData = {};   // this is the local formData when in the subview
+                            scope.formData.organisation = scope.organisation; // wire back to parent formData
 
 
-                        $compile(template)(scope); // And let Angular $compile it
+                            $compile(template)(scope); // And let Angular $compile it
 
-                        scope.$watch('organisationDetails.$valid', function (newData, oldData) {
-                            // organisationDetails is the form data
-                            scope.organisationValid = scope.organisationDetails.$valid
+                            scope.$watch('organisationDetails.$valid', function (newData, oldData) {
+                                scope.organisationValid = scope.organisationDetails.$valid
+                            });
+
+                            deferred.resolve("ok");
+
+                        }).catch(function (Res) {
+                            deferred.reject(Res);
                         });
 
+                        return deferred.promise;
+                    }
 
-                        deferred.resolve("ok");
+                    console.log(scope.useTemplate);
 
-                    }).catch(function (Res) {
-                        deferred.reject(Res);
+
+                    scope.$watch('globalReset()', function (newData, oldData) {  // second pass has the data
+                        // monitors the refresh of the parent and causes a refresh here also
+                        promiseW = resetForm();
                     });
 
-                    return deferred.promise;
-                } // resetForm()
-
-                console.log(scope.useTemplate);
-
-
-                scope.$watch('globalReset()', function (newData, oldData) {  // second pass has the data
-                    // monitors the refresh of the parent and causes a refresh here also
-                    promiseW = resetForm();
-                });
-
-                scope.$watch('globalRedraw()', function (newData, oldData) {  // second pass has the data
-                    // monitors the refresh of the parent and causes a refresh here also
-                    promiseW = resetForm();
-                });
+                    scope.$watch('globalRedraw()', function (newData, oldData) {  // second pass has the data
+                        // monitors the refresh of the parent and causes a refresh here also
+                        promiseW = resetForm();
+                    });
 
 
-                if (deferred.promise.state == "pending") {
-                    console.log("deferred.pending()");
-                }
-                deferred.promise.then(function () {
-                    scope.organisation = scope.formData.organisation;     // wire back to parent view bi-directional
-                    deferred = $q.defer();
-                });
+                    if (deferred.promise.state == "pending") {
+                        console.log("deferred.pending()");
+                    }
+                    deferred.promise.then(function () {
+                        scope.organisation = scope.formData.organisation;     // wire back to parent view bi-directional
+                        deferred = $q.defer();
+                    });
 
-            },   // link
+                },   // link
 
-            controller: function ($scope) { // not dollar
-                console.log("organisational details  controller");
+                controller: function ($scope) { // not dollar
+                    console.log("organisational details  controller");
 
-                //  $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+                    $scope.fn = orgState.fn; // 1:1 name between scope and state
 
-                $scope.fn = orgState.fn; // 1:1 name between scope and state
+                    $scope.organisationSearch = function () {
+                        alert("implement this feature later");
+                    }
 
-                $scope.organisationSearch = function () {
-                    alert("implement this feature later");
-                }
-
-                $scope.resetCurrentEdit = function () {
-                    for (var key in $scope.formData.organisation) {
-                        // check also if property is not inherited from prototype
-                        if ($scope.formData.organisation.hasOwnProperty(key)) {
-                            $scope.formData.organisation[key] = "";
+                    $scope.resetCurrentEdit = function () {
+                        for (var key in $scope.formData.organisation) {
+                            // check also if property is not inherited from prototype
+                            if ($scope.formData.organisation.hasOwnProperty(key)) {
+                                $scope.formData.organisation[key] = "";
+                            }
                         }
                     }
-                }
 
-                $scope.emailsMatch = function () {
-                    if ($scope.formData === undefined)
-                        return true; // may be no structure on first rendering
-                    return $scope.formData.organisation.email === $scope.formData.organisation.email2;
-                }
-
-
-            } // controller
-        };
-    }]); // organisationdetailstemplate1
+                    $scope.emailsMatch = function () {
+                        if ($scope.formData === undefined)
+                            return true; // may be no structure on first rendering
+                        return $scope.formData.organisation.email === $scope.formData.organisation.email2;
+                    }
+                } // controller
+            };
+        }]); // organisationdetailstemplate1
 
 
 //**********************
@@ -249,7 +207,7 @@ genericApp.directive('workshopattendees', ['$compile', '$templateCache',
 
 // a directive to allow a list of names to be edited
         var getTemplateUrl = function () {
-            return "view1/form_preview/workshopattendees_template2.html";
+            return "view1/preview/form_preview/workshopattendees_template2.html";
         };
 
         return {
@@ -355,7 +313,7 @@ genericApp.directive('seminarattendees', ['$compile', '$templateCache', 'ADState
 
 // a directive to allow a list of names to be edited
         var getTemplateUrl = function () {
-            return "view1/form_preview/seminarattendees_template1.html";
+            return "view1/preview/form_preview/seminarattendees_template1.html";
         };
 
         return {
