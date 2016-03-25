@@ -12,6 +12,7 @@ angular.module('preview', [])
         '$sce',
 
 
+
         function ($rootScope, $scope, eventState, $sce) {
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
@@ -199,6 +200,16 @@ angular.module('preview', [])
                 return value;
             });
             cache = null; // Enable garbage collection
+
+            //Michal
+            $scope.submission_container_css=[]
+            $scope.submission_container_change = function (data) {
+                $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
+
+            }
+            $scope.processForm = function (data) {
+                console.log(data)
+            }
         }]); // EventsCtrl
 
 

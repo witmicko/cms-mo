@@ -8,9 +8,9 @@
         <!-- the links to our nested states using relative paths -->
         <!-- add the active class if the state matches our ui-sref -->
         <div id="status-buttons" class="text-center">
-            <a ui-sref-active="active" ui-sref="form.profile"><span>1</span> Profile2</a>
-            <a ui-sref-active="active" ui-sref="form.interests"><span>2</span> Interests2</a>
-            <a ui-sref-active="active" ui-sref="form.payment"><span>3</span> Payment2</a>
+            <a ui-sref-active="active" ui-sref="form.profile"><span>1</span> Profile</a>
+            <a ui-sref-active="active" ui-sref="form.interests"><span>2</span> Interests</a>
+            <a ui-sref-active="active" ui-sref="form.payment"><span>3</span> Payment</a>
         </div>
     </div>
 
@@ -155,6 +155,68 @@
                         ></workshopattendees>
                     </div>
                 </div>
+                <hr class="no-print">
+                <div class="row no-print" >
+                    <!-- row with reset, recaptcha, confirmation and submit -->
+                    <div class="col-xs-2	   no-print  ">
+                        <br><br><br><br>
+                        <input type="button" ng-click="resetForm(ec.eventForm)" value="Reset Form"
+                               class="btn btn-danger"/>
+                    </div>
+
+                    <div class="col-xs-10 no-print {{eventSelected.template_meta.submission_container_css}} {{eventSelected.template_meta.panel_hover_css}}">
+                        <div class="row ">
+                            <div class="col-xs-2  ">
+                                <span style="color:green;font-weight:bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submission</span>
+                                <span style="color:green;font-weight:bold">1) </span> <br><br><br><br>
+                                <input type="button" ng-click="clearReCAPTCHA()" value="Clear reCAPTCHA"
+                                       class="btn btn-warning"/>
+                            </div>
+                            <div class="col-xs-6    ">
+                                <!-- Recaptcha Widget provided by google        -->
+                                <div id="captchadivParent">
+                                    <div id="captchadiv" vc-recaptcha key="reCapthchaPublicKey"
+                                         on-create="setreCAPTCHAid(widgetId)"
+                                    >
+                                    </div>
+                                </div>
+                                <!--
+                                   was handled by the controller but did not work when controller used for different view
+                                   plus controller code changed
+
+
+                                   <div id="captchadiv"  >
+                                                   </div>
+                                   -->
+                                Complete the reCAPTCHA above to prove you are human before submitting the form.<br> This
+                                is an anti-spam technique. The verification is valid for 2 minutes.
+                            </div>
+
+                            <div class="col-xs-4 no-print">
+                                <div class="form-group  ">
+                                    <div>
+                                        <!--  attendees.length  < attendeeMax -->
+                                        &nbsp;&nbsp;
+                                        <label class="dataEntryPanel"><span
+                                                style="color:green;font-weight:bold">2) </span>Verify if ready to
+                                            submit:
+                                            <input type="checkbox" required ng-model="formData.confirmation"
+                                                   ng-change="toggleConfirmation()">
+                                        </label>
+                                        <br> <br>
+                                        &nbsp;&nbsp; <span style="color:green;font-weight:bold">3) </span>
+                                        <input type="submit" ng-click="confirmSubmit()" value="Submit Form"
+                                               class="btn btn-success" ng-disabled="!eventFormValid"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- recaptcha -->
+                <p>
             </fieldset>
         </form>
     </div>

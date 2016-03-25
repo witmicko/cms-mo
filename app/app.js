@@ -8,7 +8,7 @@ var app = angular.module('myApp', [
     'mo.resizer',
     'ui.bootstrap',
     'ViewStates',
-    'preview',
+    'preview'
 ]);
 
 
@@ -34,7 +34,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         })
         .state('form.profile', {
             url: '/profile',
-            templateUrl: 'view1/builder/form-profile.html'
+            templateUrl: 'view1/builder/form-general.html'
         })
         .state('form.interests', {
             url: '/interests',

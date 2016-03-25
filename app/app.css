@@ -6,3 +6,10 @@
     margin-left: 0px;
     margin-right: 0px;
 }
+
+.input-group-addon {
+    min-width:100px;/
+    text-align:left;
+}
+
+.min-width-120{min-width: 120px}
