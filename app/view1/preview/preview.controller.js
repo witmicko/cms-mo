@@ -212,8 +212,8 @@ function testSeminar() { // supply a list for test events for proof of concept, 
             {
                 "id": 1,
                 "cId": "xyz001",
-                "name": "XXXXXXXXXXXXXXXXXXXXXXXX Seminars",
-                "nameLowercase": "xxxxxxxxxxxxxxxxxxx seminars",
+                "name": "Seminars",
+                "nameLowercase": "seminars",
                 "model_type": "Seminar",
                 "template_meta": {
                     "copiedFrom": "",
@@ -310,7 +310,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                     "data": [
                         {
                             "visible": true,
-                            "text": "XXXXXXXXXXXXXXXXXXXXX Seminars",
+                            "text": "Seminars",
                             "css": "rl_text_color_black    text-center rl_font_2_5  ",
                             "style": ""
                         },
@@ -759,7 +759,6 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                 }
 
             }
-
         ]
     };
 }
@@ -769,14 +768,14 @@ function getTestData(required) {
     if (required == "seminar") {
         var td1 = {
             "eventId": "OciNCnAtoC",
-            "eventName": "AAAAAAAAAAAAAAAAAAAA - Module 2 2 cols",
+            "eventName": "Module 2 2 cols",
             "model_type": "Seminar",
             "confirmation": false,
             "template_type": "template1_workshops",
             "attendees": [
                 {
                     "order": 3,
-                    "choice": "aaaaaaaaaa - 01/10/2015",
+                    "choice": "01/10/2015",
                     "firstname": "Patrick1",
                     "lastname": "Bloggs",
                     "position": "tba",

@@ -9,10 +9,11 @@
             <div class="form-group">
                 <label class="col-md-3 control-label no-print">Select Event - ({{eventConfigurations.length}})</label>
                 <div class="col-md-7">
-                    <select class="form-control ng-valid " ng-model="formMeta.eventOffset" ng-change='changeOfEvent()'
+                    <select class="form-control ng-valid"
+                            ng-model="formMeta.eventOffset"
+                            ng-change='changeOfEvent()'
                             name="eventName" required
                             ng-options='eventConfigurations.indexOf(currOption) as currOption.name for currOption in eventConfigurations'>
-                        <option value="">Select the relevant training event/module</option>
                     </select>
                 </div>
             </div>
