@@ -17,7 +17,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             views: {
                 "builder": {
                     templateUrl: "view1/builder/builder.html",
-                    controller: "builderCtrl"
+                    // controller: "formController"
                 },
                 "preview": {
                     templateUrl: "view1/preview/preview.html",
@@ -25,26 +25,58 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 }
             }
         })
-        .state('route1', {
-            url: "/route1",
-            views: {
-                "viewA": {template: "route1.viewA"},
-                "viewB": {template: "route1.viewB"}
-            }
+        .state('form', {
+            parent: 'index',
+            url: '/form',
+            templateUrl: 'view1/builder/form.html',
+            controller: 'formController'
         })
-        .state('route2', {
-            url: "/route2",
-            views: {
-                "viewA": {template: "route2.viewA"},
-                "viewB": {template: "route2.viewB"}
-            }
+        .state('form.profile', {
+            url: '/profile',
+            templateUrl: 'view1/builder/form-profile.html'
+        })
+
+        // url will be /form/interests
+        .state('form.interests', {
+            url: '/interests',
+            templateUrl: 'view1/builder/form-interests.html'
+        })
+
+        // url will be /form/payment
+        .state('form.payment', {
+            url: '/payment',
+            templateUrl: 'view1/builder/form-payment.html'
         })
 }]);
 
 
+app.run(['$rootScope', '$state', '$stateParams',
+    function ($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.asd = 'asd';
+        $rootScope.$stateParams = $stateParams;
+        $rootScope.$on("$stateChangeError", console.log.bind(console));
+    }])
 
-app.run(function ($rootScope) {
-    $rootScope.$on("$stateChangeError", console.log.bind(console));
+app.controller('formController', function($scope,messages) {
+    var self = this;
+    self.messages = messages.list;
+    
+    console.log("formController")
+    // we will store all of our form data in this object
+    $scope.builderData = {};
+    // function to process the form
+    $scope.processForm = function() {
+        alert('awesome!');
+    };
 });
 
 
+app.factory('messages', function(){
+    var messages = {};
+    messages.list = ['asd','asdasd'];
+    messages.add = function(message){
+        messages.list.push({id: messages.list.length, text: message});
+    };
+    return messages;
+});
