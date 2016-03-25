@@ -1,1 +1,8 @@
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.margin-zero {
+    margin-left: 0px;
+    margin-right: 0px;
+}

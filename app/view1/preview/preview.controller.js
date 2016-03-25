@@ -11,8 +11,8 @@ angular.module('preview', [])
         'EventState',
         '$sce',
 
+
         function ($rootScope, $scope, eventState, $sce) {
-            
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
                 return $sce.trustAsHtml(string);
