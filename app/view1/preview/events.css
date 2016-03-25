@@ -291,15 +291,76 @@ textarea#csv {
     margin-bottom: 10px;
 }
 
-/* not working
-.attendeedetails_template1     .control-label {
-   padding-top: 7px;
-   margin-bottom: 0;
+/* ATENDEES STUFF*/
+
+.attendeedetails_template1 .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left !important;
+}
+
+.attendeelist tr:nth-child(even) {
+    background-color: #ffff99;
+}
+
+.attendeelist tr:nth-child(odd) {
+    background-color: #ffff4d;
+}
+
+.attendeelist thead {
 
 }
-*/
-/* events css end 
 
+.attendeelist table {
+    display: block;
+    overflow-y: scroll;
+    max-height: 50px;
+}
+
+.attendeelist th {
+    background-color: #B89470;
+    color: white;
+}
+
+.attendeelist tr:hover {
+    background-color: #ff8533;
+}
+
+.attendeelist tr.selectedEdit {
+    background-color: #C0D9AF;
+}
+
+.attendeelist td {
+    font-size: 1.2em;
+}
+
+.attendeelist .choice {
+    width: 30% !important;
+}
+
+.attendeelist .surname {
+    width: 15% !important;
+}
+
+.attendeelist .forename {
+    width: 10% !important;
+}
+
+.attendeelist .position {
+    width: 15% !important;
+}
+
+.attendeelist .lunch {
+    width: 15% !important;
+}
+
+.attendeelist .tasks {
+    width: 10% !important;
+}
+
+.attendeelist .dummy {
+    width: 1%;
+}
 
 
 
