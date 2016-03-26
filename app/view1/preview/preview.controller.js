@@ -55,6 +55,7 @@ angular.module('preview', [])
 // ensure a change of event clears the data i.e. reset all the details as its based on the first selection
 
             $scope.changeOfEvent = function () {
+                console.log("changeOfEvent");
                 // clear out the data state from the previous EventState
                 $scope.formData.confirmation = false;
                 $scope.eventFormValid = false;
@@ -234,6 +235,8 @@ angular.module('preview', [])
             $scope.format = 'dd/MM/yyyy';
 
 
+
+
         }]); // EventsCtrl
 
 
@@ -264,7 +267,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                 "notes": "_",
                 "contact": {
                     "meta": {
-                        "enabled": false
+                        "enabled": true
                     },
                     "data": {
                         "surname": "",
@@ -280,7 +283,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                         "enabled": true,
                         "template": "organisation_minimum",
                         "ui_text_attendee": "Delegate",
-                        "ui_text_to_display": "xxxx",
+                        "ui_text_to_display": "ZZZZ",
                         "requireContactDetails": true,
                         "allowChooser": true,
                         "allowCountyFilter": true,

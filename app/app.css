@@ -12,7 +12,10 @@
     text-align:left;
 }
 
-.min-width-120{min-width: 120px}
+.min-width-125{min-width: 120px}
+.min-width-150{min-width: 150px}
+.min-width-175{min-width: 175px}
+.min-width-200{min-width: 200px}
 
 .vcentre{
     position:relative;
