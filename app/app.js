@@ -41,12 +41,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: '/availability',
             templateUrl: 'view1/builder/form-availability.html'
         })
-
-        // url will be /form/payment
-        .state('form.payment', {
-            url: '/payment',
-            templateUrl: 'view1/builder/form-payment.html'
+        .state('form.notes', {
+            url: '/notes',
+            templateUrl: 'view1/builder/form-notes.html'
         })
+        .state('form.contact', {
+            url: '/contact',
+            templateUrl: 'view1/builder/form-contact.html'
+        })
+       
 }]);
 
 

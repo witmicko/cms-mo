@@ -139,9 +139,6 @@ genericApp.directive('organisationdetailstemplate1',
                         return deferred.promise;
                     }
 
-                    console.log(scope.useTemplate);
-
-
                     scope.$watch('globalReset()', function (newData, oldData) {  // second pass has the data
                         // monitors the refresh of the parent and causes a refresh here also
                         promiseW = resetForm();

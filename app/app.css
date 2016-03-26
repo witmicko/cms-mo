@@ -13,3 +13,12 @@
 }
 
 .min-width-120{min-width: 120px}
+
+.vcentre{
+    position:relative;
+    top:250%;
+    transform: translateY(-250%);
+    -webkit-transform: translateY(250%);
+    -ms-transform: translateY(-250%);
+
+}
