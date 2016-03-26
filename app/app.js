@@ -8,14 +8,15 @@ var app = angular.module('myApp', [
     'mo.resizer',
     'ui.bootstrap',
     'ViewStates',
-    'preview'
+    'preview',
+    'angularMoment'
 ]);
 
 
 
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/index");
+    $urlRouterProvider.otherwise("/index/form/meta");
     $stateProvider
         .state('index', {
             url: "/index",
@@ -32,13 +33,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: 'view1/builder/form.html',
             controller: 'EventsCtrl'
         })
-        .state('form.profile', {
-            url: '/profile',
-            templateUrl: 'view1/builder/form-general.html'
+        .state('form.meta', {
+            url: '/meta',
+            templateUrl: 'view1/builder/form-meta.html'
         })
-        .state('form.interests', {
-            url: '/interests',
-            templateUrl: 'view1/builder/form-interests.html'
+        .state('form.availability', {
+            url: '/availability',
+            templateUrl: 'view1/builder/form-availability.html'
         })
 
         // url will be /form/payment

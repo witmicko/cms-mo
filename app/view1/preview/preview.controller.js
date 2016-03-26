@@ -10,10 +10,11 @@ angular.module('preview', [])
         '$scope',
         'EventState',
         '$sce',
+        'moment',
 
 
 
-        function ($rootScope, $scope, eventState, $sce) {
+        function ($rootScope, $scope, eventState, $sce, moment) {
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
                 return $sce.trustAsHtml(string);
@@ -207,9 +208,32 @@ angular.module('preview', [])
                 $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
 
             }
+            $scope.boolOptions = [
+                {value: false, label: 'No'},
+                {value: true, label: 'Yes'},
+            ];
             $scope.processForm = function (data) {
                 console.log(data)
             }
+
+            //date
+            $scope.active_start = {
+                date: moment($scope.eventSelected.active_start,'DD/MM/YYYY').toDate(),
+                opened: false
+            };
+            $scope.open_active_start = function() {
+                $scope.active_start.opened = true;
+            };
+            $scope.active_finish = {
+                date: moment($scope.eventSelected.active_finish,'DD/MM/YYYY').toDate(),
+                opened: false
+            };
+            $scope.open_active_finish = function() {
+                $scope.active_finish.opened = true;
+            };
+            $scope.format = 'dd/MM/yyyy';
+
+
         }]); // EventsCtrl
 
 
@@ -235,7 +259,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                 "period": "2015",
                 "available": true,
                 "active": true,
-                "active_start": "06/01/2015",
+                "active_start": "06/01/2016",
                 "active_finish": "03/02/2015",
                 "notes": "_",
                 "contact": {
