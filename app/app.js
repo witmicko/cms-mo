@@ -49,6 +49,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: '/contact',
             templateUrl: 'view1/builder/form-contact.html'
         })
+        .state('form.organisation', {
+            url: '/organisation',
+            templateUrl: 'view1/builder/form-organisation.html'
+        })
        
 }]);
 
@@ -57,6 +61,5 @@ app.run(['$rootScope', '$state', '$stateParams',
     function ($rootScope) {
         $rootScope.$on("$stateChangeError", console.log.bind(console));
     }])
-
 
 

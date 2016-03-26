@@ -1,0 +1,36 @@
+
+
+<h4><span class="label label-default">Organisation</span></h4>
+<div class="input-group">
+    <span class="input-group-addon" id="enabled">enabled</span>
+    <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+            ng-model="eventSelected.organisation.meta.enabled"
+
+    ></select>
+</div>
+
+<div ng-if="eventSelected.organisation.meta.enabled==true">
+    <div class="input-group">
+        <span class="input-group-addon" id="template">template</span>
+        <select class="form-control" name="template"
+                ng-model="eventSelected.organisation.meta.template"
+                ng-change="changeOfEvent()"
+        >
+            <option value="organisation_minimum">Minimum</option>
+            <option value="organisation_maximum">Maximum</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="ui_text_attendee">Atendee text</span>
+        <input type="text" class="form-control" name="ui_text_attendee"
+               ng-model="eventSelected.organisation.meta.ui_text_attendee"
+        />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="ui_text_to_display">ui_text_to_display</span>
+        <input type="text" class="form-control" name="ui_text_to_display"
+               ng-model="eventSelected.organisation.meta.ui_text_to_display"
+               ng-change="changeOfEvent()"
+        />
+    </div>
+</div>

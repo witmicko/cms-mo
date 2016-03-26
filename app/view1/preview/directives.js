@@ -94,7 +94,6 @@ genericApp.directive('organisationdetailstemplate1',
                 },
 
                 link: function (scope, element, attrs) {  // make sure the form has data
-
                     scope.organisationUIText = scope.organisationUIText || "Organisation";
                     scope.organisationUISectorNoText = scope.organisationUISectorNoText || "Organisation Id";
 
@@ -157,10 +156,29 @@ genericApp.directive('organisationdetailstemplate1',
                         scope.organisation = scope.formData.organisation;     // wire back to parent view bi-directional
                         deferred = $q.defer();
                     });
+                    // $scope.$watch('eventSelected.organisation', function(newValue, oldValue) {
+                    //     if (newValue !== oldValue) {
+                    //         // You actions here
+                    //         console.log("I got the new value! ", newValue);
+                    //     }
+                    // }, true);
 
                 },   // link
 
+
                 controller: function ($scope) { // not dollar
+                    $scope.$parent.$watch([
+                        'eventSelected.organisation.meta.enabled',
+                        'eventSelected.organisation.meta.template',
+                        'eventSelected.organisation.meta.ui_text_attendee',
+                        'eventSelected.organisation.meta.ui_text_to_display',
+                        'eventSelected.organisation.meta.requireContactDetails',
+                        'eventSelected.organisation.meta.allowChooser',
+                        'eventSelected.organisation.meta.allowCountyFilter'
+
+                    ], function(){
+                        console.log("lol");
+                    });
                     console.log("organisational details  controller");
 
                     $scope.fn = orgState.fn; // 1:1 name between scope and state

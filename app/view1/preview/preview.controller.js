@@ -15,6 +15,7 @@ angular.module('preview', [])
 
 
         function ($rootScope, $scope, eventState, $sce, moment, $state) {
+
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
                 return $sce.trustAsHtml(string);
@@ -139,7 +140,6 @@ angular.module('preview', [])
                     eventState.formMeta.eventOffset = 0; //remove later
                     $scope.changeOfEvent();
                     $scope.putInTestData();
-
                 }
             }
 
@@ -280,7 +280,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                         "enabled": true,
                         "template": "organisation_minimum",
                         "ui_text_attendee": "Delegate",
-                        "ui_text_to_display": "ZZZZZ",
+                        "ui_text_to_display": "xxxx",
                         "requireContactDetails": true,
                         "allowChooser": true,
                         "allowCountyFilter": true,

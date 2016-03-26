@@ -6,3 +6,42 @@
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
             ng-model="eventSelected.contact.meta.enabled"></select>
 </div>
+
+<div ng-if="eventSelected.contact.meta.enabled==true">
+    <div class="input-group">
+        <span class="input-group-addon" id="surname">surname</span>
+        <input type="text" class="form-control" name="surname"
+               ng-model="eventSelected.contact.data.surname"
+               />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="forename">forename</span>
+        <input type="text" class="form-control" name="forename"
+               ng-model="eventSelected.contact.data.forename"
+        />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="position">position</span>
+        <input type="text" class="form-control" name="position"
+               ng-model="eventSelected.contact.data.position"
+        />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="email">email</span>
+        <input type="text" class="form-control" name="email"
+               ng-model="eventSelected.contact.data.email"
+        />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="email2">email2</span>
+        <input type="text" class="form-control" name="email2"
+               ng-model="eventSelected.contact.data.email2"
+        />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="phone">phone</span>
+        <input type="text" class="form-control" name="phone"
+               ng-model="eventSelected.contact.data.phone"
+        />
+    </div>
+</div>
