@@ -12,11 +12,13 @@ angular.module('preview', [])
         '$sce',
         'moment',
         '$state',
-        '$location', '$anchorScroll',
+        '$location', 
+        '$anchorScroll',
+        'select_options',
 
 
-        function ($rootScope, $scope, eventState, $sce, moment, $state, $location, $anchorScroll) {
-
+        function ($rootScope, $scope, eventState, $sce, moment, $state, $location, $anchorScroll, select_options) {
+            $scope.options = select_options;
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
                 return $sce.trustAsHtml(string);
@@ -198,7 +200,8 @@ angular.module('preview', [])
             });
             cache = null; // Enable garbage collection
 
-            //Michal
+            //Michal.
+            //header
             $scope.header_css=[];
             $scope.header_css_change = function (data) {
                 $scope.eventSelected.overview.meta.css = data.join(" ");
@@ -224,7 +227,14 @@ angular.module('preview', [])
                 data.style = $scope.new_data.style || "";
                 $scope.eventSelected.overview.data.push(data);
                 $scope.new_data = {};
-            }
+            };
+            //offerings
+            $scope.offerings_column_css=[];
+            $scope.offerings_column_css_change = function (data) {
+                $scope.eventSelected.offerings.meta.columnCss = data.join(" ");
+            };
+
+
 
             $scope.submission_container_css=[];
             $scope.submission_container_change = function (data) {

@@ -1,1 +1,115 @@
-offerings
+<h4><span class="label label-default">Header</span></h4>
+<div class="input-group">
+    <span class="input-group-addon" id="enabled">Enabled</span>
+    <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+            ng-model="eventSelected.offerings.meta.visible"></select>
+</div>
+
+<!--style_1-->
+<div ng-if="eventSelected.offerings.meta.visible">
+    <h4><span class="label label-default">Style</span></h4>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="columns">No. of Columns</span>
+        <input type="number" class="form-control " name="columns"
+               ng-model="eventSelected.offerings.meta.columns"/>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="header_css_brd_type">Border type</span>
+        <select class="form-control" name="header_css_brd_type"
+                ng-init="header_css[0]=eventSelected.overview.meta.css.split(' ')[0]"
+                ng-model="header_css[0]"
+                ng-change="header_css_change(header_css)"
+        >
+            <option ng-repeat="option in border_type_options" value="{{option.id}}">{{option.name}}</option>
+            <div ng-include="'view1/builder/options.border.type.html'"></div>
+        </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="header_css_brd_colour">Border colour</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="header_css[1]=eventSelected.overview.meta.css.split(' ')[1]"
+                ng-model="header_css[1]"
+                ng-change="header_css_change(header_css)"
+        >
+            <option value="rl_brd_clr_red">Red</option>
+            <option value="rl_brd_clr_black">Black</option>
+            <option value="rl_brd_clr_blue">Blue</option>
+            <option value="rl_brd_clr_green">Green</option>
+            <option value="rl_brd_clr_white">White</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="header_css_radius">Corner Radius</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="header_css[2]=eventSelected.overview.meta.css.split(' ')[2]"
+                ng-model="header_css[2]"
+                ng-change="header_css_change(header_css)"
+        >
+            <option value="rl_rcorners15">15</option>
+            <option value="rl_rcorners20">20</option>
+            <option value="rl_rcorners25">25</option>
+            <option value="rl_rcorners30">30</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="header_css_bkg_colour">Colour</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="header_css[3]=eventSelected.overview.meta.css.split(' ')[3]"
+                ng-model="header_css[3]"
+                ng-change="header_css_change(header_css)"
+        >
+            <option value="rl_bkg_color_blue">Blue</option>
+            <option value="rl_bkg_color_blue1">Blue 1</option>
+            <option value="rl_bkg_color_yellow">Yellow</option>
+            <option value="rl_bkg_color_red">Red</option>
+            <option value="rl_bkg_color_clr_black">Black</option>
+            <option value="rl_bkg_color_green">Green</option>
+            <option value="rl_bkg_color_olive">Olive</option>
+            <option value="rl_bkg_color_mauve">Mauve</option>
+            <option value="rl_bkg_color_orange">Orange</option>
+            <option value="rl_bkg_color_white">White</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="header_css_shadow">Border shadow</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="header_css[4]=eventSelected.overview.meta.css.split(' ')[4]"
+                ng-model="header_css[4]"
+                ng-change="header_css_change(header_css)"
+        >
+            <option value="rl_box_shadow1">Yes</option>
+            <option value="">No</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon min-width-125">Font Size</span>
+        <select class="form-control"
+                ng-model="eventSelected.overview.meta.style"
+        >
+            <option value="font-size:0.5em">1</option>
+            <option value="font-size:0.6em">2</option>
+            <option value="font-size:0.7em">3</option>
+            <option value="font-size:0.8em">4</option>
+            <option value="font-size:0.9em">5</option>
+            <option value="font-size:1.0em">6</option>
+            <option value="font-size:1.1em">7</option>
+            <option value="font-size:1.2em">8</option>
+            <option value="font-size:1.3em">9</option>
+            <option value="font-size:1.4em">10</option>
+            <option value="font-size:1.5em">11</option>
+            <option value="font-size:1.6em">12</option>
+            <option value="font-size:1.7em">13</option>
+            <option value="font-size:1.8em">14</option>
+            <option value="font-size:1.9em">15</option>
+            <option value="font-size:2.0em">16</option>
+            <option value="font-size:2.1em">17</option>
+            <option value="font-size:2.2em">18</option>
+            <option value="font-size:2.3em">19</option>
+            <option value="font-size:2.4em">20</option>
+        </select>
+    </div>

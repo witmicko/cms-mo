@@ -13,19 +13,8 @@
         <select class="form-control" name="header_css_brd_type"
                 ng-init="header_css[0]=eventSelected.overview.meta.css.split(' ')[0]"
                 ng-model="header_css[0]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_brd_dashed">Dashed</option>
-            <option value="rl_brd_double">Double</option>
-            <option value="rl_brd_dotted">Dotted</option>
-            <option value="rl_brd_groove">Groove</option>
-            <option value="rl_brd_hidden">Hidden</option>
-            <option value="rl_brd_inset">Inset</option>
-            <option value="rl_brd_mix">Mix</option>
-            <option value="rl_brd_none">None</option>
-            <option value="rl_brd_outset">Outset</option>
-            <option value="rl_brd_ridge">Ridge</option>
-            <option value="rl_brd_solid">Solid</option>
+                ng-change="header_css_change(header_css)">
+            <option ng-repeat="option in options.border_type_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
     <div class="input-group">
@@ -33,13 +22,8 @@
         <select class="form-control" name="panel_hover_css"
                 ng-init="header_css[1]=eventSelected.overview.meta.css.split(' ')[1]"
                 ng-model="header_css[1]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_brd_clr_red">Red</option>
-            <option value="rl_brd_clr_black">Black</option>
-            <option value="rl_brd_clr_blue">Blue</option>
-            <option value="rl_brd_clr_green">Green</option>
-            <option value="rl_brd_clr_white">White</option>
+                ng-change="header_css_change(header_css)">
+            <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
 
@@ -48,12 +32,9 @@
         <select class="form-control" name="panel_hover_css"
                 ng-init="header_css[2]=eventSelected.overview.meta.css.split(' ')[2]"
                 ng-model="header_css[2]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_rcorners15">15</option>
-            <option value="rl_rcorners20">20</option>
-            <option value="rl_rcorners25">25</option>
-            <option value="rl_rcorners30">30</option>
+                ng-change="header_css_change(header_css)">
+            <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
+
         </select>
     </div>
 
@@ -64,16 +45,8 @@
                 ng-model="header_css[3]"
                 ng-change="header_css_change(header_css)"
         >
-            <option value="rl_bkg_color_blue">Blue</option>
-            <option value="rl_bkg_color_blue1">Blue 1</option>
-            <option value="rl_bkg_color_yellow">Yellow</option>
-            <option value="rl_bkg_color_red">Red</option>
-            <option value="rl_bkg_color_clr_black">Black</option>
-            <option value="rl_bkg_color_green">Green</option>
-            <option value="rl_bkg_color_olive">Olive</option>
-            <option value="rl_bkg_color_mauve">Mauve</option>
-            <option value="rl_bkg_color_orange">Orange</option>
-            <option value="rl_bkg_color_white">White</option>
+            <option ng-repeat="option in options.background_color_options" value="{{option.id}}">{{option.name}}</option>
+
         </select>
     </div>
 
@@ -92,28 +65,8 @@
     <div class="input-group">
         <span class="input-group-addon min-width-125">Font Size</span>
         <select class="form-control"
-                ng-model="eventSelected.overview.meta.style"
-        >
-            <option value="font-size:0.5em">1</option>
-            <option value="font-size:0.6em">2</option>
-            <option value="font-size:0.7em">3</option>
-            <option value="font-size:0.8em">4</option>
-            <option value="font-size:0.9em">5</option>
-            <option value="font-size:1.0em">6</option>
-            <option value="font-size:1.1em">7</option>
-            <option value="font-size:1.2em">8</option>
-            <option value="font-size:1.3em">9</option>
-            <option value="font-size:1.4em">10</option>
-            <option value="font-size:1.5em">11</option>
-            <option value="font-size:1.6em">12</option>
-            <option value="font-size:1.7em">13</option>
-            <option value="font-size:1.8em">14</option>
-            <option value="font-size:1.9em">15</option>
-            <option value="font-size:2.0em">16</option>
-            <option value="font-size:2.1em">17</option>
-            <option value="font-size:2.2em">18</option>
-            <option value="font-size:2.3em">19</option>
-            <option value="font-size:2.4em">20</option>
+                ng-model="eventSelected.overview.meta.style">
+            <option ng-repeat="option in options.font_size_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
 
@@ -135,12 +88,7 @@
                     ng-init="header_data_css[$index]['size']=item.css.split(' ')[0]"
                     ng-model="header_data_css[$index]['size']"
                     ng-change="header_data_css_change($index,header_data_css[$index])">
-                <option value="rl_font_1_0">1.0</option>
-                <option value="rl_font_1_2">1.2</option>
-                <option value="rl_font_1_5">1.5</option>
-                <option value="rl_font_1_8">1.8</option>
-                <option value="rl_font_2_0">2.0</option>
-                <option value="rl_font_2_5">2.5</option>
+                <option ng-repeat="option in options.rl_font_size_options" value="{{option.id}}">{{option.name}}</option>
             </select>
 
         </div>
@@ -149,17 +97,8 @@
             <select class="form-control"
                     ng-init="header_data_css[$index]['colour']=item.css.split(' ')[1]"
                     ng-model="header_data_css[$index]['colour']"
-                    ng-change="header_data_css_change($index,header_data_css[$index])"
-            >
-                <option value="rl_text_color_black">Black</option>
-                <option value="rl_text_color_white">White</option>
-                <option value="rl_text_color_yellow">Yellow</option>
-                <option value="rl_text_color_orange">Orange</option>
-                <option value="rl_text_color_red">Red</option>
-                <option value="rl_text_color_purple">Purple</option>
-                <option value="rl_text_color_violet">Violet</option>
-                <option value="rl_text_color_blue">Blue</option>
-                <option value="rl_text_color_green">Green</option>
+                    ng-change="header_data_css_change($index,header_data_css[$index])">
+                <option ng-repeat="option in options.text_color_options" value="{{option.id}}">{{option.name}}</option>
             </select>
         </div>
         <div class="input-group">
@@ -167,11 +106,9 @@
             <select class="form-control"
                     ng-init="header_data_css[$index]['align']=item.css.split(' ')[2]"
                     ng-model="header_data_css[$index]['align']"
-                    ng-change="header_data_css_change($index,header_data_css[$index])"
-            >
-                <option value="text-center">Center</option>
-                <option value="text-left">Left</option>
-                <option value="text-right">Right</option>
+                    ng-change="header_data_css_change($index,header_data_css[$index])">
+                <option ng-repeat="option in options.text_align_options" value="{{option.id}}">{{option.name}}</option>
+
             </select>
         </div>
         <div class="input-group">
@@ -201,12 +138,7 @@
         <span class="input-group-addon min-width-125 ">Font Size</span>
         <select class="form-control"
                 ng-model="new_data.css1">
-            <option value="rl_font_1_0">1.0</option>
-            <option value="rl_font_1_2">1.2</option>
-            <option value="rl_font_1_5">1.5</option>
-            <option value="rl_font_1_8">1.8</option>
-            <option value="rl_font_2_0">2.0</option>
-            <option value="rl_font_2_5">2.5</option>
+            <option ng-repeat="option in options.rl_font_size_options" value="{{option.id}}">{{option.name}}</option>
         </select>
 
     </div>
@@ -214,24 +146,14 @@
         <span class="input-group-addon min-width-125 ">Text Colour</span>
         <select class="form-control"
                 ng-model="new_data.css2">
-            <option value="rl_text_color_black">Black</option>
-            <option value="rl_text_color_white">White</option>
-            <option value="rl_text_color_yellow">Yellow</option>
-            <option value="rl_text_color_orange">Orange</option>
-            <option value="rl_text_color_red">Red</option>
-            <option value="rl_text_color_purple">Purple</option>
-            <option value="rl_text_color_violet">Violet</option>
-            <option value="rl_text_color_blue">Blue</option>
-            <option value="rl_text_color_green">Green</option>
+            <option ng-repeat="option in options.text_color_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
     <div class="input-group">
         <span class="input-group-addon min-width-125 ">Text align</span>
         <select class="form-control"
                 ng-model="new_data.css3">
-            <option value="text-center">Center</option>
-            <option value="text-left">Left</option>
-            <option value="text-right">Right</option>
+            <option ng-repeat="option in options.text_align_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
     <div class="input-group">

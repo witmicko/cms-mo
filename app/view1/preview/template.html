@@ -35,24 +35,25 @@
     </div>
 
     <br> <!-- spacer between sections -->
+    <div id="offerings">
+        <div class="row  margin-zero no-print" class="iterateofferings" ng-if="showSeminarColumns()">
+            <!-- iterate the columns of offerings -->
+            <div ng-repeat="n in [1,2,3,4] | limitTo:  eventSelected.offerings.meta.columns"
+                 ng-init="columnIndex = $index"
+                 class="col-md-{{12 / eventSelected.offerings.meta.columns}} {{eventSelected.offerings.meta.columnCss}}"
+                 style="{{eventSelected.offerings.meta.columnStyle}}">
 
-    <div class="row  margin-zero no-print" class="iterateofferings" ng-if="showSeminarColumns()">
-        <!-- iterate the columns of offerings -->
-        <div ng-repeat="n in [1,2,3,4] | limitTo:  eventSelected.offerings.meta.columns"
-             ng-init="columnIndex = $index"
-             class="col-md-{{12 / eventSelected.offerings.meta.columns}} {{eventSelected.offerings.meta.columnCss}}"
-             style="{{eventSelected.offerings.meta.columnStyle}}">
+                <div ng-repeat="o in  columnRange($index)" class=" {{eventSelected.offerings.meta.itemCss}}"
+                     style="{{eventSelected.offerings.meta.itemStyle}}"
+                     ng-show="o.visible==true">
+                    <!-- item within column -->
 
-            <div ng-repeat="o in  columnRange($index)" class=" {{eventSelected.offerings.meta.itemCss}}"
-                 style="{{eventSelected.offerings.meta.itemStyle}}"
-                 ng-show="o.visible==true">
-                <!-- item within column -->
-
-                <div ng-repeat="L in o.lines">
-                    <div class="{{L.css}}" style="{{L.style}}">{{L.text}}</div>
+                    <div ng-repeat="L in o.lines">
+                        <div class="{{L.css}}" style="{{L.style}}">{{L.text}}</div>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
     <br> <!-- spacer between sections -->

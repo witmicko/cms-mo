@@ -9,7 +9,8 @@ var app = angular.module('myApp', [
     'ui.bootstrap',
     'ViewStates',
     'preview',
-    'angularMoment'
+    'angularMoment',
+    'appOptions'
 ]);
 
 
