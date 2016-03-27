@@ -99,18 +99,19 @@
         <input type="text" class="form-control " name="period"
                ng-model="eventSelected.offerings.meta.itemStyle"/>
     </div>
-
+    <br>
     <!--DATA-->
-    <div ng-repeat="item in eventSelected.offerings.data track by $id($index)"
+    <div class="well" ng-repeat="item in eventSelected.offerings.data track by $id($index)"
          ng-init="offering_data_index = $index">
-        <h4><span class="label label-success">Item no. {{$index+1}}</span></h4>
+        <h3>{{item.lines[0].text}}</h3>
+        <hr>
         <div class="input-group">
             <span class="input-group-addon" id="enabled">Enabled</span>
             <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
                     ng-model="item.visible"></select>
         </div>
         <div ng-repeat="line in item.lines track by $id($index)">
-            <h4><span class="label label-default">Line no. {{$index+1}}</span></h4>
+
             <div class="input-group">
                 <span class="input-group-addon min-width-125">Text</span>
                 <input type="text" class="form-control " name="period"
@@ -140,7 +141,96 @@
                 <input type="text" class="form-control " name="period"
                        ng-model="line.style"/>
             </div>
+            <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-danger pull-right" type="button"
+                        ng-click="deleteOfferingLine(offering_data_index, $index)"
+                >Delete Line</button>
+            </span>
+            </div>
         </div>
-        <br>
+
+        <!--new line-->
+        <h4><span class="label label-success">New Line for Item {{offering_data_index+1}}</span></h4>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125">Text</span>
+            <input type="text" class="form-control " name="period"
+                   ng-model="new_offerings_line.text"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125 ">Padding</span>
+            <select class="form-control"
+                    ng-model="new_offerings_line.pad">
+                <option ng-repeat="option in options.padding_left_options"  value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125 ">Font Size</span>
+            <select class="form-control"
+                    ng-model="new_offerings_line.font">
+                <option ng-repeat="option in options.rl_font_size_options"
+                        value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125">Style</span>
+            <input type="text" class="form-control " name="period"
+                   ng-model="new_offerings_line.style"/>
+        </div>
+        <div class="input-group">
+            <button class="btn btn-danger" type="button"
+                    ng-click="deleteOfferingData(offering_data_index)">Delete Item
+            </button>
+            <button class="btn btn-success " type="button"
+                    ng-click="addOfferingsLine(offering_data_index)">Add Line
+            </button>
+        </div>
+    </div>
+    <!--NEW ITEM-->
+    <div class="well">
+        <h4><span class="label label-success">New Item</span></h4>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125" id="enabled">Enabled</span>
+            <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                    ng-init="new_offerings_item.visible = true"
+                    ng-model="new_offerings_item.visible"></select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125">Tag</span>
+            <input type="text" class="form-control " name="period"
+                   ng-model="new_offerings_item.tag"/>
+        </div>
+        <!--new line-->
+        <h4><span class="label label-success">New Line for Item {{offering_data_index+1}}</span></h4>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125">Text</span>
+            <input type="text" class="form-control " name="period"
+                   ng-model="new_offerings_item.text"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125 ">Padding</span>
+            <select class="form-control"
+                    ng-model="new_offerings_item.pad">
+                <option ng-repeat="option in options.padding_left_options"  value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125 ">Font Size</span>
+            <select class="form-control"
+                    ng-model="new_offerings_item.font">
+                <option ng-repeat="option in options.rl_font_size_options"
+                        value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125">Style</span>
+            <input type="text" class="form-control " name="period"
+                   ng-model="new_offerings_item.style"/>
+        </div>
+        <div class="input-group">
+            <button class="btn btn-success " type="button"
+                    ng-click="addOfferingsItem()">Add Item
+            </button>
+        </div>
     </div>
 </div>

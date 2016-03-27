@@ -245,12 +245,44 @@ angular.module('preview', [])
                 var line_css = line.pad + " " + line.font;
                 $scope.eventSelected.offerings.data[data_idx].lines[line_idx].css = line_css;
             };
-            $scope.deleteOfferingsData = function (index) {
-                $scope.eventSelected.overview.data.splice(index, 1);
+            $scope.deleteOfferingLine = function (data_idx, line_idx) {
+                $scope.eventSelected.offerings.data[data_idx].lines.splice(line_idx,1);
             };
+            $scope.deleteOfferingData = function (data_idx) {
+                $scope.eventSelected.offerings.data.splice(data_idx,1);
+            };
+            $scope.new_offerings_line = {};
+            $scope.addOfferingsLine = function (data_idx) {
+                var line = {};
+                line.text =$scope.new_offerings_line.text;
+                var pad  = $scope.new_offerings_line.pad || "rl_padding_left_15";
+                var font = $scope.new_offerings_line.font|| "rl_font_1_5";
+                line.css = pad + " " + font;
+                line.style = $scope.new_offerings_line.style || "";
+                $scope.eventSelected.offerings.data[data_idx].lines.push(line);
+                $scope.new_offerings_line = {};
+            };
+            $scope.new_offerings_item = {};
+            $scope.addOfferingsItem = function () {
+                var item = {};
+                item.status= "";
+                item.date= "";
+                item.quota= -1;
+                item.order= $scope.eventSelected.offerings.data.length+1;
+                item.visible= $scope.new_offerings_item.visible || false;
+                item.tag = $scope.new_offerings_item.tag || "";
+                var line = {}
+                line.text =$scope.new_offerings_item.text;
+                var pad  = $scope.new_offerings_item.pad || "rl_padding_left_15";
+                var font = $scope.new_offerings_item.font|| "rl_font_1_5";
+                line.css = pad + " " + font;
+                line.style = $scope.new_offerings_item.style || "";
 
-
-
+                item.lines = [];
+                item.lines.push(line);
+                $scope.eventSelected.offerings.data.push(item);
+                $scope.new_offerings_item = {};
+            };
             $scope.submission_container_css=[];
             $scope.submission_container_change = function (data) {
                 $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
