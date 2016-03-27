@@ -234,7 +234,28 @@ angular.module('preview', [])
             };
             $scope.format = 'dd/MM/yyyy';
 
+            $scope.deleteAttendeePos = function (obj) {
+                var index = $scope.eventSelected.attendees_meta.positions.indexOf(obj);
+                $scope.eventSelected.attendees_meta.positions.splice(index,1);
+                console.log(id);
+            };
+            $scope.saveAttendeePos = function (obj) {
+                var new_name = angular.element('#new_position_name-'+obj.id)[0].value;
+                var index = $scope.eventSelected.attendees_meta.positions.indexOf(obj);
+                $scope.eventSelected.attendees_meta.positions[index].name = new_name;
+            };
 
+
+            $scope.addAttendeePos = function () {
+                var name = angular.element('#newPosition')[0].value;
+                var id = $scope.eventSelected.attendees_meta.positions.length+1;
+                var pos = {
+                    id:id,
+                    name:name
+                };
+                angular.element('#newPosition')[0].value='';
+                $scope.eventSelected.attendees_meta.positions.push(pos)
+            };
 
 
         }]); // EventsCtrl
