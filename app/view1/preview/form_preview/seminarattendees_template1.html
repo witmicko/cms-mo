@@ -8,8 +8,9 @@
         </div>
         <div class="col-md-4 ">
 
-            <h3 style="color:red" ng-if="attendees.length==attendeesMax">Maximum attendees per submission is
-                {{attendeesMax}}</h3>
+            <h3 style="color:red" ng-if="attendees.length==eventSelected.attendees_meta.maxNo"
+            >Maximum attendees per submission is
+                {{eventSelected.attendees_meta.maxNo}}</h3>
         </div>
     </div>
     <div class="row">

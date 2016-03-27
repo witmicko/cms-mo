@@ -45,17 +45,25 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: '/notes',
             templateUrl: 'view1/builder/form-03-notes.html'
         })
-        .state('form.contact', {
-            url: '/contact',
-            templateUrl: 'view1/builder/form-04-contact.html'
+        .state('form.header', {
+            url: '/header',
+            templateUrl: 'view1/builder/form-04-header.html'
+        })
+        .state('form.offerings', {
+            url: '/offerings',
+            templateUrl: 'view1/builder/form-05-offerings.html'
         })
         .state('form.organisation', {
             url: '/organisation',
-            templateUrl: 'view1/builder/form-05-organisation.html'
+            templateUrl: 'view1/builder/form-06-organisation.html'
+        })
+        .state('form.contact', {
+            url: '/contact',
+            templateUrl: 'view1/builder/form-07-contact.html'
         })
         .state('form.attendees', {
             url: '/attendees',
-            templateUrl: 'view1/builder/form-06-attendees.html'
+            templateUrl: 'view1/builder/form-08-attendees.html'
         })
        
 }]);

@@ -29,6 +29,7 @@ angular.module('preview', [])
             $scope.eventConfigurations = [];  // this is the list of events for the combo at the top right
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventConfigurations.push(testSeminar().results[0]);
+            $scope.eventSelected = $scope.eventConfigurations[0]; 
             $scope.formData = eventState.formData;
             $scope.formMeta = eventState.formMeta;
             $scope.putInTestData = function () {
@@ -251,6 +252,14 @@ angular.module('preview', [])
                 $scope.eventSelected.attendees_meta.positions.push(pos)
             };
 
+            $scope.goToHeader = function() {
+                $location.hash('header');
+                $anchorScroll();
+            };
+            $scope.goToOfferings = function() {
+                $location.hash('offerings');
+                $anchorScroll();
+            };
             $scope.goToOrganisation = function() {
                 $location.hash('organisation');
                 $anchorScroll();
