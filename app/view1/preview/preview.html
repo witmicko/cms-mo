@@ -10,9 +10,9 @@
                 <li><a ui-sref-active="active"  ui-sref="form.meta">Meta</a></li>
                 <li><a ui-sref-active="active"  ui-sref="form.availability">Availability</a></li>
                 <li><a ui-sref-active="active"  ui-sref="form.notes">Notes</a></li>
-                <li><a ui-sref-active="active"  ui-sref="form.contact">Contact</a></li>
-                <li><a ui-sref-active="active"  ui-sref="form.organisation">Organisation</a></li>
-                <li><a ui-sref-active="active"  ui-sref="form.attendees">Attendees</a></li>
+                <li><a ng-click="goToContact()" ui-sref-active="active"  ui-sref="form.contact">Contact</a></li>
+                <li><a ng-click="goToOrganisation()" ui-sref-active="active"  ui-sref="form.organisation">Organisation</a></li>
+                <li><a ng-click="goToAttendees()" ui-sref-active="active"  ui-sref="form.attendees">Attendees</a></li>
             </ul>
         </div>
     </div>
@@ -105,24 +105,28 @@
         <div class="row margin-zero"
              ng-if="eventSelected.organisation.meta.enabled==true && eventSelected.organisation.meta.template==='organisation_minimum'">
             <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+                 id="organisation"
                  ng-include="'view1/preview/form_preview/organisation_minimum.html'">
             </div>
         </div>
         <div class="row margin-zero"
              ng-if="eventSelected.organisation.meta.enabled==true && eventSelected.organisation.meta.template==='organisation_maximum'">
             <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+                 id="organisation"
                  ng-include="'view1/preview/form_preview/organisation_maximum.html'">
             </div>
         </div>
 
         <div class="row  margin-zero" ng-if="eventSelected.contact.meta.enabled==true">
             <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+                 id="contact"
                  ng-include="'view1/preview/form_preview/contactDetails_template1.html'">
             </div>
         </div>
 
         <div class="row  margin-zero" ng-if="eventSelected.template_meta.type == 'template1_seminar'">
             <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+                 id="attendees"
                  ng-include="'view1/preview/form_preview/seminarattendees_template1.html'">
             </div>
         </div>
@@ -200,4 +204,5 @@
 
     </div>
     <!-- hide if no event selected -->
+    <div style="height: 500px"></div>
 </div>

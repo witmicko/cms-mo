@@ -12,9 +12,10 @@ angular.module('preview', [])
         '$sce',
         'moment',
         '$state',
+        '$location', '$anchorScroll',
 
 
-        function ($rootScope, $scope, eventState, $sce, moment, $state) {
+        function ($rootScope, $scope, eventState, $sce, moment, $state, $location, $anchorScroll) {
 
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
@@ -28,10 +29,8 @@ angular.module('preview', [])
             $scope.eventConfigurations = [];  // this is the list of events for the combo at the top right
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventConfigurations.push(testSeminar().results[0]);
-
             $scope.formData = eventState.formData;
             $scope.formMeta = eventState.formMeta;
-
             $scope.putInTestData = function () {
                 if ($scope.eventSelected.template_meta.type == "template1_seminar") {
                     var td1 = getTestData("seminar");
@@ -129,8 +128,6 @@ angular.module('preview', [])
                 // cascade updates to sub forms
                 $scope.globalResetCounter = $scope.globalResetCounter + 1;
             } // changeOfEvent
-
-
             // show the data if only one value available
             if ($scope.eventConfigurations.length == 1) {
                 eventState.formMeta.eventOffset = 0; // show the only option
@@ -143,7 +140,6 @@ angular.module('preview', [])
                     $scope.putInTestData();
                 }
             }
-
             $scope.emailsMatch = function () {
                 return $scope.formData.email === $scope.formData.email2;
             };
@@ -151,8 +147,6 @@ angular.module('preview', [])
                 $scope.attendeeTemplateMode = $scope.attendeeTemplateMode || "Unavailable";
                 return $scope.attendeeTemplateMode.toLowerCase() == 'seminar' && $scope.eventSelected.offerings.meta.visible == true
             };
-
-
             $scope.columnRange = function (colNo) {
 
                 if ($scope.eventSelected == null) return [];
@@ -255,6 +249,19 @@ angular.module('preview', [])
                 };
                 angular.element('#newPosition')[0].value='';
                 $scope.eventSelected.attendees_meta.positions.push(pos)
+            };
+
+            $scope.goToOrganisation = function() {
+                $location.hash('organisation');
+                $anchorScroll();
+            };
+            $scope.goToContact = function() {
+                $location.hash('contact');
+                $anchorScroll();
+            };
+            $scope.goToAttendees = function() {
+                $location.hash('attendees');
+                $anchorScroll();
             };
 
 
