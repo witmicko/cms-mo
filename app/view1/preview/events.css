@@ -50,11 +50,36 @@ textarea#csv {
 .rl_font_1_2 {
     font-size: 1.2em;
 }
-
+.rl_font_1_0 {
+    font-size: 1.0em;
+}
 .rl_text_color_black {
     color: black;
 }
-
+.rl_text_color_white {
+    color: white;
+}
+.rl_text_color_yellow {
+    color: yellow;
+}
+.rl_text_color_orange {
+    color: orange;
+}
+.rl_text_color_red {
+    color: red;
+}
+.rl_text_color_purple {
+    color: purple;
+}
+.rl_text_color_violet {
+    color: violet;
+}
+.rl_text_color_blue {
+    color: blue;
+}
+.rl_text_color_green {
+    color: green;
+}
 .rl_padding_top_10 {
     padding-top: 10px;
 }

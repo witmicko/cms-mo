@@ -182,7 +182,7 @@ angular.module('preview', [])
                     return $scope.eventSelected.offerings.data.slice(start, start + perColumn);
                 }
 
-            } // columnRange
+            }; // columnRange
 
             var cache = [];
             $scope.wholescope = JSON.stringify($scope, function (key, value) {
@@ -199,23 +199,45 @@ angular.module('preview', [])
             cache = null; // Enable garbage collection
 
             //Michal
-            $scope.header_css=[]
+            $scope.header_css=[];
             $scope.header_css_change = function (data) {
                 $scope.eventSelected.overview.meta.css = data.join(" ");
+            };
+            $scope.header_data_css=[];
+            $scope.header_data_css_change = function (index, data) {
+                // var data = $scope.eventSelected.overview.data[index];
+                var data_css = data.size + " " + data.colour + " "+data.align;
+                $scope.eventSelected.overview.data[index].css = data_css;
+            };
+            $scope.deleteHeaderData = function (index) {
+                $scope.eventSelected.overview.data.splice(index, 1);
+            };
+            $scope.new_data = {};
+            $scope.addHeaderData = function () {
+                var data = {};
+                data.visible =$scope.new_data.visible || false;
+                data.text =$scope.new_data.text;
+                var css1 = $scope.new_data.css1 || "rl_font_1_0";
+                var css2 = $scope.new_data.css2 || "rl_text_color_black";
+                var css3 = $scope.new_data.css3 || "text-center";
+                data.css = css1 + " " + css2 + " " + css3 + " ";
+                data.style = $scope.new_data.style || "";
+                $scope.eventSelected.overview.data.push(data);
+                $scope.new_data = {};
             }
 
-            $scope.submission_container_css=[]
+            $scope.submission_container_css=[];
             $scope.submission_container_change = function (data) {
                 $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
 
-            }
+            };
             $scope.boolOptions = [
                 {value: false, label: 'No'},
-                {value: true, label: 'Yes'},
+                {value: true, label: 'Yes'}
             ];
             $scope.processForm = function (data) {
                 console.log(data)
-            }
+            };
 
             //date
             $scope.active_start = {
@@ -386,13 +408,13 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                         {
                             "visible": true,
                             "text": "Seminars",
-                            "css": "rl_text_color_black    text-center rl_font_2_5  ",
+                            "css": "rl_font_2_5 rl_text_color_black text-center",
                             "style": ""
                         },
                         {
                             "visible": true,
                             "text": "Booking Form June/July 2015",
-                            "css": "rl_text_color_black     text-center rl_font_2_0",
+                            "css": "rl_font_2_0 rl_text_color_black text-center",
                             "style": ""
                         },
                         {
@@ -401,21 +423,21 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                                         "Dates: " +
                             "       </span>" +
                             "June 25th, 26th, 27th, 28th, 29th, July 1st, 2nd, 3rd",
-                            "css": "rl_text_color_black    rl_font_1_0 ",
+                            "css": "rl_font_1_0 rl_text_color_black text-center",
                             "style": ""
                         },
 
                         {
                             "visible": true,
                             "text": "<span style='font-size:2em'>Venues: </span>Various locations countrywide",
-                            "css": "rl_text_color_black",
+                            "css": "rl_font_1_0 rl_text_color_black text-center",
                             "style": ""
                         },
 
                         {
                             "visible": true,
                             "text": "<span style='font-size:2em'>Time: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is a two and a half hour programme - times vary.",
-                            "css": "",
+                            "css": "rl_font_1_0 rl_text_color_black text-center",
                             "style": ""
                         }
                     ]
