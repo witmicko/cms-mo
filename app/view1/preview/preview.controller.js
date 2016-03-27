@@ -302,7 +302,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                 "organisation": {
                     "meta": {
                         "enabled": true,
-                        "template": "organisation_minimum",
+                        "template": "organisation_maximum",
                         "ui_text_attendee": "Delegate",
                         "ui_text_to_display": "ZZZZ",
                         "requireContactDetails": true,
