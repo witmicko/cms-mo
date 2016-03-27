@@ -1,24 +1,39 @@
 <div class="row  margin-zero">
-    <div class="col-md-4">
+    <div class="col-sm-4">
         <span class="rl_font_1_8"> {{eventSelected.model_type}} Booking Form </span>
     </div>
-    <div class="col-sm-8">
-        <label class="col-sm-3 center-vertically">Select Event - ({{eventConfigurations.length}})</label>
-        <div class="col-sm-6">
-            <select class="form-control"
-                    ng-model="formMeta.eventOffset"
-                    ng-change='changeOfEvent()'
-                    name="eventName" required
-                    ng-options='eventConfigurations.indexOf(currOption) as currOption.name for currOption in eventConfigurations'>
-            </select>
+    <div class="col-sm-8" ng-show="eventConfigurations.length > 0">
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-print">Select Event - ({{eventConfigurations.length}})</label>
+            <div class="col-sm-7">
+                <select class="form-control ng-valid"
+                        ng-model="formMeta.eventOffset"
+                        ng-change='changeOfEvent()'
+                        name="eventName" required
+                        ng-options='eventConfigurations.indexOf(currOption) as currOption.name for currOption in eventConfigurations'>
+                </select>
+            </div>
         </div>
-        <div class="col-sm-3">
+        <div class="no-print">
             <input ng-if="mode=='Testing Mode' && eventSelected" type="submit" ng-click="putInTestData()"
                    value="Test Data" class="btn btn-success"/>
         </div>
     </div>
 </div>
 
+<!-- view cannot be used -->
+<div class="row  margin-zero">
+    <div class="col-md-12 no-event-data">
+        <h1>Error:</h1>
+        <h2>
+            1) This account may have no active public events (seminars/workshops)<br>
+
+            2) An invalid customer account was selected<br>
+
+            3) Query parameters are incorrect.
+        </h2>
+    </div>
+</div>
 <div class="row  margin-zero" ng-hide="eventSelected == null">
 
     <div class="row  margin-zero no-print" ng-if="eventSelected.overview.meta.visible==true">
