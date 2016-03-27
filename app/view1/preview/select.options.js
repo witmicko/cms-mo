@@ -5,6 +5,20 @@ var appOptions = angular.module('appOptions', []);
 
 appOptions.service("select_options", function () {
     var options = {};
+    
+    options.padding_left_options= [
+        {id: "rl_padding_left_05", name: "05"},
+        {id: "rl_padding_left_10", name: "10"},
+        {id: "rl_padding_left_15", name: "15"},
+        {id: "rl_padding_left_20", name: "20"},
+    ];
+
+    options.margin_top_options= [
+        {id: "rl_margin_top_05", name:"05"},
+        {id: "rl_margin_top_10", name:"10"},
+        {id: "rl_margin_top_15", name:"15"},
+        {id: "rl_margin_top_20", name:"20"}
+    ];
     options.text_align_options= [
         {id: "text-center", name: "Center"},
         {id: "text-left", name: "Left"},
@@ -63,6 +77,11 @@ appOptions.service("select_options", function () {
         {id:"rl_bkg_color_orange", name: "Orange"},
         {id:"rl_bkg_color_white", name: "White"}
     ];
+    options.border_shadow_options = [
+        {id: "rl_box_shadow1", name: "Yes"},
+        {id: "", name: "No"}
+    ];
+    
     options.border_type_options = [
         {id:"rl_brd_dashed", name: "Dashed"},
         {id:"rl_brd_double", name: "Double"},

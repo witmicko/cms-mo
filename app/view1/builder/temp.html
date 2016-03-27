@@ -1,0 +1,10 @@
+<div class="input-group">
+    <span class="input-group-addon min-width-125 ">Font Size</span>
+    <select class="form-control"
+            ng-init="offerings_line_css[offering_data_index]['_'+$index]['font']=line.css.split(' ')[1]"
+            ng-model=offerings_line_css[offering_data_index]['_'+$index]['font']"
+            ng-change="offerings_line_css_change($index,offerings_line_css[$index])">
+        <option ng-repeat="option in options.font_size_options"
+                value="{{option.id}}">{{option.name}}</option>
+    </select>
+</div>

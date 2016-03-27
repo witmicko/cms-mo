@@ -7,109 +7,140 @@
 
 <!--style_1-->
 <div ng-if="eventSelected.offerings.meta.visible">
-    <h4><span class="label label-default">Style</span></h4>
+    <h4><span class="label label-default">Columns Style</span></h4>
     <div class="input-group">
         <span class="input-group-addon min-width-125" id="columns">No. of Columns</span>
         <input type="number" class="form-control " name="columns"
                ng-model="eventSelected.offerings.meta.columns"/>
     </div>
-
     <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_brd_type">Border type</span>
-        <select class="form-control" name="header_css_brd_type"
-                ng-init="header_css[0]=eventSelected.overview.meta.css.split(' ')[0]"
-                ng-model="header_css[0]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option ng-repeat="option in border_type_options" value="{{option.id}}">{{option.name}}</option>
-            <div ng-include="'view1/builder/options.border.type.html'"></div>
+        <span class="input-group-addon min-width-125" id="offerings_column_css_brd_type">Border type</span>
+        <select class="form-control" name="offerings_column_css_brd_type"
+                ng-init="offerings_column_css[0]=eventSelected.offerings.meta.columnCss.split(' ')[0]"
+                ng-model="offerings_column_css[0]"
+                ng-change="offerings_column_css_change(offerings_column_css)">
+            <option ng-repeat="option in options.border_type_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
     <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_brd_colour">Border colour</span>
+        <span class="input-group-addon min-width-125" id="offerings_column_css_brd_colour">Colour</span>
         <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[1]=eventSelected.overview.meta.css.split(' ')[1]"
-                ng-model="header_css[1]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_brd_clr_red">Red</option>
-            <option value="rl_brd_clr_black">Black</option>
-            <option value="rl_brd_clr_blue">Blue</option>
-            <option value="rl_brd_clr_green">Green</option>
-            <option value="rl_brd_clr_white">White</option>
+                ng-init="offerings_column_css[1]=eventSelected.offerings.meta.columnCss.split(' ')[1]"
+                ng-model="offerings_column_css[1]"
+                ng-change="offerings_column_css_change(offerings_column_css)">
+            <option ng-repeat="option in options.background_color_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
 
     <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_radius">Corner Radius</span>
+        <span class="input-group-addon min-width-125" id="offerings_column_css_radius">Corner Radius</span>
         <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[2]=eventSelected.overview.meta.css.split(' ')[2]"
-                ng-model="header_css[2]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_rcorners15">15</option>
-            <option value="rl_rcorners20">20</option>
-            <option value="rl_rcorners25">25</option>
-            <option value="rl_rcorners30">30</option>
+                ng-init="offerings_column_css[2]=eventSelected.offerings.meta.columnCss.split(' ')[2]"
+                ng-model="offerings_column_css[2]"
+                ng-change="offerings_column_css_change(offerings_column_css)">
+            <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
-
     <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_bkg_colour">Colour</span>
+        <span class="input-group-addon min-width-125" id="style">Column Style</span>
+        <input type="text" class="form-control " name="period"
+               ng-model="eventSelected.offerings.meta.columnStyle"/>
+    </div>
+
+    <!--ITEM CSS-->
+    <h4><span class="label label-default">Item Style</span></h4>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="offerings_item_css_radius">Corner Radius</span>
         <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[3]=eventSelected.overview.meta.css.split(' ')[3]"
-                ng-model="header_css[3]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_bkg_color_blue">Blue</option>
-            <option value="rl_bkg_color_blue1">Blue 1</option>
-            <option value="rl_bkg_color_yellow">Yellow</option>
-            <option value="rl_bkg_color_red">Red</option>
-            <option value="rl_bkg_color_clr_black">Black</option>
-            <option value="rl_bkg_color_green">Green</option>
-            <option value="rl_bkg_color_olive">Olive</option>
-            <option value="rl_bkg_color_mauve">Mauve</option>
-            <option value="rl_bkg_color_orange">Orange</option>
-            <option value="rl_bkg_color_white">White</option>
+                ng-init="offerings_item_css[0]=eventSelected.offerings.meta.itemCss.split(' ')[0]"
+                ng-model="offerings_item_css[0]"
+                ng-change="offerings_item_css_change(offerings_item_css)">
+            <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
         </select>
     </div>
-
     <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_shadow">Border shadow</span>
+        <span class="input-group-addon min-width-125" id="offerings_item_css_radius">Border Colour</span>
         <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[4]=eventSelected.overview.meta.css.split(' ')[4]"
-                ng-model="header_css[4]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_box_shadow1">Yes</option>
-            <option value="">No</option>
+                ng-init="offerings_item_css[1]=eventSelected.offerings.meta.itemCss.split(' ')[1]"
+                ng-model="offerings_item_css[1]"
+                ng-change="offerings_item_css_change(offerings_item_css)">
+            <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}</option>
         </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="offerings_item_css_radius">Border Type</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="offerings_item_css[2]=eventSelected.offerings.meta.itemCss.split(' ')[2]"
+                ng-model="offerings_item_css[2]"
+                ng-change="offerings_item_css_change(offerings_item_css)">
+            <option ng-repeat="option in options.border_type_options" value="{{option.id}}">{{option.name}}</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="offerings_item_css_radius">Shadow</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="offerings_item_css[3]=eventSelected.offerings.meta.itemCss.split(' ')[3]"
+                ng-model="offerings_item_css[3]"
+                ng-change="offerings_item_css_change(offerings_item_css)">
+            <option ng-repeat="option in options.border_shadow_options" value="{{option.id}}">{{option.name}}</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="offerings_item_css_radius">Margin Top</span>
+        <select class="form-control" name="panel_hover_css"
+                ng-init="offerings_item_css[4]=eventSelected.offerings.meta.itemCss.split(' ')[4]"
+                ng-model="offerings_item_css[4]"
+                ng-change="offerings_item_css_change(offerings_item_css)">
+            <option ng-repeat="option in options.margin_top_options" value="{{option.id}}">{{option.name}}</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon min-width-125" id="offerings_item_css_radius">Custom Style</span>
+        <input type="text" class="form-control " name="period"
+               ng-model="eventSelected.offerings.meta.itemStyle"/>
     </div>
 
-    <div class="input-group">
-        <span class="input-group-addon min-width-125">Font Size</span>
-        <select class="form-control"
-                ng-model="eventSelected.overview.meta.style"
-        >
-            <option value="font-size:0.5em">1</option>
-            <option value="font-size:0.6em">2</option>
-            <option value="font-size:0.7em">3</option>
-            <option value="font-size:0.8em">4</option>
-            <option value="font-size:0.9em">5</option>
-            <option value="font-size:1.0em">6</option>
-            <option value="font-size:1.1em">7</option>
-            <option value="font-size:1.2em">8</option>
-            <option value="font-size:1.3em">9</option>
-            <option value="font-size:1.4em">10</option>
-            <option value="font-size:1.5em">11</option>
-            <option value="font-size:1.6em">12</option>
-            <option value="font-size:1.7em">13</option>
-            <option value="font-size:1.8em">14</option>
-            <option value="font-size:1.9em">15</option>
-            <option value="font-size:2.0em">16</option>
-            <option value="font-size:2.1em">17</option>
-            <option value="font-size:2.2em">18</option>
-            <option value="font-size:2.3em">19</option>
-            <option value="font-size:2.4em">20</option>
-        </select>
+    <!--DATA-->
+    <div ng-repeat="item in eventSelected.offerings.data track by $id($index)"
+         ng-init="offering_data_index = $index">
+        <h4><span class="label label-success">Item no. {{$index+1}}</span></h4>
+        <div class="input-group">
+            <span class="input-group-addon" id="enabled">Enabled</span>
+            <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                    ng-model="item.visible"></select>
+        </div>
+        <div ng-repeat="line in item.lines track by $id($index)">
+            <h4><span class="label label-default">Line no. {{$index+1}}</span></h4>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125">Text</span>
+                <input type="text" class="form-control " name="period"
+                       ng-model="line.text"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 ">Padding</span>
+                <select class="form-control"
+                        ng-init="offerings_line_css[offering_data_index]['_'+$index].pad=line.css.split(' ')[0]"
+                        ng-model="offerings_line_css[offering_data_index]['_'+$index].pad"
+                        ng-change="offerings_line_css_change(offering_data_index, $index)">
+                    <option ng-repeat="option in options.padding_left_options"  value="{{option.id}}">{{option.name}}</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 ">Font Size</span>
+                <select class="form-control"
+                        ng-init="offerings_line_css[offering_data_index]['_'+$index].font=line.css.split(' ')[1]"
+                        ng-model="offerings_line_css[offering_data_index]['_'+$index].font"
+                        ng-change="offerings_line_css_change(offering_data_index, $index)">
+                    <option ng-repeat="option in options.rl_font_size_options"
+                            value="{{option.id}}">{{option.name}}</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125">Style</span>
+                <input type="text" class="form-control " name="period"
+                       ng-model="line.style"/>
+            </div>
+        </div>
+        <br>
     </div>
+</div>

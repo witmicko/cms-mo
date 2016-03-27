@@ -233,6 +233,21 @@ angular.module('preview', [])
             $scope.offerings_column_css_change = function (data) {
                 $scope.eventSelected.offerings.meta.columnCss = data.join(" ");
             };
+            $scope.offerings_item_css=[];
+            $scope.offerings_item_css_change = function (data) {
+                $scope.eventSelected.offerings.meta.itemCss = data.join(" ");
+            };
+            $scope.offering_data_index=0;
+            $scope.offerings_line_css=[];
+            $scope.offerings_line_css_change = function (data_idx, line_idx) {
+                var line = $scope.offerings_line_css[data_idx]["_"+line_idx];
+                // var data = $scope.eventSelected.overview.data[index];
+                var line_css = line.pad + " " + line.font;
+                $scope.eventSelected.offerings.data[data_idx].lines[line_idx].css = line_css;
+            };
+            $scope.deleteOfferingsData = function (index) {
+                $scope.eventSelected.overview.data.splice(index, 1);
+            };
 
 
 
@@ -456,9 +471,9 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                     "meta": {
                         "visible": true,
                         "columns": 3,
-                        "columnCss": " b_solid rl_bkg_color_blue1 rl_rcorners25",
+                        "columnCss": "rl_brd_double rl_bkg_color_blue1 rl_rcorners25",
                         "columnStyle": "padding-bottom:10px;  ",
-                        "itemCss": "  rl_rcorners15 rl_brd_clr_black rl_brd_solid rl_box_shadow1 rl_margin_top_10",
+                        "itemCss": "rl_rcorners15 rl_brd_clr_black rl_brd_solid rl_box_shadow1 rl_margin_top_10",
                         "itemStyle": "border-width: 3px; rl_font_1_5 rl_padding_left_15"
                     },
                     "data": [

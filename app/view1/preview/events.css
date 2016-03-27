@@ -91,6 +91,16 @@ textarea#csv {
 .rl_margin_top_10 {
     margin-top: 10px;
 }
+.rl_margin_top_15 {
+    margin-top: 15px;
+}
+.rl_margin_top_20 {
+    margin-top: 20px;
+}
+.rl_margin_top_05 {
+    margin-top: 5px;
+}
+
 
 .rl_margin_bottom_10 {
     margin-bottom: 10px;
@@ -210,12 +220,18 @@ textarea#csv {
     background-color: #EBEBA1;
 }
 
+.rl_padding_left_05 {
+    padding-left: 5px;
+}
+
+.rl_padding_left_10 {
+    padding-left: 10px;
+}
 .rl_padding_left_15 {
     padding-left: 15px;
 }
-
 .rl_padding_left_20 {
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
 /* rounded corners */

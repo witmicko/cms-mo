@@ -1,6 +1,6 @@
 <h4><span class="label label-default">Header</span></h4>
 <div class="input-group">
-    <span class="input-group-addon" id="enabled">Enabled</span>
+    <span class="input-group-addon" id="senabled">Enabled</span>
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
             ng-model="eventSelected.overview.meta.visible"></select>
 </div>
@@ -108,7 +108,6 @@
                     ng-model="header_data_css[$index]['align']"
                     ng-change="header_data_css_change($index,header_data_css[$index])">
                 <option ng-repeat="option in options.text_align_options" value="{{option.id}}">{{option.name}}</option>
-
             </select>
         </div>
         <div class="input-group">
@@ -121,7 +120,6 @@
             </span>
         </div>
         <br>
-
     </div>
 
     <!--NEW DATA-->
