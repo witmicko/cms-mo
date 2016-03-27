@@ -18,18 +18,18 @@
         </div>
     </div>
 </div>
-
+<br>
 <div class="row  margin-zero" ng-hide="eventSelected == null">
+    <div id="header">
+        <div class="row  margin-zero no-print" ng-if="eventSelected.overview.meta.visible==true">
+            <div class="col-md-12  {{eventSelected.overview.meta.css}}" style="{{eventSelected.overview.meta.style}}">
+                <div ng-repeat="overview in eventSelected.overview.data track by $id($index)"
+                     ng-show="overview.visible==true"
+                     class="col-md-12 {{overview.css}}"
+                     style="{{overview.style}}">
 
-    <div class="row  margin-zero no-print" ng-if="eventSelected.overview.meta.visible==true">
-        <div class="col-md-12  {{eventSelected.overview.meta.css}}" style="{{eventSelected.overview.meta.style}}">
-            <!-- seminar/workshop heading/overview information -->
-            <div ng-repeat="overview in eventSelected.overview.data track by $id($index)"
-                 ng-show="overview.visible==true"
-                 class="col-md-12 {{overview.css}}"
-                 style="{{overview.style}}">
-
-                <span ng-bind-html="trustAsHtml(overview.text)"/>
+                    <span ng-bind-html="trustAsHtml(overview.text)"/>
+                </div>
             </div>
         </div>
     </div>
@@ -59,19 +59,18 @@
 
     <!-- name is required for angular valiation, novalidate disables browser's validation -->
 
-
-    <div class="row margin-zero"
-         ng-if="eventSelected.organisation.meta.enabled==true && eventSelected.organisation.meta.template==='organisation_minimum'">
-        <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
-             id="organisation"
-             ng-include="'view1/preview/form_preview/organisation_minimum.html'">
+    <div id="organisation">
+        <div class="row margin-zero"
+             ng-if="eventSelected.organisation.meta.enabled==true && eventSelected.organisation.meta.template==='organisation_minimum'">
+            <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+                 ng-include="'view1/preview/form_preview/organisation_minimum.html'">
+            </div>
         </div>
-    </div>
-    <div class="row margin-zero"
-         ng-if="eventSelected.organisation.meta.enabled==true && eventSelected.organisation.meta.template==='organisation_maximum'">
-        <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
-             id="organisation"
-             ng-include="'view1/preview/form_preview/organisation_maximum.html'">
+        <div class="row margin-zero"
+             ng-if="eventSelected.organisation.meta.enabled==true && eventSelected.organisation.meta.template==='organisation_maximum'">
+            <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+                 ng-include="'view1/preview/form_preview/organisation_maximum.html'">
+            </div>
         </div>
     </div>
 

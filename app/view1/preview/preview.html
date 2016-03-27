@@ -2,14 +2,14 @@
 
 
 <div id="builder">
-    <div class="page-header text-center">
+    <div class="text-center">
         <!-- the links to our nested states using relative paths -->
         <!-- add the active class if the state matches our ui-sref -->
         <div id="status-buttons" class="text-center">
             <ul class="nav nav-pills">
-                <li><a ui-sref-active="active"  ui-sref="form.meta">Meta</a></li>
-                <li><a ui-sref-active="active"  ui-sref="form.availability">Availability</a></li>
-                <li><a ui-sref-active="active"  ui-sref="form.notes">Notes</a></li>
+                <li><a ng-click="goToHeader()" ui-sref-active="active"  ui-sref="form.meta">Meta</a></li>
+                <li><a ng-click="goToHeader()" ui-sref-active="active"  ui-sref="form.availability">Availability</a></li>
+                <li><a ng-click="goToHeader()" ui-sref-active="active"  ui-sref="form.notes">Notes</a></li>
                 <li><a ng-click="goToHeader()" ui-sref-active="active"  ui-sref="form.header">Header</a></li>
                 <li><a ng-click="goToOfferings()" ui-sref-active="active"  ui-sref="form.offerings">Offerings</a></li>
                 <li><a ng-click="goToOrganisation()" ui-sref-active="active"  ui-sref="form.organisation">Organisation</a></li>
@@ -26,8 +26,6 @@
     </form>
 </div>
 
-<div class="container-fluid text-center " id="preview"
-     ng-include="'view1/preview/template.html'"
->
+<div class="container-fluid text-center " id="preview" ng-include="'view1/preview/template.html'">
 
 </div>

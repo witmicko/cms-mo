@@ -29,7 +29,7 @@ angular.module('preview', [])
             $scope.eventConfigurations = [];  // this is the list of events for the combo at the top right
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventConfigurations.push(testSeminar().results[0]);
-            $scope.eventSelected = $scope.eventConfigurations[0]; 
+            // $scope.eventSelected = $scope.eventConfigurations[0];
             $scope.formData = eventState.formData;
             $scope.formMeta = eventState.formMeta;
             $scope.putInTestData = function () {
@@ -199,6 +199,11 @@ angular.module('preview', [])
             cache = null; // Enable garbage collection
 
             //Michal
+            $scope.header_css=[]
+            $scope.header_css_change = function (data) {
+                $scope.eventSelected.overview.meta.css = data.join(" ");
+            }
+
             $scope.submission_container_css=[]
             $scope.submission_container_change = function (data) {
                 $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
@@ -374,8 +379,8 @@ function testSeminar() { // supply a list for test events for proof of concept, 
 
                     "meta": {
                         "visible": true,
-                        "css": "b_solid rl_bkg_color_green rl_rcorners25 ",
-                        "style": "font-size:1em"
+                        "css": "rl_brd_solid rl_brd_clr_black rl_rcorners20 rl_bkg_color_green",
+                        "style": "font-size:1.0em"
                     },
                     "data": [
                         {
