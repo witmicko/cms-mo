@@ -1,26 +1,31 @@
 <!--Template name and cId-->
 <h4><span class="label label-default">Template name and cId</span></h4>
 <div class="input-group">
-    <span class="input-group-addon " id="cId">cId</span>
-    <input type="text" class="form-control " name="cId" ng-model="eventSelected.cId"/>
+    <span class="input-group-addon min-width-125 " id="cId">cId</span>
+    <input type="text" ng-model="inputModel" class="form-control"
+           ng-model="eventSelected.cId"
+           uib-tooltip="cId must be unique or random will be provided"
+           tooltip-placement="top"
+           tooltip-trigger="mouseenter"
+           />
 </div>
 
 <div class="input-group">
-    <span class="input-group-addon" id="name">name</span>
+    <span class="input-group-addon min-width-125" id="name">Name</span>
     <input type="text" class="form-control" name="name"
            ng-model="eventSelected.name"
            ng-change="eventSelected.nameLowercase = eventSelected.name.toLowerCase()"/>
 </div>
 
 <div class="input-group">
-    <span class="input-group-addon" id="model_type">model_type</span>
+    <span class="input-group-addon min-width-125" id="model_type">Model Type</span>
     <select class="form-control" ng-model="eventSelected.model_type">
         <option>Seminar</option>
         <option>Workshop</option>
     </select>
 </div>
 <div class="input-group">
-    <span class="input-group-addon" id="panel_hover_css">panel_hover_css</span>
+    <span class="input-group-addon min-width-125" id="panel_hover_css">Panel Hover</span>
     <select class="form-control" name="panel_hover_css" ng-model="eventSelected.template_meta.panel_hover_css">
         <option value="rl_hover_light_blue">Light Blue</option>
         <option value="rl_hover_lime">Lime</option>
@@ -32,13 +37,13 @@
 <h4><span class="label label-default">Template info</span></h4>
 
 <div class="input-group">
-    <span class="input-group-addon" id="copiedFrom">copiedFrom</span>
+    <span class="input-group-addon min-width-125" id="copiedFrom">Copied From</span>
     <input type="text" class="form-control" name="copiedFrom"
            ng-model="eventSelected.template_meta.copiedFrom"
            />
 </div>
 <div class="input-group">
-    <span class="input-group-addon" id="type">type</span>
+    <span class="input-group-addon min-width-125" id="type">Type</span>
     <input type="text" class="form-control" name="type"
            ng-model="eventSelected.template_meta.type"
     />
@@ -46,7 +51,7 @@
 
 
 <div class="input-group">
-    <span class="input-group-addon" id="description">description</span>
+    <span class="input-group-addon min-width-125" id="description">Description</span>
     <textarea class="form-control" rows="3" name="description"
               ng-model="eventSelected.template_meta.description"/>
 

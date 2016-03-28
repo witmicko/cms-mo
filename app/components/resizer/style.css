@@ -3,14 +3,14 @@
     top: 0px;
     bottom: 0;
     left: 0;
-    width: 40%;
+    width: 38%;
     overflow: auto;
 }
 #preview {
     position: absolute;
     top: 5px;
     bottom: 0;
-    left: 40% /* 200 + 6*/;
+    left: 38% /* 200 + 6*/;
     right: 0;
     overflow: auto;
 }
@@ -21,7 +21,7 @@
     position: absolute;
     top: 0px;
     bottom: 0;
-    left: 40%;
+    left: 38%;
     width: 6px;
     cursor: e-resize;
 }

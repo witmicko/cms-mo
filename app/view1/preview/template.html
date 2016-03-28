@@ -1,22 +1,20 @@
 <!--META-->
-<div class="row  margin-zero" id="meta">
-    <div class="col-sm-3">
-        <span class="rl_font_1_8"> {{eventSelected.model_type}} Booking Form </span>
+<div class="row  margin-zero " id="meta">
+    <div class="col-sm-2 padding-zero">
+        <span class="rl_font_1_5 margin-zero padding-zero"> {{eventSelected.model_type}} Booking Form </span>
     </div>
     <div class="col-sm-5">
-        <label class="col-sm-5 center-vertically">Select Event - ({{eventConfigurations.length-1}})</label>
-        <div class="col-sm-7">
+        <label class="col-sm-5 center-vertically margin-zero padding-zero">Select Event - ({{eventConfigurations.length-1}})</label>
+        <div class="col-sm-7 margin-zero padding-zero">
             <select class="form-control"
                     id="event_select"
                     ng-model="current_cId"
                     ng-change='changeOfEvent(current_cId)' name="eventName">
                 <option ng-repeat="event in eventConfigurations" value="{{event.cId}}" ng-hide="event.cId==='Blank'">{{event.name}}</option>
             </select>
-            <pre>{{current_cId}}</pre>
-            <option ng-repeat="event in eventConfigurations" value="{{event.cId}}" ng-hide="event.cId==='Blank'">{{event.name}}</option>
         </div>
     </div>
-    <div class="btn-group col-sm-4 pull-right" role="group">
+    <div class="btn-group col-sm-5 pull-right margin-zero padding-zero" role="group">
         <button type="button" class="btn btn-primary" ng-click="reload_event_configurations()">Reload</button>
         <button type="button" class="btn btn-success" ng-click="save_to_parse()"            >Save new</button>
         <button type="button" class="btn btn-warning" ng-click="update_on_parse()">Update</button>
