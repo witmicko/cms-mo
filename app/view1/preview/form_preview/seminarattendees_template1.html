@@ -74,11 +74,8 @@
                     </div>
                     <div class="form-group no-print">
                         <div class="col-md-10">
-                            <input type="button" value="Clear Attendee" class="btn-xs btn-primary"
-                                   ng-click="resetCurrentEdit()" ng-dblclick="false">
-                            <input type="button" value="Add Attendee" class="btn-xs btn-primary"
-                                   ng-click="addAttendeeRow()" ng-dblclick="false"
-                                   ng-disabled="seminarDetails.$invalid ||  attendeeLimitReached()">
+                            <input type="button" value="Clear Attendee" class="btn-xs btn-primary">
+                            <input type="button" value="Add Attendee" class="btn-xs btn-primary">
                         </div>
                     </div>
 
@@ -89,20 +86,13 @@
             <table class="table attendeelist">
                 <thead>
                 <tr>
-                    <th class="dummy">
-                    </th>
-                    <th class="choice">Choice
-                    </th>
-                    <th class="firstname">First Name
-                    </th>
-                    <th class="lastname">Last Name
-                    </th>
-                    <th class="position" ng-show="eventSelected.attendees_meta.request_position==true">Position
-                    </th>
-                    <th class="lunch" ng-show="eventSelected.attendees_meta.request_lunch==true">Lunch
-                    </th>
-                    <th class="tasks no-print">Tasks
-                    </th>
+                    <th class="dummy"></th>
+                    <th class="choice">Choice</th>
+                    <th class="firstname">First Name</th>
+                    <th class="lastname">Last Name</th>
+                    <th class="position" ng-show="eventSelected.attendees_meta.request_position==true">Position</th>
+                    <th class="lunch" ng-show="eventSelected.attendees_meta.request_lunch==true">Lunch</th>
+                    <th class="tasks no-print">Tasks</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -116,7 +106,6 @@
                         <label class="attendeeindex">{{$index+1}})</label>
                     </td>
                     <td class="choice">
-
                         {{attendee.choice}}
                     </td>
                     <td class="firstname">
