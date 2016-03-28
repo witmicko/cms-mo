@@ -1,115 +1,121 @@
-
-
-<h4><span class="label label-default">Organisation</span></h4>
+<h4><span class="label label-success">Organisation</span></h4>
 <div class="input-group">
-    <span class="input-group-addon min-width-175" id="enabled">enabled</span>
+    <span class="input-group-addon min-width-175" id="enabled">Enabled</span>
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
             ng-model="eventSelected.organisation.meta.enabled"
-
     ></select>
 </div>
 
 <div ng-if="eventSelected.organisation.meta.enabled==true">
-    <h4><span class="label label-default">Meta</span></h4>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="template">template</span>
-        <select class="form-control" name="template"
-                ng-model="eventSelected.organisation.meta.template">
-            <option value="organisation_minimum">Minimum</option>
-            <option value="organisation_maximum">Maximum</option>
-        </select>
+    <h4>
+        <button class="btn btn-info" ng-click="Meta = !Meta">Organisation Meta</button>
+    </h4>
+    <div uib-collapse="Meta">
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="template">template</span>
+            <select class="form-control" name="template"
+                    ng-model="eventSelected.organisation.meta.template">
+                <option value="organisation_minimum">Minimum</option>
+                <option value="organisation_maximum">Maximum</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="ui_text_attendee">Atendee text</span>
+            <input type="text" class="form-control" name="ui_text_attendee"
+                   ng-model="eventSelected.organisation.meta.ui_text_attendee"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="ui_text_to_display">ui_text_to_display</span>
+            <input type="text" class="form-control" name="ui_text_to_display"
+                   ng-model="eventSelected.organisation.meta.ui_text_to_display">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="requireContactDetails">requireContactDetails</span>
+            <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                    ng-model="eventSelected.organisation.meta.requireContactDetails"></select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="allowChooser">allowChooser</span>
+            <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                    ng-model="eventSelected.organisation.meta.allowChooser"></select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="allowCountyFilter">allowCountyFilter</span>
+            <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                    ng-model="eventSelected.organisation.meta.allowCountyFilter"></select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="addressfilterfield">addressfilterfield</span>
+            <input type="text" class="form-control" name="ui_text_attendee"
+                   ng-model="eventSelected.organisation.meta.addressfilterfield"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="sectorNo_text">sectorNo_text</span>
+            <input type="text" class="form-control" name="sectorNo_text"
+                   ng-model="eventSelected.organisation.meta.sectorNo_text"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="visible_also">Also visible</span>
+            <select class="form-control"
+                    ng-model="eventSelected.organisation.meta.visible_also"
+                    multiple
+                    size="9">
+                <option value="visible_address1">address1</option>
+                <option value="address2">address2</option>
+                <option value="address3">address3</option>
+                <option value="postcode">postcode</option>
+                <option value="county_region">county region</option>
+                <option value="sectorNo">sectorNo</option>
+                <option value="contact_name">contact name</option>
+                <option value="telephone">telephone</option>
+                <option value="fax">fax</option>
+            </select>
+        </div>
     </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="ui_text_attendee">Atendee text</span>
-        <input type="text" class="form-control" name="ui_text_attendee"
-               ng-model="eventSelected.organisation.meta.ui_text_attendee"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="ui_text_to_display">ui_text_to_display</span>
-        <input type="text" class="form-control" name="ui_text_to_display"
-               ng-model="eventSelected.organisation.meta.ui_text_to_display">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="requireContactDetails">requireContactDetails</span>
-        <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
-                ng-model="eventSelected.organisation.meta.requireContactDetails"></select>
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="allowChooser">allowChooser</span>
-        <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
-                ng-model="eventSelected.organisation.meta.allowChooser"></select>
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="allowCountyFilter">allowCountyFilter</span>
-        <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
-                ng-model="eventSelected.organisation.meta.allowCountyFilter"></select>
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="addressfilterfield">addressfilterfield</span>
-        <input type="text" class="form-control" name="ui_text_attendee"
-               ng-model="eventSelected.organisation.meta.addressfilterfield"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="sectorNo_text">sectorNo_text</span>
-        <input type="text" class="form-control" name="sectorNo_text"
-               ng-model="eventSelected.organisation.meta.sectorNo_text"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="visible_also">Also visible</span>
-        <select class="form-control"
-                ng-model="eventSelected.organisation.meta.visible_also"
-                multiple
-                size="9">
-            <option value="visible_address1">address1</option>
-            <option value="address2"        >address2</option>
-            <option value="address3"        >address3</option>
-            <option value="postcode"        >postcode</option>
-            <option value="county_region"   >county region</option>
-            <option value="sectorNo"        >sectorNo</option>
-            <option value="contact_name"    >contact name</option>
-            <option value="telephone"       >telephone</option>
-            <option value="fax"             >fax</option>
-        </select>
-    </div>
-    <h4><span class="label label-default">Data</span></h4>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="orgId">orgId</span>
-        <input type="text" class="form-control" name="orgId"
-               ng-model="eventSelected.organisation.data.orgId"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="name">name</span>
-        <input type="text" class="form-control" name="name"
-               ng-model="eventSelected.organisation.data.name"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="email">email</span>
-        <input type="text" class="form-control" name="email"
-               ng-model="eventSelected.organisation.data.email"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="email2">email2</span>
-        <input type="text" class="form-control" name="email2"
-               ng-model="eventSelected.organisation.data.email2"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="address">address</span>
-        <input type="text" class="form-control" name="address"
-               ng-model="eventSelected.organisation.data.address"
-        />
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-175" id="County">County</span>
-        <input type="text" class="form-control" name="County"
-               ng-model="eventSelected.organisation.data.County"
-        />
+
+    <h4>
+        <button class="btn btn-info" ng-click="Data = !Data">Organisation Data</button>
+    </h4>
+    <div uib-collapse="Data">
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="orgId">orgId</span>
+            <input type="text" class="form-control" name="orgId"
+                   ng-model="eventSelected.organisation.data.orgId"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="name">name</span>
+            <input type="text" class="form-control" name="name"
+                   ng-model="eventSelected.organisation.data.name"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="email">email</span>
+            <input type="text" class="form-control" name="email"
+                   ng-model="eventSelected.organisation.data.email"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="email2">email2</span>
+            <input type="text" class="form-control" name="email2"
+                   ng-model="eventSelected.organisation.data.email2"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="address">address</span>
+            <input type="text" class="form-control" name="address"
+                   ng-model="eventSelected.organisation.data.address"
+            />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-175" id="County">County</span>
+            <input type="text" class="form-control" name="County"
+                   ng-model="eventSelected.organisation.data.County"
+            />
+        </div>
     </div>
 </div>
 

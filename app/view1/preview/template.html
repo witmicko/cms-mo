@@ -4,14 +4,27 @@
         <span class="rl_font_1_5 margin-zero padding-zero"> {{eventSelected.model_type}} Booking Form </span>
     </div>
     <div class="col-sm-5">
-        <label class="col-sm-5 center-vertically margin-zero padding-zero">Select Event - ({{eventConfigurations.length-1}})</label>
-        <div class="col-sm-7 margin-zero padding-zero">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="badge">{{eventConfigurations.length-1}}</span>
+                </button>
+            </span>
+
             <select class="form-control"
                     id="event_select"
                     ng-model="current_cId"
                     ng-change='changeOfEvent(current_cId)' name="eventName">
-                <option ng-repeat="event in eventConfigurations" value="{{event.cId}}" ng-hide="event.cId==='Blank'">{{event.name}}</option>
+                <option ng-repeat="event in eventConfigurations track by $id($index)"
+                        value="{{event.cId}}"
+                        ng-hide="event.cId==='Blank'">{{event.name}} - {{event.cId}}
+                </option>
             </select>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    {{eventConfigurations.indexOf(eventSelected)}}
+                </button>
+            </span>
         </div>
     </div>
     <div class="btn-group col-sm-5 pull-right margin-zero padding-zero" role="group">

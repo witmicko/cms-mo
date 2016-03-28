@@ -1,23 +1,23 @@
 
 
-<h4><span class="label label-default">attendees_meta</span></h4>
+<h4><span class="label label-info">Attendees Meta</span></h4>
 <div class="input-group">
-    <span class="input-group-addon min-width-150" id="maxNo">maxNo</span>
+    <span class="input-group-addon min-width-150" id="maxNo">Max Attendees</span>
     <input type="number" class="form-control " name="maxNo"
            ng-model="eventSelected.attendees_meta.maxNo"/>
 </div>
 <div class="input-group">
-    <span class="input-group-addon min-width-150" id="max_per_entry">max_per_entry</span>
+    <span class="input-group-addon min-width-150" id="max_per_entry">Max Pee Entry</span>
     <input type="number" class="form-control " name="max_per_entry"
            ng-model="eventSelected.attendees_meta.max_per_entry"/>
 </div>
 <div class="input-group">
-    <span class="input-group-addon min-width-150" id="request_lunch">request_lunch</span>
+    <span class="input-group-addon min-width-150" id="request_lunch">Request Lunch</span>
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
             ng-model="eventSelected.attendees_meta.request_lunch"></select>
 </div>
 <div class="input-group">
-    <span class="input-group-addon min-width-150" id="request_position">request_position</span>
+    <span class="input-group-addon min-width-150" id="request_position">Request Position</span>
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
             ng-model="eventSelected.attendees_meta.request_position"></select>
 </div>
@@ -31,18 +31,18 @@
     </select>
 </div>
 
-<h4><span class="label label-default">positions</span></h4>
+<h4><span class="label label-success">positions</span></h4>
 <div class="input-group" ng-repeat="position in eventSelected.attendees_meta.positions">
     <input type="text" class="form-control" value="{{position.name}}"
            ng-attr-id="{{ 'new_position_name-' + position.id }}">
       <span class="input-group-btn">
         <button class="btn btn-danger" type="button" ng-click="deleteAttendeePos(position)">Delete</button>
+          <button class="btn btn-success" type="button" ng-click="saveAttendeePos(position)">Update</button>
       </span>
-      <span class="input-group-btn">
-        <button class="btn btn-success" type="button" ng-click="saveAttendeePos(position)">Save</button>
-      </span>
-</div>
 
+</div>
+<hr>
+<h4><span class="label label-success">Add new Position</span></h4>
 <div class="input-group">
     <input type="text" class="form-control" id="newPosition">
       <span class="input-group-btn">

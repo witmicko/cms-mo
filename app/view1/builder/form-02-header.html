@@ -8,8 +8,10 @@
 <!--style_1-->
 
 <div ng-if="eventSelected.overview.meta.visible">
-    <uib-accordion close-others="false">
-        <uib-accordion-group heading="Style" ng-init="isOpen = true" is-open="isOpen">
+    <h4>
+        <button class="btn btn-info" ng-click="header_style = !header_style">Header Style</button>
+    </h4>
+    <div uib-collapse="header_style">
         <div class="input-group">
             <span class="input-group-addon min-width-125" id="header_css_brd_type">Border type</span>
             <select class="form-control" name="header_css_brd_type"
@@ -25,7 +27,8 @@
                     ng-init="header_css[1]=eventSelected.overview.meta.css.split(' ')[1]"
                     ng-model="header_css[1]"
                     ng-change="header_css_change(header_css)">
-                <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}</option>
+                <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}
+                </option>
             </select>
         </div>
 
@@ -35,7 +38,8 @@
                     ng-init="header_css[2]=eventSelected.overview.meta.css.split(' ')[2]"
                     ng-model="header_css[2]"
                     ng-change="header_css_change(header_css)">
-                <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
+                <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}
+                </option>
             </select>
         </div>
 
@@ -45,7 +49,8 @@
                     ng-init="header_css[3]=eventSelected.overview.meta.css.split(' ')[3]"
                     ng-model="header_css[3]"
                     ng-change="header_css_change(header_css)">
-                <option ng-repeat="option in options.background_color_options" value="{{option.id}}">{{option.name}}</option>
+                <option ng-repeat="option in options.background_color_options" value="{{option.id}}">{{option.name}}
+                </option>
             </select>
         </div>
 
@@ -67,64 +72,67 @@
                 <option ng-repeat="option in options.font_size_options" value="{{option.id}}">{{option.name}}</option>
             </select>
         </div>
-    </uib-accordion-group>
-    </uib-accordion>
+    </div>
+
     <!--DATA-->
     <h4><span class="label label-info">Header text</span></h4>
     <uib-accordion close-others="false">
         <uib-accordion-group
-            heading="Line no. {{$index+1}}: {{item.text}}"
-            ng-repeat="item in eventSelected.overview.data track by $id($index)"
-            >
-        <div class="input-group">
-            <span class="input-group-addon min-width-125 " id="enabled">Enabled</span>
-            <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
-                    ng-model="item.visible"></select>
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon min-width-125 " id="text">Text</span>
-            <textarea class="form-control" rows="3" name="text" ng-model="item.text"/>
-            <div class="well" ng-if="item.text.indexOf('</') > -1" ng-bind-html="item.text | rawHtml"></div>
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon min-width-125 ">Font Size</span>
-            <select class="form-control"
-                    ng-init="header_data_css[$index]['size']=item.css.split(' ')[0]"
-                    ng-model="header_data_css[$index]['size']"
-                    ng-change="header_data_css_change($index,header_data_css[$index])">
-                <option ng-repeat="option in options.rl_font_size_options" value="{{option.id}}">{{option.name}}</option>
-            </select>
+                heading="Line no. {{$index+1}}: {{item.text}}"
+                ng-repeat="item in eventSelected.overview.data track by $id($index)"
+        >
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 " id="enabled">Enabled</span>
+                <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                        ng-model="item.visible"></select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 " id="text">Text</span>
+                <textarea class="form-control" rows="3" name="text" ng-model="item.text"/>
+                <div class="well" ng-if="item.text.indexOf('</') > -1 || item.text.indexOf('/>') > -1" ng-bind-html="item.text | rawHtml"></div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 ">Font Size</span>
+                <select class="form-control"
+                        ng-init="header_data_css[$index]['size']=item.css.split(' ')[0]"
+                        ng-model="header_data_css[$index]['size']"
+                        ng-change="header_data_css_change($index,header_data_css[$index])">
+                    <option ng-repeat="option in options.rl_font_size_options" value="{{option.id}}">{{option.name}}
+                    </option>
+                </select>
 
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon min-width-125 ">Text Colour</span>
-            <select class="form-control"
-                    ng-init="header_data_css[$index]['colour']=item.css.split(' ')[1]"
-                    ng-model="header_data_css[$index]['colour']"
-                    ng-change="header_data_css_change($index,header_data_css[$index])">
-                <option ng-repeat="option in options.text_color_options" value="{{option.id}}">{{option.name}}</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon min-width-125 ">Text align</span>
-            <select class="form-control"
-                    ng-init="header_data_css[$index]['align']=item.css.split(' ')[2]"
-                    ng-model="header_data_css[$index]['align']"
-                    ng-change="header_data_css_change($index,header_data_css[$index])">
-                <option ng-repeat="option in options.text_align_options" value="{{option.id}}">{{option.name}}</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon min-width-125" id="style">Custom Style</span>
-            <input type="text" class="form-control " name="period" ng-model="item.style"/>
-        </div>
-        <div class="input-group">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 ">Text Colour</span>
+                <select class="form-control"
+                        ng-init="header_data_css[$index]['colour']=item.css.split(' ')[1]"
+                        ng-model="header_data_css[$index]['colour']"
+                        ng-change="header_data_css_change($index,header_data_css[$index])">
+                    <option ng-repeat="option in options.text_color_options" value="{{option.id}}">{{option.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125 ">Text align</span>
+                <select class="form-control"
+                        ng-init="header_data_css[$index]['align']=item.css.split(' ')[2]"
+                        ng-model="header_data_css[$index]['align']"
+                        ng-change="header_data_css_change($index,header_data_css[$index])">
+                    <option ng-repeat="option in options.text_align_options" value="{{option.id}}">{{option.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon min-width-125" id="style">Custom Style</span>
+                <input type="text" class="form-control " name="period" ng-model="item.style"/>
+            </div>
+            <div class="input-group">
             <span class="input-group-btn">
                 <button class="btn btn-danger" type="button" ng-click="deleteHeaderData($index)">Delete</button>
             </span>
-        </div>
-        <br>
-    </uib-accordion-group>
+            </div>
+            <br>
+        </uib-accordion-group>
     </uib-accordion>
     <!--NEW DATA-->
     <h4><span class="label label-success">New Line</span></h4>

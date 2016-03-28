@@ -21,9 +21,9 @@ angular.module('preview', ['ui.bootstrap'])
             function ($rootScope, $scope, $sce, moment, $state, $location, $anchorScroll, select_options, $http, $window) {
 
                 $scope.eventConfigurations = [];
-                $scope.eventConfigurations.push(testSeminar().results[0]);
                 $scope.eventConfigurations.push(blank_event());
-                $scope.eventSelected = $scope.eventConfigurations[0];
+                $scope.eventConfigurations.push(testSeminar().results[0]);
+                $scope.eventSelected = $scope.eventConfigurations[1];
                 $scope.current_cId = $scope.eventSelected.cId;
 
                 $scope.update_event_configurations = function(){
@@ -41,10 +41,10 @@ angular.module('preview', ['ui.bootstrap'])
                         var dd = $scope.eventConfigurations;
 
                         $scope.eventSelected = find_by_cId($scope.current_cId)[0];
-                        console.log(response);
+
 
                     }, function errorCallback(response) {
-                        console.log(response);
+
                     });
                 };
                 $scope.update_on_parse = function(){
@@ -131,9 +131,9 @@ angular.module('preview', ['ui.bootstrap'])
                 };
                 $scope.reload_event_configurations = function () {
                     $scope.eventConfigurations = [];
-                    $scope.eventConfigurations.push(testSeminar().results[0]);
                     $scope.eventConfigurations.push(blank_event());
-                    $scope.eventSelected = $scope.eventConfigurations[0];
+                    $scope.eventConfigurations.push(testSeminar().results[0]);
+                    $scope.eventSelected = $scope.eventConfigurations[1];
 
                     this.current_cId="temp";
                     console.log();
@@ -170,7 +170,7 @@ angular.module('preview', ['ui.bootstrap'])
                 }; // changeOfEvent
 
                 $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
-                    return $scope.eventSelected.offerings.meta.visible == true
+                    return $scope.eventSelected.offerings.meta.visible == true;
                 };
                 $scope.columnRange = function (colNo) {
                     if ($scope.eventSelected == null) return [];
@@ -183,10 +183,10 @@ angular.module('preview', ['ui.bootstrap'])
                     if (perColumn * totalColumns < offeringsCount) {
                         column0++;
                     }
-                    if (colNo == 0 && perColumn * totalColumns < offeringsCount) {
+                    if (colNo === 0 && perColumn * totalColumns < offeringsCount) {
                         perColumn++; // first column gets the extra value
                     }
-                    if (colNo == 0) {
+                    if (colNo === 0) {
                         //  console.log($scope.eventSelected.offerings.slice(0,perColumn));
                         return $scope.eventSelected.offerings.data.slice(0, perColumn);
                     }
@@ -199,7 +199,7 @@ angular.module('preview', ['ui.bootstrap'])
 
                 var find_by_cId = function (cId) {
                     return $scope.eventConfigurations.filter(function (obj) {
-                        return obj.cId == cId;
+                        return obj.cId === cId;
                     });
                 };
 
@@ -299,6 +299,7 @@ angular.module('preview', ['ui.bootstrap'])
                     item.lines.push(line);
                     $scope.eventSelected.offerings.data.push(item);
                     $scope.new_offerings_item = {};
+                    $scope.new_offerings_item.visible = true;
                 };
                 $scope.submission_container_css = [];
                 $scope.submission_container_change = function (data) {
