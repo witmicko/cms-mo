@@ -10,17 +10,17 @@
                     ng-model="current_cId"
                     ng-change='changeOfEvent(current_cId)'
                     name="eventName">
-                <option ng-repeat="event in eventConfigurations" value="{{event.cId}}">{{event.name}}</option>
+                <option ng-repeat="event in eventConfigurations" value="{{event.cId}}" ng-hide="event.cId==='Blank'">{{event.name}}</option>
             </select>
 
         </div>
     </div>
     <div class="btn-group col-sm-4 pull-right" role="group">
-        <button type="button" class="btn btn-primary">Reload</button>
-        <button type="button" class="btn btn-success">Save New</button>
-        <button type="button" class="btn btn-warning">Update</button>
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-info">Blank</button>
+        <button type="button" class="btn btn-primary" ng-click="">Reload</button>
+        <button type="button" class="btn btn-success" ng-click="changeOfEvent('Blank')">Save New</button>
+        <button type="button" class="btn btn-warning" ng-click="changeOfEvent('Blank')">Update</button>
+        <button type="button" class="btn btn-danger"  ng-click="changeOfEvent('Blank')">Delete</button>
+        <button type="button" class="btn btn-info"    ng-click="changeOfEvent('Blank')">Blank</button>
     </div>
 </div>
 <br>

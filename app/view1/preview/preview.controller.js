@@ -25,6 +25,7 @@ angular.module('preview', ['ui.bootstrap'])
             
             $scope.eventConfigurations = [];
             $scope.eventConfigurations.push(testSeminar().results[0]);
+            $scope.eventConfigurations.push(blank_event());
             $scope.eventSelected = $scope.eventConfigurations[0];
             $scope.current_cId = $scope.eventSelected.cId;
 
@@ -699,3 +700,125 @@ function getTestData(required) {
 
     }
 }    // getTestData
+
+
+function blank_event() {
+    return {
+        "id": 777,
+        "cId": "Blank",
+        "name": "Blank",
+        "nameLowercase": "blank",
+        "model_type": "",
+        "template_meta": {
+            "copiedFrom": "",
+            "type": "template1_seminar",
+            "panel_hover_css": "rl_hover_straw",
+            "submission_container_css": "rl_rcorners15 rl_brd_clr_green rl_brd_solid rl_box_shadow1",
+            "attendee_edit_hover_css": "rl_hover_lime",
+            "description": "Blank seminar"
+        },
+        "period": "",
+        "available": true,
+        "active": true,
+        "active_start": "01/01/2016",
+        "active_finish": "01/01/2017",
+        "notes": "_",
+        "contact": {
+            "meta": {
+                "enabled": true
+            },
+            "data": {
+                "surname": "",
+                "forename": "",
+                "position": "",
+                "email": "",
+                "email2": "",
+                "phone": ""
+            }
+        },
+        "organisation": {
+            "meta": {
+                "enabled": true,
+                "template": "organisation_maximum",
+                "ui_text_attendee": "",
+                "ui_text_to_display": "",
+                "requireContactDetails": true,
+                "allowChooser": true,
+                "allowCountyFilter": true,
+                "addressfilterfield": "",
+                "sectorNo_text": "",
+                "visible_also": [
+                    "visible_address1",
+                    "address2",
+                    "address3",
+                    "postcode",
+                    "county_region",
+                    "sectorNo",
+                    "contact_name",
+                    "telephone",
+                    "fax"
+                ]
+            },
+            "data": {
+                "orgId": "",
+                "name": "",
+                "email": "",
+                "email2": "",
+                "address": "",
+                "County": ""
+            }
+        },
+        "attendees_meta": {
+            "maxNo": 10,
+            "max_per_entry": -1,
+            "request_lunch": true,
+            "request_position": true,
+            "positions": []
+        },
+        "overview": {
+            "meta": {
+                "visible": true,
+                "css": "rl_brd_solid rl_brd_clr_black rl_rcorners20 rl_bkg_color_green",
+                "style": "font-size:1.0em"
+            },
+            "data": [
+                {
+                    "visible": true,
+                    "text": "Blank Template",
+                    "css": "rl_font_2_5 rl_text_color_black text-center",
+                    "style": ""
+                }
+            ]
+        },
+        "offerings": {
+            "meta": {
+                "visible": true,
+                "columns": 1,
+                "columnCss": "rl_brd_double rl_bkg_color_blue1 rl_rcorners25",
+                "columnStyle": "padding-bottom:10px;  ",
+                "itemCss": "rl_rcorners15 rl_brd_clr_black rl_brd_solid rl_box_shadow1 rl_margin_top_10",
+                "itemStyle": "border-width: 3px; rl_font_1_5 rl_padding_left_15"
+            },
+            "data": [
+                {
+                    "status": "", "date": "", "quota": -1,
+                    "order": 1,
+                    "visible": true,
+                    "tag": "",
+                    "lines": [
+                        {
+                        "text": "Day",
+                        "css": "rl_padding_left_15 rl_font_1_5",
+                        "style": ""
+                        },
+                        {
+                            "text": "time",
+                            "css": "rl_padding_left_15 rl_font_1_2",
+                            "style": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    };
+}
