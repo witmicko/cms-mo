@@ -67,6 +67,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: '/attendees',
             templateUrl: 'view1/builder/form-08-attendees.html'
         })
+        .state('form.submission', {
+            url: '/submission',
+            templateUrl: 'view1/builder/form-09-submission.html'
+        })
        
 }]);
 

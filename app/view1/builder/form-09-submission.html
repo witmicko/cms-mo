@@ -1,0 +1,39 @@
+
+<h4><span class="label label-default">Submission Box Style</span></h4>
+<div class="input-group">
+    <span class="input-group-addon min-width-125" id="submission_container_css_radius">corner radius</span>
+    <select class="form-control" name="panel_hover_css"
+            ng-init="submission_container_css[0]=eventSelected.template_meta.submission_container_css.split(' ')[0]"
+            ng-model="submission_container_css[0]"
+            ng-change="submission_container_change(submission_container_css)">
+        <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
+
+    </select>
+</div>
+<div class="input-group">
+    <span class="input-group-addon min-width-125" id="submission_container_css_brd_colour">Border colour</span>
+    <select class="form-control" name="panel_hover_css"
+            ng-init="submission_container_css[1]=eventSelected.template_meta.submission_container_css.split(' ')[1]"
+            ng-model="submission_container_css[1]"
+            ng-change="submission_container_change(submission_container_css)">
+        <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}</option>
+    </select>
+</div>
+<div class="input-group">
+    <span class="input-group-addon min-width-125" id="submission_container_css_brd_type">Border type</span>
+    <select class="form-control" name="submission_container_css_brd_type"
+            ng-init="submission_container_css[2]=eventSelected.template_meta.submission_container_css.split(' ')[2]"
+            ng-model="submission_container_css[2]"
+            ng-change="submission_container_change(submission_container_css)">
+        <option ng-repeat="option in options.border_type_options" value="{{option.id}}">{{option.name}}</option>
+    </select>
+</div>
+<div class="input-group">
+    <span class="input-group-addon min-width-125" id="submission_container_css_shadow">Border shadow</span>
+    <select class="form-control" name="panel_hover_css"
+            ng-init="submission_container_css[3]=eventSelected.template_meta.submission_container_css.split(' ')[3]"
+            ng-model="submission_container_css[3]"
+            ng-change="submission_container_change(submission_container_css)">
+        <option ng-repeat="option in options.border_shadow_options" value="{{option.id}}">{{option.name}}</option>
+    </select>
+</div>

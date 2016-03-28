@@ -356,6 +356,10 @@ angular.module('preview', ['ui.bootstrap'])
                 $location.hash('attendees');
                 $anchorScroll();
             };
+            $scope.goToSubmission = function() {
+                $location.hash('submission');
+                $anchorScroll();
+            };
 
 
         }]); // EventsCtrl

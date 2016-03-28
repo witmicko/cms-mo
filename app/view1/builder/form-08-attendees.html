@@ -21,6 +21,15 @@
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
             ng-model="eventSelected.attendees_meta.request_position"></select>
 </div>
+<div class="input-group">
+    <span class="input-group-addon min-width-150" id="attendee_edit_hover_css">Edit Hover Colour</span>
+    <select class="form-control" name="panel_hover_css" ng-model="eventSelected.template_meta.attendee_edit_hover_css">
+        <option value="rl_hover_light_blue">Light Blue</option>
+        <option value="rl_hover_lime">Lime</option>
+        <option value="rl_hover_straw">Straw</option>
+        <option value="rl_hover_grey">Grey</option>
+    </select>
+</div>
 
 <h4><span class="label label-default">positions</span></h4>
 <div class="input-group" ng-repeat="position in eventSelected.attendees_meta.positions">
