@@ -1,4 +1,4 @@
-<h4><span class="label label-default">Header</span></h4>
+<h4><span class="label label-info">Header</span></h4>
 <div class="input-group">
     <span class="input-group-addon" id="senabled">Enabled</span>
     <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
@@ -6,73 +6,76 @@
 </div>
 
 <!--style_1-->
+
 <div ng-if="eventSelected.overview.meta.visible">
-    <h4><span class="label label-default">Style</span></h4>
-    <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_brd_type">Border type</span>
-        <select class="form-control" name="header_css_brd_type"
-                ng-init="header_css[0]=eventSelected.overview.meta.css.split(' ')[0]"
-                ng-model="header_css[0]"
-                ng-change="header_css_change(header_css)">
-            <option ng-repeat="option in options.border_type_options" value="{{option.id}}">{{option.name}}</option>
-        </select>
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_brd_colour">Border colour</span>
-        <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[1]=eventSelected.overview.meta.css.split(' ')[1]"
-                ng-model="header_css[1]"
-                ng-change="header_css_change(header_css)">
-            <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}</option>
-        </select>
-    </div>
+    <uib-accordion close-others="false">
+        <uib-accordion-group heading="Style" ng-init="isOpen = true" is-open="isOpen">
+        <div class="input-group">
+            <span class="input-group-addon min-width-125" id="header_css_brd_type">Border type</span>
+            <select class="form-control" name="header_css_brd_type"
+                    ng-init="header_css[0]=eventSelected.overview.meta.css.split(' ')[0]"
+                    ng-model="header_css[0]"
+                    ng-change="header_css_change(header_css)">
+                <option ng-repeat="option in options.border_type_options" value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125" id="header_css_brd_colour">Border colour</span>
+            <select class="form-control" name="panel_hover_css"
+                    ng-init="header_css[1]=eventSelected.overview.meta.css.split(' ')[1]"
+                    ng-model="header_css[1]"
+                    ng-change="header_css_change(header_css)">
+                <option ng-repeat="option in options.border_color_options" value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
 
-    <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_radius">Corner Radius</span>
-        <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[2]=eventSelected.overview.meta.css.split(' ')[2]"
-                ng-model="header_css[2]"
-                ng-change="header_css_change(header_css)">
-            <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125" id="header_css_radius">Corner Radius</span>
+            <select class="form-control" name="panel_hover_css"
+                    ng-init="header_css[2]=eventSelected.overview.meta.css.split(' ')[2]"
+                    ng-model="header_css[2]"
+                    ng-change="header_css_change(header_css)">
+                <option ng-repeat="option in options.border_corner_options" value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
 
-        </select>
-    </div>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125" id="header_css_bkg_colour">Colour</span>
+            <select class="form-control" name="panel_hover_css"
+                    ng-init="header_css[3]=eventSelected.overview.meta.css.split(' ')[3]"
+                    ng-model="header_css[3]"
+                    ng-change="header_css_change(header_css)">
+                <option ng-repeat="option in options.background_color_options" value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
 
-    <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_bkg_colour">Colour</span>
-        <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[3]=eventSelected.overview.meta.css.split(' ')[3]"
-                ng-model="header_css[3]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option ng-repeat="option in options.background_color_options" value="{{option.id}}">{{option.name}}</option>
+        <div class="input-group">
+            <span class="input-group-addon min-width-125" id="header_css_shadow">Border shadow</span>
+            <select class="form-control" name="panel_hover_css"
+                    ng-init="header_css[4]=eventSelected.overview.meta.css.split(' ')[4]"
+                    ng-model="header_css[4]"
+                    ng-change="header_css_change(header_css)">
+                <option value="rl_box_shadow1">Yes</option>
+                <option value="">No</option>
+            </select>
+        </div>
 
-        </select>
-    </div>
-
-    <div class="input-group">
-        <span class="input-group-addon min-width-125" id="header_css_shadow">Border shadow</span>
-        <select class="form-control" name="panel_hover_css"
-                ng-init="header_css[4]=eventSelected.overview.meta.css.split(' ')[4]"
-                ng-model="header_css[4]"
-                ng-change="header_css_change(header_css)"
-        >
-            <option value="rl_box_shadow1">Yes</option>
-            <option value="">No</option>
-        </select>
-    </div>
-
-    <div class="input-group">
-        <span class="input-group-addon min-width-125">Font Size</span>
-        <select class="form-control"
-                ng-model="eventSelected.overview.meta.style">
-            <option ng-repeat="option in options.font_size_options" value="{{option.id}}">{{option.name}}</option>
-        </select>
-    </div>
-
+        <div class="input-group">
+            <span class="input-group-addon min-width-125">Font Size</span>
+            <select class="form-control"
+                    ng-model="eventSelected.overview.meta.style">
+                <option ng-repeat="option in options.font_size_options" value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+    </uib-accordion-group>
+    </uib-accordion>
     <!--DATA-->
-    <h4><span class="label label-default">Data</span></h4>
-    <div ng-repeat="item in eventSelected.overview.data track by $id($index)">
+    <h4><span class="label label-info">Header text</span></h4>
+    <uib-accordion close-others="false">
+        <uib-accordion-group
+            heading="Line no. {{$index+1}}: {{item.text}}"
+            ng-repeat="item in eventSelected.overview.data track by $id($index)"
+            >
         <div class="input-group">
             <span class="input-group-addon min-width-125 " id="enabled">Enabled</span>
             <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
@@ -81,6 +84,7 @@
         <div class="input-group">
             <span class="input-group-addon min-width-125 " id="text">Text</span>
             <textarea class="form-control" rows="3" name="text" ng-model="item.text"/>
+            <div class="well" ng-if="item.text.indexOf('</') > -1" ng-bind-html="item.text | rawHtml"></div>
         </div>
         <div class="input-group">
             <span class="input-group-addon min-width-125 ">Font Size</span>
@@ -120,17 +124,20 @@
             </span>
         </div>
         <br>
-    </div>
-
+    </uib-accordion-group>
+    </uib-accordion>
     <!--NEW DATA-->
+    <h4><span class="label label-success">New Line</span></h4>
     <div class="input-group">
         <span class="input-group-addon min-width-125 " id="enabled">Enabled</span>
         <select class="form-control" ng-options="o.value as o.label for o in boolOptions"
+                ng-init="new_data.visible = true"
                 ng-model="new_data.visible"></select>
     </div>
     <div class="input-group">
         <span class="input-group-addon min-width-125 " id="text">Text</span>
         <textarea class="form-control" rows="3" name="text" ng-model="new_data.text"/>
+        <div class="well" ng-if="item.text.indexOf('</') > -1" ng-bind-html="item.text | rawHtml"></div>
     </div>
     <div class="input-group">
         <span class="input-group-addon min-width-125 ">Font Size</span>

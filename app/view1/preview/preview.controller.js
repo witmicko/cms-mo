@@ -15,9 +15,10 @@ angular.module('preview', ['ui.bootstrap'])
             '$anchorScroll',
             'select_options',
             '$http',
+            '$window',
 
 
-            function ($rootScope, $scope, $sce, moment, $state, $location, $anchorScroll, select_options, $http) {
+            function ($rootScope, $scope, $sce, moment, $state, $location, $anchorScroll, select_options, $http, $window) {
 
                 $scope.eventConfigurations = [];
                 $scope.eventConfigurations.push(testSeminar().results[0]);
@@ -49,30 +50,34 @@ angular.module('preview', ['ui.bootstrap'])
                 $scope.update_on_parse = function(){
                     var data_load = {};
                     angular.copy($scope.eventSelected, data_load);
-                    $scope.eventSelected.cId = this.current_cId;
+                    if('objectId' in data_load) {
+                        $scope.eventSelected.cId = this.current_cId;
 
-                    if (find_by_cId(data_load.cId).length > 1) {
-                        var new_cId = Math.random().toString(36).substring(7);
-                        data_load.cId = new_cId;
-                        console.log("dup cId");
+                        if (find_by_cId(data_load.cId).length > 1) {
+                            var new_cId = Math.random().toString(36).substring(7);
+                            data_load.cId = new_cId;
+                            console.log("dup cId");
+                        }
+                        this.current_cId = data_load.cId;
+                        $scope.current_cId = data_load.cId;
+                        $http({
+                            method: 'PUT',
+                            url: ' https://api.parse.com/1/classes/event/' + data_load.objectId,
+                            headers: {
+                                'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                                'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
+                                'Content-Type': 'application/json'
+                            },
+                            data: data_load
+                        }).then(function successCallback(response) {
+                            console.log(response);
+                            $scope.update_event_configurations();
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    }else{
+                        $window.alert("Not on Cloud, please 'Save as New'");
                     }
-                    this.current_cId = data_load.cId;
-                    $scope.current_cId = data_load.cId;
-                    $http({
-                        method: 'PUT',
-                        url: ' https://api.parse.com/1/classes/event/'+data_load.objectId,
-                        headers: {
-                            'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
-                            'X-Parse-REST-API-Key'  : 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
-                            'Content-Type'          : 'application/json'
-                        },
-                        data : data_load
-                    }).then(function successCallback(response) {
-                        console.log(response);
-                        $scope.update_event_configurations();
-                    }, function errorCallback(response) {
-                        console.log(response);
-                    });
                 };
                 $scope.save_to_parse = function(){
                     var data_load = {};
@@ -239,6 +244,7 @@ angular.module('preview', ['ui.bootstrap'])
                     data.style = $scope.new_data.style || "";
                     $scope.eventSelected.overview.data.push(data);
                     $scope.new_data = {};
+                    $scope.new_data.visible = true;
                 };
                 //offerings
                 $scope.offerings_column_css = [];
