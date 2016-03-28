@@ -15,9 +15,33 @@ angular.module('preview', ['ui.bootstrap'])
         '$location',
         '$anchorScroll',
         'select_options',
+        '$http',
 
 
-        function ($rootScope, $scope, eventState, $sce, moment, $state, $location, $anchorScroll, select_options) {
+        function ($rootScope, $scope, eventState, $sce, moment, $state, $location,
+                  $anchorScroll, select_options, $http) {
+            /*
+             * Gets the objects from parse
+             */
+
+            // $http({
+            //     method: 'GET',
+            //     url: ' https://api.parse.com/1/classes/event/',
+            //     headers: {
+            //         'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+            //         'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
+            //     }
+            // }).then(function successCallback(response) {
+            //     console.log(response.data.results);
+            //     $scope.eventConfigurations.push(response.data.results);
+            //     // this callback will be called asynchronously
+            //     // when the response is available
+            // }, function errorCallback(response) {
+            //     console.log(response);
+            //     // called asynchronously if an error occurs
+            //     // or server returns response with an error status.
+            // });
+
             $scope.options = select_options;
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
             $scope.trustAsHtml = function (string) {
@@ -28,7 +52,8 @@ angular.module('preview', ['ui.bootstrap'])
             $scope.cId = "xxx"; // eventState.fn.getAppCustomerId();
             $rootScope.cId = $scope.cId;
 
-            $scope.eventConfigurations = [];  // this is the list of events for the combo at the top right
+              // this is the list of events for the combo at the top right
+            $scope.eventConfigurations = [];
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventConfigurations.push(testSeminar().results[0]);
             // $scope.eventSelected = $scope.eventConfigurations[0];
@@ -64,7 +89,7 @@ angular.module('preview', ['ui.bootstrap'])
                 // ui select event updates the model value eventState.formMeta.eventOffset
                 if (eventState.formMeta.eventOffset > -1) // the model
                 {  // change the state
-                    $scope.eventSelected = $scope.eventConfigurations[$scope.formMeta.eventOffset];
+                    $scope.eventSelected = $scope.eventConfigurations[0];
                     $scope.receiptID = null;
 
                     //  $scope.eventSelected = angular.copy($scope.eventConfigurations[$scope.formMeta.eventOffset]);

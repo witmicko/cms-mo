@@ -14,21 +14,20 @@
         </div>
     </div>
     <div class="row">
-
-        <form class="form-horizontal " role="form" name="attendeeForm" ng-disabled="isSavingForm">
+        <form class="form-horizontal " role="form" name="attendeeForm">
             <ng-form name="seminarDetails">
-                <div class="col-md-4 no-print form-horizontal">  <!-- left data entry panel -->
-
+                <div class="col-md-4 no-print form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Choice</label>                 <!-- option._meta_order -->
+                        <label class="col-md-3 control-label">Choice</label>
                         <div class="col-md-9">
                             <select class="form-control " ng-model='formMeta.currentEditTemp.choice' name="Choice"
-                                    required
-                                    ng-options='option.name as option.name for option in attendeeChoices  '>
+                                    required>
+                                <option ng-repeat="data in eventSelected.offerings.data" value="{{data.lines[0].text}}">
+                                    {{data.lines[0].text}}
+                                </option>
                                 <option value="">Choice for this attendee / delegate</option>
                             </select>
                         </div>
-
                     </div>
 
                     <div class="form-group">
@@ -37,8 +36,6 @@
                             <input type="text" class="form-control " required name="Firstname2"
                                    ng-model="formMeta.currentEditTemp.firstname" ng-minlength="1" ng-maxlength="32"
                                    placeholder="Attendee First Name">
-
-
                         </div>
                     </div>
                     <div class="form-group">
@@ -50,22 +47,21 @@
                         </div>
                     </div>
 
-                    <div class="form-group" ng-if="_meta.attendees_meta.request_position==true">
+                    <div class="form-group" ng-if="eventSelected.attendees_meta.request_position==true">
                         <label class="col-md-3 control-label">Position</label>
                         <div class="col-md-9">
-
                             <select class="form-control " ng-model='formMeta.currentEditTemp.position' name="Position2"
-                                    ng-options='option.name as option.name for option in attendeePositions' required>
+                                    ng-options='option.name as option.name for option in eventSelected.attendees_meta.positions'
+                                    required>
                                 <option value="">Select attendee position</option>
                             </select>
-
                         </div>
 
                     </div>
 
-                    <div class="form-group" ng-if="_meta.attendees_meta.request_lunch==true">
+                    <div class="form-group" ng-if="eventSelected.attendees_meta.request_lunch==true">
                         <label class="col-md-3 control-label">Lunch</label>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             Yes
                             <input type="checkbox"
                                    ng-model="formMeta.currentEditTemp.lunch"
@@ -79,7 +75,7 @@
                         </div>
                     </div>
                     <div class="form-group no-print">
-                        <div class="col-md-6">
+                        <div class="col-md-10">
                             <input type="button" value="Clear Attendee" class="btn-xs btn-primary"
                                    ng-click="resetCurrentEdit()" ng-dblclick="false">
                             <input type="button" value="Add Attendee" class="btn-xs btn-primary"
@@ -103,9 +99,9 @@
                     </th>
                     <th class="lastname">Last Name
                     </th>
-                    <th class="position" ng-show="_meta.attendees_meta.request_position==true">Position
+                    <th class="position" ng-show="eventSelected.attendees_meta.request_position==true">Position
                     </th>
-                    <th class="lunch" ng-show="_meta.attendees_meta.request_lunch==true">Lunch
+                    <th class="lunch" ng-show="eventSelected.attendees_meta.request_lunch==true">Lunch
                     </th>
                     <th class="tasks no-print">Tasks
                     </th>
@@ -132,10 +128,10 @@
                     <td class="lastname">
                         {{attendee.lastname}}
                     </td>
-                    <td class="position" ng-show="_meta.attendees_meta.request_position==true">
+                    <td class="position" ng-show="eventSelected.attendees_meta.request_position==true">
                         {{attendee.position}}
                     </td>
-                    <td class="lunch" ng-show="_meta.attendees_meta.request_lunch==true">
+                    <td class="lunch" ng-show="eventSelected.attendees_meta.request_lunch==true">
                         Yes
                         <input type="checkbox"
                                ng-model="attendee.lunch"
