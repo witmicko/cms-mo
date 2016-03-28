@@ -48,18 +48,21 @@ angular.module('preview', ['ui.bootstrap'])
             };
 
               // this is the list of events for the combo at the top right
+
+
             $scope.eventConfigurations = [];
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventSelected = $scope.eventConfigurations[0];
+            $scope.attendees = getTestData($scope.eventSelected.model_type).attendees;
+            $scope.currentEditTemp = {};
 
 
-            
             $scope.changeOfEvent = function () {
                 console.log("changeOfEvent");
                 // $scope.eventSelected = $scope.eventConfigurations[0];
             }; // changeOfEvent
-            
+
             $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
                 return $scope.eventSelected.offerings.meta.visible == true
             };
@@ -577,8 +580,8 @@ function testSeminar() { // supply a list for test events for proof of concept, 
 
 
 function getTestData(required) {
-    if (required == "seminar") {
-        var td1 = {
+    if (required.toUpperCase() === "seminar".toUpperCase()) {
+        return{
             "eventId": "OciNCnAtoC",
             "eventName": "Module 2 2 cols",
             "model_type": "Seminar",
@@ -602,7 +605,6 @@ function getTestData(required) {
                     "choice": "bbbbbbbbbb - 07/10/2015",
                     "lunch": true
                 }
-
             ],
             "organisation": {
                 "id": "WIT",
@@ -627,12 +629,9 @@ function getTestData(required) {
             },
             "receiptID": ""
         };
-
-        return td1;
     }
-    else {
-        var w1 =
-        {
+    else if(required.toUpperCase() === "Workshop".toUpperCase()){
+        return {
             "eventId": "Nj2HRL2B6F",
             "eventName": "Workshop 1",
             "model_type": "Workshop",
@@ -694,7 +693,7 @@ function getTestData(required) {
                 "email2": "joe@joe.ie"
             },
             "receiptID": ""
-        }
-        return w1;
+        };
+
     }
 }    // getTestData

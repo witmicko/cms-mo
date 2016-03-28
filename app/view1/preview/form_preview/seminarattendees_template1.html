@@ -20,8 +20,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Choice</label>
                         <div class="col-md-9">
-                            <select class="form-control " ng-model='formMeta.currentEditTemp.choice' name="Choice"
-                                    required>
+                            <select class="form-control " ng-model='currentEditTemp.choice' name="Choice" required>
                                 <option ng-repeat="data in eventSelected.offerings.data" value="{{data.lines[0].text}}">
                                     {{data.lines[0].text}}
                                 </option>
@@ -34,7 +33,7 @@
                         <label class="col-md-3 control-label">First Name</label>
                         <div class="col-md-9">
                             <input type="text" class="form-control " required name="Firstname2"
-                                   ng-model="formMeta.currentEditTemp.firstname" ng-minlength="1" ng-maxlength="32"
+                                   ng-model="currentEditTemp.firstname" ng-minlength="1" ng-maxlength="32"
                                    placeholder="Attendee First Name">
                         </div>
                     </div>
@@ -42,7 +41,7 @@
                         <label class="col-md-3 control-label">Lastname</label>
                         <div class="col-md-9">
                             <input type="text" class="form-control " required name="Lastname2"
-                                   ng-model="formMeta.currentEditTemp.lastname" ng-minlength="2" ng-maxlength="48"
+                                   ng-model="currentEditTemp.lastname" ng-minlength="2" ng-maxlength="48"
                                    placeholder="Attendee Last Name">
                         </div>
                     </div>
@@ -50,13 +49,12 @@
                     <div class="form-group" ng-if="eventSelected.attendees_meta.request_position==true">
                         <label class="col-md-3 control-label">Position</label>
                         <div class="col-md-9">
-                            <select class="form-control " ng-model='formMeta.currentEditTemp.position' name="Position2"
+                            <select class="form-control " ng-model='currentEditTemp.position' name="Position2"
                                     ng-options='option.name as option.name for option in eventSelected.attendees_meta.positions'
                                     required>
                                 <option value="">Select attendee position</option>
                             </select>
                         </div>
-
                     </div>
 
                     <div class="form-group" ng-if="eventSelected.attendees_meta.request_lunch==true">
@@ -105,7 +103,6 @@
                     </th>
                     <th class="tasks no-print">Tasks
                     </th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -113,7 +110,7 @@
                 <tr ng-show="attendees.length==0">
                     <td colspan="3" style="font-size:1.5em;color:red">{{zeroAttendees}}</td>
                 </tr>
-                <tr ng-repeat="attendee in formData.attendees  track by $id($index)"
+                <tr ng-repeat="attendee in attendees  track by $id($index)"
                     ng-class="{selectedEdit: $index === formMeta.currentEditTempIndex}">
                     <td>
                         <label class="attendeeindex">{{$index+1}})</label>
@@ -145,15 +142,10 @@
                     </td>
                     <td class="tasks no-print">
                         <div>
-                            <input type="button" value="Edit" class="btn-primary btn-xs"
-                                   ng-click="editAttendeeRow($index)"/>
-
-                            <input type="button" value="X" class="btn-warning  btn-xs"
-                                   ng-click="removeAttendeeRow($index)"/>
+                            <input type="button" value="Edit" class="btn-primary btn-xs"/>
+                            <input type="button" value="X" class="btn-warning  btn-xs"/>
                         </div>
-
                     </td>
-
                 </tr>
                 <tbody>
             </table>
