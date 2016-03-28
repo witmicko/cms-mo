@@ -1,6 +1,6 @@
 #builder {
     position: absolute;
-    top: 51px;
+    top: 0px;
     bottom: 0;
     left: 0;
     width: 40%;
@@ -8,7 +8,7 @@
 }
 #preview {
     position: absolute;
-    top: 51px;
+    top: 5px;
     bottom: 0;
     left: 40% /* 200 + 6*/;
     right: 0;
@@ -19,7 +19,7 @@
 #sidebar-resizer {
     background-color: #666;
     position: absolute;
-    top: 51px;
+    top: 0px;
     bottom: 0;
     left: 40%;
     width: 6px;

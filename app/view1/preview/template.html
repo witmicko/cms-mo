@@ -4,22 +4,23 @@
         <span class="rl_font_1_8"> {{eventSelected.model_type}} Booking Form </span>
     </div>
     <div class="col-sm-5">
-        <label class="col-sm-5 center-vertically">Select Event - ({{eventConfigurations.length}})</label>
+        <label class="col-sm-5 center-vertically">Select Event - ({{eventConfigurations.length-1}})</label>
         <div class="col-sm-7">
             <select class="form-control"
+                    id="event_select"
                     ng-model="current_cId"
-                    ng-change='changeOfEvent(current_cId)'
-                    name="eventName">
+                    ng-change='changeOfEvent(current_cId)' name="eventName">
                 <option ng-repeat="event in eventConfigurations" value="{{event.cId}}" ng-hide="event.cId==='Blank'">{{event.name}}</option>
             </select>
-
+            <pre>{{current_cId}}</pre>
+            <option ng-repeat="event in eventConfigurations" value="{{event.cId}}" ng-hide="event.cId==='Blank'">{{event.name}}</option>
         </div>
     </div>
     <div class="btn-group col-sm-4 pull-right" role="group">
-        <button type="button" class="btn btn-primary" ng-click="">Reload</button>
-        <button type="button" class="btn btn-success" ng-click="changeOfEvent('Blank')">Save New</button>
-        <button type="button" class="btn btn-warning" ng-click="changeOfEvent('Blank')">Update</button>
-        <button type="button" class="btn btn-danger"  ng-click="changeOfEvent('Blank')">Delete</button>
+        <button type="button" class="btn btn-primary" ng-click="reload_event_configurations()">Reload</button>
+        <button type="button" class="btn btn-success" ng-click="save_to_parse()"            >Save new</button>
+        <button type="button" class="btn btn-warning" ng-click="update_on_parse()">Update</button>
+        <button type="button" class="btn btn-danger"  ng-click="delete_on_parse()">Delete</button>
         <button type="button" class="btn btn-info"    ng-click="changeOfEvent('Blank')">Blank</button>
     </div>
 </div>

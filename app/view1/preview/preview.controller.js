@@ -4,277 +4,380 @@
 'use strict';
 
 angular.module('preview', ['ui.bootstrap'])
-.controller('EventsCtrl',
-    [
-        '$rootScope',
-        '$scope',
-        '$sce',
-        'moment',
-        '$state',
-        '$location',
-        '$anchorScroll',
-        'select_options',
-        '$http',
+    .controller('EventsCtrl',
+        [
+            '$rootScope',
+            '$scope',
+            '$sce',
+            'moment',
+            '$state',
+            '$location',
+            '$anchorScroll',
+            'select_options',
+            '$http',
 
 
-        function ($rootScope, $scope, $sce, moment, $state, $location,
-                  $anchorScroll, select_options, $http) {
-            /*
-             * Gets the objects from parse
-             */
-            
-            $scope.eventConfigurations = [];
-            $scope.eventConfigurations.push(testSeminar().results[0]);
-            $scope.eventConfigurations.push(blank_event());
-            $scope.eventSelected = $scope.eventConfigurations[0];
-            $scope.current_cId = $scope.eventSelected.cId;
+            function ($rootScope, $scope, $sce, moment, $state, $location, $anchorScroll, select_options, $http) {
 
-            $scope.load_from_parse = function(){
-                $http({
-                    method: 'GET',
-                    url: ' https://api.parse.com/1/classes/event/',
-                    headers: {
-                        'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
-                        'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
-                    }
-                }).then(function successCallback(response) {
-                    console.log(response);
-                    var arr = response.data.results;
-                    var dd = $scope.eventConfigurations;
-                    $scope.eventConfigurations =  arr.concat(dd);
-                    console.log();
-                }, function errorCallback(response) {
-                    console.log(response);
-                });
-            };
-            
-            $scope.load_from_parse();
+                $scope.eventConfigurations = [];
+                $scope.eventConfigurations.push(testSeminar().results[0]);
+                $scope.eventConfigurations.push(blank_event());
+                $scope.eventSelected = $scope.eventConfigurations[0];
+                $scope.current_cId = $scope.eventSelected.cId;
 
-            $scope.options = select_options;
-            $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
-            $scope.trustAsHtml = function (string) {
-                return $sce.trustAsHtml(string);
-            };
+                $scope.update_event_configurations = function(){
+                    $http({
+                        method: 'GET',
+                        url: ' https://api.parse.com/1/classes/event/',
+                        headers: {
+                            'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                            'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA'
+                        }
+                    }).then(function successCallback(response) {
+                        var results = response.data.results;
+                        $scope.eventConfigurations.splice(2, $scope.eventConfigurations.length - 2);
+                        $scope.eventConfigurations = $scope.eventConfigurations.concat(results);
+                        var dd = $scope.eventConfigurations;
 
-            $scope.attendees = getTestData($scope.eventSelected.model_type).attendees;
-            $scope.currentEditTemp = {};
+                        $scope.eventSelected = find_by_cId($scope.current_cId)[0];
+                        console.log(response);
 
-            $scope.changeOfEvent = function (cId) {
-                console.log("changeOfEvent " + cId);
-                var event = $scope.eventConfigurations.filter(function( obj ) {
-                    return obj.cId == cId;
-                })[0];
-                $scope.eventSelected = event;
-            }; // changeOfEvent
-
-            $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
-                return $scope.eventSelected.offerings.meta.visible == true
-            };
-            $scope.columnRange = function (colNo) {
-                if ($scope.eventSelected == null) return [];
-                $scope.columnRanges = []
-                var totalColumns = $scope.eventSelected.offerings.meta.columns; // supplied by the user
-                var offeringsCount = $scope.eventSelected.offerings.data.length;
-                var perColumn = parseInt(offeringsCount / totalColumns, 10);
-                // loses odd vale   return _.chunk($scope.eventSelected.offerings,perColumn)[colNo]
-                var column0 = 0;
-                if (perColumn * totalColumns < offeringsCount) {
-                    column0++;
-                }
-                if (colNo == 0 && perColumn * totalColumns < offeringsCount) {
-                    perColumn++; // first column gets the extra value
-                }
-                if (colNo == 0) {
-                    //  console.log($scope.eventSelected.offerings.slice(0,perColumn));
-                    return $scope.eventSelected.offerings.data.slice(0, perColumn);
-                }
-                else {
-                    var start = column0 + colNo * perColumn;
-                    //  console.log($scope.eventSelected.offerings.slice(start  ,start + perColumn));
-                    return $scope.eventSelected.offerings.data.slice(start, start + perColumn);
-                }
-            }; // columnRange
-
-            var cache = [];
-            $scope.wholescope = JSON.stringify($scope, function (key, value) {
-                if (typeof value === 'object' && value !== null) {
-                    if (cache.indexOf(value) !== -1) {
-                        // Circular reference found, discard key
-                        return;
-                    }
-                    // Store value in our collection
-                    cache.push(value);
-                }
-                return value;
-            });
-            cache = null; // Enable garbage collection
-
-            //Michal.
-            //header
-            $scope.header_css=[];
-            $scope.header_css_change = function (data) {
-                $scope.eventSelected.overview.meta.css = data.join(" ");
-            };
-            $scope.header_data_css=[];
-            $scope.header_data_css_change = function (index, data) {
-                // var data = $scope.eventSelected.overview.data[index];
-                var data_css = data.size + " " + data.colour + " "+data.align;
-                $scope.eventSelected.overview.data[index].css = data_css;
-            };
-            $scope.deleteHeaderData = function (index) {
-                $scope.eventSelected.overview.data.splice(index, 1);
-            };
-            $scope.new_data = {};
-            $scope.addHeaderData = function () {
-                var data = {};
-                data.visible =$scope.new_data.visible || false;
-                data.text =$scope.new_data.text;
-                var css1 = $scope.new_data.css1 || "rl_font_1_0";
-                var css2 = $scope.new_data.css2 || "rl_text_color_black";
-                var css3 = $scope.new_data.css3 || "text-center";
-                data.css = css1 + " " + css2 + " " + css3 + " ";
-                data.style = $scope.new_data.style || "";
-                $scope.eventSelected.overview.data.push(data);
-                $scope.new_data = {};
-            };
-            //offerings
-            $scope.offerings_column_css=[];
-            $scope.offerings_column_css_change = function (data) {
-                $scope.eventSelected.offerings.meta.columnCss = data.join(" ");
-            };
-            $scope.offerings_item_css=[];
-            $scope.offerings_item_css_change = function (data) {
-                $scope.eventSelected.offerings.meta.itemCss = data.join(" ");
-            };
-            $scope.offering_data_index=0;
-            $scope.offerings_line_css=[];
-            $scope.offerings_line_css_change = function (data_idx, line_idx) {
-                var line = $scope.offerings_line_css[data_idx]["_"+line_idx];
-                var line_css = line.pad + " " + line.font;
-                $scope.eventSelected.offerings.data[data_idx].lines[line_idx].css = line_css;
-            };
-            $scope.deleteOfferingLine = function (data_idx, line_idx) {
-                $scope.eventSelected.offerings.data[data_idx].lines.splice(line_idx,1);
-            };
-            $scope.deleteOfferingData = function (data_idx) {
-                $scope.eventSelected.offerings.data.splice(data_idx,1);
-            };
-            $scope.new_offerings_line = {};
-            $scope.addOfferingsLine = function (data_idx) {
-                var line = {};
-                line.text =$scope.new_offerings_line.text;
-                var pad  = $scope.new_offerings_line.pad  || "rl_padding_left_15";
-                var font = $scope.new_offerings_line.font || "rl_font_1_5";
-                line.css = pad + " " + font;
-                line.style = $scope.new_offerings_line.style || "";
-                $scope.eventSelected.offerings.data[data_idx].lines.push(line);
-                $scope.new_offerings_line = {};
-            };
-            $scope.new_offerings_item = {};
-            $scope.addOfferingsItem = function () {
-                var item = {};
-                item.status= "";
-                item.date= "";
-                item.quota= -1;
-                item.order= $scope.eventSelected.offerings.data.length+1;
-                item.visible= $scope.new_offerings_item.visible || false;
-                item.tag = $scope.new_offerings_item.tag || "";
-                var line = {}
-                line.text =$scope.new_offerings_item.text;
-                var pad  = $scope.new_offerings_item.pad || "rl_padding_left_15";
-                var font = $scope.new_offerings_item.font|| "rl_font_1_5";
-                line.css = pad + " " + font;
-                line.style = $scope.new_offerings_item.style || "";
-
-                item.lines = [];
-                item.lines.push(line);
-                $scope.eventSelected.offerings.data.push(item);
-                $scope.new_offerings_item = {};
-            };
-            $scope.submission_container_css=[];
-            $scope.submission_container_change = function (data) {
-                $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
-
-            };
-            $scope.boolOptions = [
-                {value: false, label: 'No'},
-                {value: true, label: 'Yes'}
-            ];
-            $scope.processForm = function (data) {
-                console.log(data)
-            };
-
-            //date
-            $scope.active_start = {
-                date: moment($scope.eventSelected.active_start,'DD/MM/YYYY').toDate(),
-                opened: false
-            };
-            $scope.open_active_start = function() {
-                $scope.active_start.opened = true;
-            };
-            $scope.active_finish = {
-                date: moment($scope.eventSelected.active_finish,'DD/MM/YYYY').toDate(),
-                opened: false
-            };
-            $scope.open_active_finish = function() {
-                $scope.active_finish.opened = true;
-            };
-            $scope.format = 'dd/MM/yyyy';
-
-            $scope.deleteAttendeePos = function (obj) {
-                var index = $scope.eventSelected.attendees_meta.positions.indexOf(obj);
-                $scope.eventSelected.attendees_meta.positions.splice(index,1);
-                console.log(id);
-            };
-            $scope.saveAttendeePos = function (obj) {
-                var new_name = angular.element('#new_position_name-'+obj.id)[0].value;
-                var index = $scope.eventSelected.attendees_meta.positions.indexOf(obj);
-                $scope.eventSelected.attendees_meta.positions[index].name = new_name;
-            };
-
-
-            $scope.addAttendeePos = function () {
-                var name = angular.element('#newPosition')[0].value;
-                var id = $scope.eventSelected.attendees_meta.positions.length+1;
-                var pos = {
-                    id:id,
-                    name:name
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
                 };
-                angular.element('#newPosition')[0].value='';
-                $scope.eventSelected.attendees_meta.positions.push(pos)
-            };
+                $scope.update_on_parse = function(){
+                    var data_load = {};
+                    angular.copy($scope.eventSelected, data_load);
+                    $scope.eventSelected.cId = this.current_cId;
 
-            $scope.goToMeta = function() {
-                $location.hash('meta');
-                $anchorScroll();
-            };
-            $scope.goToHeader = function() {
-                $location.hash('header');
-                $anchorScroll();
-            };
-            $scope.goToOfferings = function() {
-                $location.hash('offerings');
-                $anchorScroll();
-            };
-            $scope.goToOrganisation = function() {
-                $location.hash('organisation');
-                $anchorScroll();
-            };
-            $scope.goToContact = function() {
-                $location.hash('contact');
-                $anchorScroll();
-            };
-            $scope.goToAttendees = function() {
-                $location.hash('attendees');
-                $anchorScroll();
-            };
-            $scope.goToSubmission = function() {
-                $location.hash('submission');
-                $anchorScroll();
-            };
+                    if (find_by_cId(data_load.cId).length > 1) {
+                        var new_cId = Math.random().toString(36).substring(7);
+                        data_load.cId = new_cId;
+                        console.log("dup cId");
+                    }
+                    this.current_cId = data_load.cId;
+                    $scope.current_cId = data_load.cId;
+                    $http({
+                        method: 'PUT',
+                        url: ' https://api.parse.com/1/classes/event/'+data_load.objectId,
+                        headers: {
+                            'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                            'X-Parse-REST-API-Key'  : 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
+                            'Content-Type'          : 'application/json'
+                        },
+                        data : data_load
+                    }).then(function successCallback(response) {
+                        console.log(response);
+                        $scope.update_event_configurations();
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+                };
+                $scope.save_to_parse = function(){
+                    var data_load = {};
+                    angular.copy($scope.eventSelected, data_load);
+                    $scope.eventSelected.cId = this.current_cId;
+
+                    if (find_by_cId(data_load.cId).length >= 1) {
+                        var new_cId = Math.random().toString(36).substring(7);
+                        data_load.cId = new_cId;
+                        console.log("dup cId");
+                    }
+                    this.current_cId = data_load.cId;
+                    $scope.current_cId = data_load.cId;
+                    delete data_load.createdAt;
+                    delete data_load.updatedAt;
+                    delete data_load.objectId;
+                    $http({
+                        method: 'POST',
+                        url: ' https://api.parse.com/1/classes/event/',
+                        headers: {
+                            'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                            'X-Parse-REST-API-Key'  : 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
+                            'Content-Type'          : 'application/json'
+                        },
+                        data : data_load
+                    }).then(function successCallback(response) {
+                        $scope.update_event_configurations();
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+                };
+                $scope.delete_on_parse = function(){
+                    var data_load = $scope.eventSelected;
+                    if('objectId' in data_load) {
+                        this.current_cId="temp";
+                        $http({
+                            method: 'DELETE',
+                            url: ' https://api.parse.com/1/classes/event/'+data_load.objectId,
+                            headers: {
+                                'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                                'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA'
+                            }
+                        }).then(function successCallback(response) {
+                            console.log(response);
+
+                            $scope.reload_event_configurations();
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    }
+                };
+                $scope.reload_event_configurations = function () {
+                    $scope.eventConfigurations = [];
+                    $scope.eventConfigurations.push(testSeminar().results[0]);
+                    $scope.eventConfigurations.push(blank_event());
+                    $scope.eventSelected = $scope.eventConfigurations[0];
+
+                    this.current_cId="temp";
+                    console.log();
+                    $http({
+                        method: 'GET',
+                        url: ' https://api.parse.com/1/classes/event/',
+                        headers: {
+                            'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                            'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
+                        }
+                    }).then(function successCallback(response) {
+                        var results = response.data.results;
+                        $scope.eventConfigurations = $scope.eventConfigurations.concat(results);
+                        console.log("reload " + $scope.current_cId);
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+                };
 
 
-        }]); // EventsCtrl
+                $scope.options = select_options;
+                $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
+                $scope.trustAsHtml = function (string) {
+                    return $sce.trustAsHtml(string);
+                };
+
+                $scope.attendees = getTestData($scope.eventSelected.model_type).attendees;
+                $scope.currentEditTemp = {};
+
+                $scope.changeOfEvent = function (cId) {
+                    console.log("changeOfEvent " + cId);
+                    var event = find_by_cId(cId)[0];
+                    $scope.eventSelected = event;
+                }; // changeOfEvent
+
+                $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
+                    return $scope.eventSelected.offerings.meta.visible == true
+                };
+                $scope.columnRange = function (colNo) {
+                    if ($scope.eventSelected == null) return [];
+                    $scope.columnRanges = []
+                    var totalColumns = $scope.eventSelected.offerings.meta.columns; // supplied by the user
+                    var offeringsCount = $scope.eventSelected.offerings.data.length;
+                    var perColumn = parseInt(offeringsCount / totalColumns, 10);
+                    // loses odd vale   return _.chunk($scope.eventSelected.offerings,perColumn)[colNo]
+                    var column0 = 0;
+                    if (perColumn * totalColumns < offeringsCount) {
+                        column0++;
+                    }
+                    if (colNo == 0 && perColumn * totalColumns < offeringsCount) {
+                        perColumn++; // first column gets the extra value
+                    }
+                    if (colNo == 0) {
+                        //  console.log($scope.eventSelected.offerings.slice(0,perColumn));
+                        return $scope.eventSelected.offerings.data.slice(0, perColumn);
+                    }
+                    else {
+                        var start = column0 + colNo * perColumn;
+                        //  console.log($scope.eventSelected.offerings.slice(start  ,start + perColumn));
+                        return $scope.eventSelected.offerings.data.slice(start, start + perColumn);
+                    }
+                }; // columnRange
+
+                var find_by_cId = function (cId) {
+                    return $scope.eventConfigurations.filter(function (obj) {
+                        return obj.cId == cId;
+                    });
+                };
+
+                var cache = [];
+                $scope.wholescope = JSON.stringify($scope, function (key, value) {
+                    if (typeof value === 'object' && value !== null) {
+                        if (cache.indexOf(value) !== -1) {
+                            // Circular reference found, discard key
+                            return;
+                        }
+                        // Store value in our collection
+                        cache.push(value);
+                    }
+                    return value;
+                });
+                cache = null; // Enable garbage collection
+
+                //Michal.
+                //header
+                $scope.header_css = [];
+                $scope.header_css_change = function (data) {
+                    $scope.eventSelected.overview.meta.css = data.join(" ");
+                };
+                $scope.header_data_css = [];
+                $scope.header_data_css_change = function (index, data) {
+                    // var data = $scope.eventSelected.overview.data[index];
+                    var data_css = data.size + " " + data.colour + " " + data.align;
+                    $scope.eventSelected.overview.data[index].css = data_css;
+                };
+                $scope.deleteHeaderData = function (index) {
+                    $scope.eventSelected.overview.data.splice(index, 1);
+                };
+                $scope.new_data = {};
+                $scope.addHeaderData = function () {
+                    var data = {};
+                    data.visible = $scope.new_data.visible || false;
+                    data.text = $scope.new_data.text;
+                    var css1 = $scope.new_data.css1 || "rl_font_1_0";
+                    var css2 = $scope.new_data.css2 || "rl_text_color_black";
+                    var css3 = $scope.new_data.css3 || "text-center";
+                    data.css = css1 + " " + css2 + " " + css3 + " ";
+                    data.style = $scope.new_data.style || "";
+                    $scope.eventSelected.overview.data.push(data);
+                    $scope.new_data = {};
+                };
+                //offerings
+                $scope.offerings_column_css = [];
+                $scope.offerings_column_css_change = function (data) {
+                    $scope.eventSelected.offerings.meta.columnCss = data.join(" ");
+                };
+                $scope.offerings_item_css = [];
+                $scope.offerings_item_css_change = function (data) {
+                    $scope.eventSelected.offerings.meta.itemCss = data.join(" ");
+                };
+                $scope.offering_data_index = 0;
+                $scope.offerings_line_css = [];
+                $scope.offerings_line_css_change = function (data_idx, line_idx) {
+                    var line = $scope.offerings_line_css[data_idx]["_" + line_idx];
+                    var line_css = line.pad + " " + line.font;
+                    $scope.eventSelected.offerings.data[data_idx].lines[line_idx].css = line_css;
+                };
+                $scope.deleteOfferingLine = function (data_idx, line_idx) {
+                    $scope.eventSelected.offerings.data[data_idx].lines.splice(line_idx, 1);
+                };
+                $scope.deleteOfferingData = function (data_idx) {
+                    $scope.eventSelected.offerings.data.splice(data_idx, 1);
+                };
+                $scope.new_offerings_line = {};
+                $scope.addOfferingsLine = function (data_idx) {
+                    var line = {};
+                    line.text = $scope.new_offerings_line.text;
+                    var pad = $scope.new_offerings_line.pad || "rl_padding_left_15";
+                    var font = $scope.new_offerings_line.font || "rl_font_1_5";
+                    line.css = pad + " " + font;
+                    line.style = $scope.new_offerings_line.style || "";
+                    $scope.eventSelected.offerings.data[data_idx].lines.push(line);
+                    $scope.new_offerings_line = {};
+                };
+                $scope.new_offerings_item = {};
+                $scope.addOfferingsItem = function () {
+                    var item = {};
+                    item.status = "";
+                    item.date = "";
+                    item.quota = -1;
+                    item.order = $scope.eventSelected.offerings.data.length + 1;
+                    item.visible = $scope.new_offerings_item.visible || false;
+                    item.tag = $scope.new_offerings_item.tag || "";
+                    var line = {}
+                    line.text = $scope.new_offerings_item.text;
+                    var pad = $scope.new_offerings_item.pad || "rl_padding_left_15";
+                    var font = $scope.new_offerings_item.font || "rl_font_1_5";
+                    line.css = pad + " " + font;
+                    line.style = $scope.new_offerings_item.style || "";
+
+                    item.lines = [];
+                    item.lines.push(line);
+                    $scope.eventSelected.offerings.data.push(item);
+                    $scope.new_offerings_item = {};
+                };
+                $scope.submission_container_css = [];
+                $scope.submission_container_change = function (data) {
+                    $scope.eventSelected.template_meta.submission_container_css = data.join(" ");
+
+                };
+                $scope.boolOptions = [
+                    {value: false, label: 'No'},
+                    {value: true, label: 'Yes'}
+                ];
+                $scope.processForm = function (data) {
+                    console.log(data)
+                };
+
+                //date
+                $scope.active_start = {
+                    date: moment($scope.eventSelected.active_start, 'DD/MM/YYYY').toDate(),
+                    opened: false
+                };
+                $scope.open_active_start = function () {
+                    $scope.active_start.opened = true;
+                };
+                $scope.active_finish = {
+                    date: moment($scope.eventSelected.active_finish, 'DD/MM/YYYY').toDate(),
+                    opened: false
+                };
+                $scope.open_active_finish = function () {
+                    $scope.active_finish.opened = true;
+                };
+                $scope.format = 'dd/MM/yyyy';
+
+                $scope.deleteAttendeePos = function (obj) {
+                    var index = $scope.eventSelected.attendees_meta.positions.indexOf(obj);
+                    $scope.eventSelected.attendees_meta.positions.splice(index, 1);
+                    console.log(id);
+                };
+                $scope.saveAttendeePos = function (obj) {
+                    var new_name = angular.element('#new_position_name-' + obj.id)[0].value;
+                    var index = $scope.eventSelected.attendees_meta.positions.indexOf(obj);
+                    $scope.eventSelected.attendees_meta.positions[index].name = new_name;
+                };
+
+
+                $scope.addAttendeePos = function () {
+                    var name = angular.element('#newPosition')[0].value;
+                    var id = $scope.eventSelected.attendees_meta.positions.length + 1;
+                    var pos = {
+                        id: id,
+                        name: name
+                    };
+                    angular.element('#newPosition')[0].value = '';
+                    $scope.eventSelected.attendees_meta.positions.push(pos)
+                };
+
+                $scope.goToMeta = function () {
+                    $location.hash('meta');
+                    $anchorScroll();
+                };
+                $scope.goToHeader = function () {
+                    $location.hash('header');
+                    $anchorScroll();
+                };
+                $scope.goToOfferings = function () {
+                    $location.hash('offerings');
+                    $anchorScroll();
+                };
+                $scope.goToOrganisation = function () {
+                    $location.hash('organisation');
+                    $anchorScroll();
+                };
+                $scope.goToContact = function () {
+                    $location.hash('contact');
+                    $anchorScroll();
+                };
+                $scope.goToAttendees = function () {
+                    $location.hash('attendees');
+                    $anchorScroll();
+                };
+                $scope.goToSubmission = function () {
+                    $location.hash('submission');
+                    $anchorScroll();
+                };
+
+                $scope.reload_event_configurations();
+            }]); // EventsCtrl
 
 
 function testSeminar() { // supply a list for test events for proof of concept, in student verion this will be replace
@@ -380,7 +483,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                     "data": [
                         {
                             "visible": true,
-                            "text": "Seminars",
+                            "text": "Seminars Example",
                             "css": "rl_font_2_5 rl_text_color_black text-center",
                             "style": ""
                         },
@@ -393,7 +496,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
                         {
                             "visible": true,
                             "text": "<span style='font-size:2em'>" +
-                                        "Dates: " +
+                            "Dates: " +
                             "       </span>" +
                             "June 25th, 26th, 27th, 28th, 29th, July 1st, 2nd, 3rd",
                             "css": "rl_font_1_0 rl_text_color_black text-center",
@@ -584,7 +687,7 @@ function testSeminar() { // supply a list for test events for proof of concept, 
 
 function getTestData(required) {
     if (required.toUpperCase() === "seminar".toUpperCase()) {
-        return{
+        return {
             "eventId": "OciNCnAtoC",
             "eventName": "Module 2 2 cols",
             "model_type": "Seminar",
@@ -633,7 +736,7 @@ function getTestData(required) {
             "receiptID": ""
         };
     }
-    else if(required.toUpperCase() === "Workshop".toUpperCase()){
+    else if (required.toUpperCase() === "Workshop".toUpperCase()) {
         return {
             "eventId": "Nj2HRL2B6F",
             "eventName": "Workshop 1",
@@ -807,9 +910,9 @@ function blank_event() {
                     "tag": "",
                     "lines": [
                         {
-                        "text": "Day",
-                        "css": "rl_padding_left_15 rl_font_1_5",
-                        "style": ""
+                            "text": "Day",
+                            "css": "rl_padding_left_15 rl_font_1_5",
+                            "style": ""
                         },
                         {
                             "text": "time",
