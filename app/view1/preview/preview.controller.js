@@ -8,7 +8,6 @@ angular.module('preview', ['ui.bootstrap'])
     [
         '$rootScope',
         '$scope',
-        'EventState',
         '$sce',
         'moment',
         '$state',
@@ -18,7 +17,7 @@ angular.module('preview', ['ui.bootstrap'])
         '$http',
 
 
-        function ($rootScope, $scope, eventState, $sce, moment, $state, $location,
+        function ($rootScope, $scope, $sce, moment, $state, $location,
                   $anchorScroll, select_options, $http) {
             /*
              * Gets the objects from parse
@@ -48,10 +47,6 @@ angular.module('preview', ['ui.bootstrap'])
                 return $sce.trustAsHtml(string);
             };
 
-            $scope.attendChildScope = null;
-            $scope.cId = "xxx"; // eventState.fn.getAppCustomerId();
-            $rootScope.cId = $scope.cId;
-
               // this is the list of events for the combo at the top right
             $scope.eventConfigurations = [];
             $scope.eventConfigurations.push(testSeminar().results[0]);
@@ -59,40 +54,26 @@ angular.module('preview', ['ui.bootstrap'])
             $scope.eventSelected = $scope.eventConfigurations[0];
 
 
-
-// ensure a change of event clears the data i.e. reset all the details as its based on the first selection
-
+            
             $scope.changeOfEvent = function () {
                 console.log("changeOfEvent");
                 // $scope.eventSelected = $scope.eventConfigurations[0];
             }; // changeOfEvent
-
-
             
             $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
                 return $scope.eventSelected.offerings.meta.visible == true
             };
             $scope.columnRange = function (colNo) {
-
                 if ($scope.eventSelected == null) return [];
-
                 $scope.columnRanges = []
-
                 var totalColumns = $scope.eventSelected.offerings.meta.columns; // supplied by the user
-
-
                 var offeringsCount = $scope.eventSelected.offerings.data.length;
                 var perColumn = parseInt(offeringsCount / totalColumns, 10);
-
-                // loses odd vale   return _.chunk($scope.eventSelected.offerings,perColumn)[colNo];
-
-
+                // loses odd vale   return _.chunk($scope.eventSelected.offerings,perColumn)[colNo]
                 var column0 = 0;
-
                 if (perColumn * totalColumns < offeringsCount) {
                     column0++;
                 }
-
                 if (colNo == 0 && perColumn * totalColumns < offeringsCount) {
                     perColumn++; // first column gets the extra value
                 }
@@ -105,7 +86,6 @@ angular.module('preview', ['ui.bootstrap'])
                     //  console.log($scope.eventSelected.offerings.slice(start  ,start + perColumn));
                     return $scope.eventSelected.offerings.data.slice(start, start + perColumn);
                 }
-
             }; // columnRange
 
             var cache = [];
@@ -258,6 +238,10 @@ angular.module('preview', ['ui.bootstrap'])
                 $scope.eventSelected.attendees_meta.positions.push(pos)
             };
 
+            $scope.goToMeta = function() {
+                $location.hash('meta');
+                $anchorScroll();
+            };
             $scope.goToHeader = function() {
                 $location.hash('header');
                 $anchorScroll();
