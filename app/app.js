@@ -32,7 +32,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             parent: 'index',
             url: '/form',
             templateUrl: 'view1/builder/form.html',
-            controller: 'EventsCtrl'
         })
         .state('form.meta', {
             url: '/meta',

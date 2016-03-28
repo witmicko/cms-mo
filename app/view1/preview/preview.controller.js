@@ -56,124 +56,21 @@ angular.module('preview', ['ui.bootstrap'])
             $scope.eventConfigurations = [];
             $scope.eventConfigurations.push(testSeminar().results[0]);
             $scope.eventConfigurations.push(testSeminar().results[0]);
-            // $scope.eventSelected = $scope.eventConfigurations[0];
-            $scope.formData = eventState.formData;
-            $scope.formMeta = eventState.formMeta;
-            $scope.putInTestData = function () {
-                if ($scope.eventSelected.template_meta.type == "template1_seminar") {
-                    var td1 = getTestData("seminar");
-                    td1.eventId = $scope.eventSelected.objectId + "";
-                    // real effort puts in choice order attribute
-                    eventState.formData = td1;
-                    $scope.formData = td1;
-                }
-                else {
-                    var w1 = getTestData("workshop");
+            $scope.eventSelected = $scope.eventConfigurations[0];
 
-                    w1.eventId = $scope.eventSelected.objectId + "";
-                    eventState.formData = w1;
-                    $scope.formData = w1;
-                }
-                // cascade updates to sub forms
-                $scope.globalResetCounter = $scope.globalResetCounter + 1;
-            }    // putInTestData
 
 
 // ensure a change of event clears the data i.e. reset all the details as its based on the first selection
 
             $scope.changeOfEvent = function () {
                 console.log("changeOfEvent");
-                // clear out the data state from the previous EventState
-                $scope.formData.confirmation = false;
-                $scope.eventFormValid = false;
-                // ui select event updates the model value eventState.formMeta.eventOffset
-                if (eventState.formMeta.eventOffset > -1) // the model
-                {  // change the state
-                    $scope.eventSelected = $scope.eventConfigurations[0];
-                    $scope.receiptID = null;
-
-                    //  $scope.eventSelected = angular.copy($scope.eventConfigurations[$scope.formMeta.eventOffset]);
-
-                    delete $scope.eventSelected.createdAt; // these parse fields not needed
-                    delete $scope.eventSelected.updatedAt;
-                    // data for the form UI
-                    $scope.DS = {};          // data source
-                    $scope.DS.overview = {};
-
-                    // reset the data
-                    eventState.fn.resetDefaults(eventState.formMeta.eventOffset);
-                    $scope.formMeta = eventState.formMeta;
-                    $scope.formData = eventState.formData;
-                    $scope.formData.eventId = $scope.eventSelected.objectId + ""; // its a string
-                    $scope.formData.eventName = $scope.eventSelected.name;
-                    $scope.formData.type = $scope.eventSelected.template_meta.type;
-
-                    // what is the state of a directives input state
-
-                    // next two passed to organisation for UI labels
-                    $scope.formMeta.organisationType = $scope.eventSelected.organisation.meta.ui_text_to_display
-                    $scope.formMeta.sectorUINoText = $scope.eventSelected.organisation.meta.sectorNo_text;
-
-                    // this value should not be greater than the value in cloud/main.js
-                    $scope.formMeta.maxAttendees = 10; // later from 	eventSelected subject to 10
-
-                    $scope.formMeta.contactValid = false;
-                    $scope.formMeta.organisationValid = false;
-                    $scope.formMeta.attendeesValid = false;
+                // $scope.eventSelected = $scope.eventConfigurations[0];
+            }; // changeOfEvent
 
 
-                    $scope.organisationTemplateName = $scope.eventSelected.organisation.meta.template;
-                    // now let the organisationTemplateName set the required fields
-                    $scope.formData.organisation = {};  // = null was a bug
-                    $scope.formMeta.attendeePositions = $scope.eventSelected.attendees_meta.positions;
-
-
-                    // event meta data tidying
-                    // remove the visible = false offerings to lessen array size for column logic
-                    if ($scope.eventSelected.template_meta.type == "template1_seminar") {       // template specific logic
-                        $scope.attendeeTemplateMode = "Seminar";
-                        $scope.formData.model_type = "Seminar";
-                        $scope.offerings = $scope.eventSelected.offerings.data.filter(function (item) {
-                            return item.visible == true
-                        })
-                        //      $scope.eventSelected.offerings.data = $scope.eventSelected.offerings.data.filter(function(item) {       return item.visible==true })
-                    }
-                    else if ($scope.eventSelected.template_meta.type == "template1_workshops") {       // template specific logic
-                        $scope.attendeeTemplateMode = "Workshop";
-                        $scope.formData.model_type = "Workshop";
-                        $scope.formMeta.workshopsMeta = $scope.eventSelected.workshops_meta;
-
-                    }
-                    // $scope.eventSelected.organisation.meta.visible_also   is event specific organisational meta data
-
-                }
-                else { // new state
-                    $scope.eventSelected = null;
-                    $scope.formMeta.eventOffset = -1;
-                    $scope.eventSelected = $scope.eventConfigurations[0];   //  remove these two lines later for testing
-                    $scope.formMeta.eventOffset = 0;
-                }
-                // cascade updates to sub forms
-                $scope.globalResetCounter = $scope.globalResetCounter + 1;
-            } // changeOfEvent
-            // show the data if only one value available
-            if ($scope.eventConfigurations.length == 1) {
-                eventState.formMeta.eventOffset = 0; // show the only option
-                $scope.changeOfEvent();
-            }
-            if ($scope.mode == "Testing Mode") {
-                if ($scope.eventConfigurations.length > 0 && eventState.formMeta.eventOffset == -1) {
-                    eventState.formMeta.eventOffset = 0; //remove later
-                    $scope.changeOfEvent();
-                    $scope.putInTestData();
-                }
-            }
-            $scope.emailsMatch = function () {
-                return $scope.formData.email === $scope.formData.email2;
-            };
+            
             $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
-                $scope.attendeeTemplateMode = $scope.attendeeTemplateMode || "Unavailable";
-                return $scope.attendeeTemplateMode.toLowerCase() == 'seminar' && $scope.eventSelected.offerings.meta.visible == true
+                return $scope.eventSelected.offerings.meta.visible == true
             };
             $scope.columnRange = function (colNo) {
 
