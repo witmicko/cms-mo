@@ -1,6 +1,4 @@
 <div class="organisationdetails_template1">
-    <!-- minimum -->
-
     <div class="row">
         <div class="col-sm-12">
             <h3>{{eventSelected.organisation.meta.ui_text_to_display}} Details</h3>
@@ -21,7 +19,6 @@
                     <div class="col-sm-3">
                         <input type="button" value="{{eventSelected.organisation.meta.ui_text_to_display}} Search"
                                class="btn-sm btn-primary no-print"
-                               ng-click="organisationSearch()"
                                ng-dblclick="false">
                     </div>
                 </div>
@@ -62,7 +59,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <input type="button" value="Clear {{eventSelected.organisation.meta.ui_text_to_display}} Details"
-                       class="btn-xs btn-primary no-print" ng-click="resetCurrentEdit()" ng-dblclick="false">
+                       class="btn-xs btn-primary no-print" ng-dblclick="false">
             </div>
         </div>
     </form>
