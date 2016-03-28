@@ -54,5 +54,53 @@
     <span class="input-group-addon min-width-125" id="description">Description</span>
     <textarea class="form-control" rows="3" name="description"
               ng-model="eventSelected.template_meta.description"/>
-
 </div>
+
+<!--Template name and cId-->
+<h4 xmlns="http://www.w3.org/1999/html"><span class="label label-default">Dates</span></h4>
+<div class="input-group">
+    <span class="input-group-addon " id="period">period</span>
+    <input type="text" class="form-control " name="period" ng-model="eventSelected.period"/>
+</div>
+
+<div class="input-group">
+    <span class="input-group-addon" id="available">available</span>
+    <select class="form-control" ng-options="o.value as o.label for o in boolOptions" ng-model="eventSelected.available"></select>
+</div>
+
+<div class="input-group">
+    <span class="input-group-addon" id="active">active</span>
+    <select class="form-control" ng-options="o.value as o.label for o in boolOptions" ng-model="eventSelected.active"></select>
+</div>
+
+<div class="input-group">
+    <span class="input-group-addon" id="active_start">active_start</span>
+    <input type="text" class="form-control"
+           ng-model="active_start.date"
+           ng-change="eventSelected.active_start = (active_start.date | amDateFormat:'DD/MM/YYYY')"
+           uib-datepicker-popup="{{format}}"
+           is-open="active_start.opened"
+           close-text="Close"
+           ng-click="open_active_start()"/>
+</div>
+
+<div class="input-group">
+    <span class="input-group-addon" id="active_finish">active_finish</span>
+    <input type="text" class="form-control"
+           ng-model="active_finish.date"
+           ng-change="eventSelected.active_finish = (active_finish.date | amDateFormat:'DD/MM/YYYY')"
+           uib-datepicker-popup="{{format}}"
+           is-open="active_finish.opened"
+           close-text="Close"
+           ng-click="open_active_finish()"/>
+</div>
+
+
+<h4><span class="label label-default">Notes</span></h4>
+<div class="input-group">
+    <span class="input-group-addon" id="notes">notes</span>
+    <textarea class="form-control" rows="3" name="notes"
+              ng-model="eventSelected.notes"></textarea>
+</div>
+
+
