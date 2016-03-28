@@ -1,22 +1,26 @@
 <!--META-->
 <div class="row  margin-zero" id="meta">
-    <div class="col-md-4">
+    <div class="col-sm-3">
         <span class="rl_font_1_8"> {{eventSelected.model_type}} Booking Form </span>
     </div>
-    <div class="col-sm-8">
-        <label class="col-sm-3 center-vertically">Select Event - ({{eventConfigurations.length}})</label>
-        <div class="col-sm-6">
+    <div class="col-sm-5">
+        <label class="col-sm-5 center-vertically">Select Event - ({{eventConfigurations.length}})</label>
+        <div class="col-sm-7">
             <select class="form-control"
-                    ng-model="formMeta.eventOffset"
-                    ng-change='changeOfEvent()'
-                    name="eventName" required
-                    ng-options='eventConfigurations.indexOf(currOption) as currOption.name for currOption in eventConfigurations'>
+                    ng-model="current_cId"
+                    ng-change='changeOfEvent(current_cId)'
+                    name="eventName">
+                <option ng-repeat="event in eventConfigurations" value="{{event.cId}}">{{event.name}}</option>
             </select>
+
         </div>
-        <div class="col-sm-3">
-            <input ng-if="mode=='Testing Mode' && eventSelected" type="submit" ng-click="putInTestData()"
-                   value="Test Data" class="btn btn-success"/>
-        </div>
+    </div>
+    <div class="btn-group col-sm-4 pull-right" role="group">
+        <button type="button" class="btn btn-primary">Reload</button>
+        <button type="button" class="btn btn-success">Save New</button>
+        <button type="button" class="btn btn-warning">Update</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-info">Blank</button>
     </div>
 </div>
 <br>
@@ -25,10 +29,10 @@
     <!--HEADER-->
     <div id="header">
         <div class="row  margin-zero no-print" ng-if="eventSelected.overview.meta.visible==true">
-            <div class="col-md-12  {{eventSelected.overview.meta.css}}" style="{{eventSelected.overview.meta.style}}">
+            <div class="col-sm-12 {{eventSelected.overview.meta.css}}" style="{{eventSelected.overview.meta.style}}">
                 <div ng-repeat="overview in eventSelected.overview.data track by $id($index)"
                      ng-show="overview.visible==true"
-                     class="col-md-12 {{overview.css}}"
+                     class="col-sm-12 {{overview.css}}"
                      style="{{overview.style}}">
 
                     <span ng-bind-html="trustAsHtml(overview.text)"/>
@@ -42,8 +46,8 @@
     <div id="offerings">
         <div class="row  margin-zero no-print" class="iterateofferings" ng-if="showSeminarColumns()">
             <!-- iterate the columns of offerings -->
-            <div ng-repeat="n in [1,2,3,4] | limitTo:  eventSelected.offerings.meta.columns"
-                 class="col-md-{{12 / eventSelected.offerings.meta.columns}} {{eventSelected.offerings.meta.columnCss}}"
+            <div ng-repeat="n in [1,2,3,4] | limitTo: eventSelected.offerings.meta.columns"
+                 class="col-sm-{{12 / eventSelected.offerings.meta.columns}} {{eventSelected.offerings.meta.columnCss}}"
                  style="{{eventSelected.offerings.meta.columnStyle}}">
 
                 <div ng-repeat="o in  columnRange($index)"
@@ -64,13 +68,13 @@
     <div id="organisation" ng-if="eventSelected.organisation.meta.enabled==true">
         <div class="row margin-zero"
              ng-if="eventSelected.organisation.meta.template==='organisation_minimum'">
-            <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+            <div class="col-sm-12 {{eventSelected.template_meta.panel_hover_css}}"
                  ng-include="'view1/preview/form_preview/organisation_minimum.html'">
             </div>
         </div>
         <div class="row margin-zero"
              ng-if="eventSelected.organisation.meta.template==='organisation_maximum'">
-            <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+            <div class="col-sm-12 {{eventSelected.template_meta.panel_hover_css}}"
                  ng-include="'view1/preview/form_preview/organisation_maximum.html'">
             </div>
         </div>
@@ -79,7 +83,7 @@
 
     <!--CONTACT-->
     <div class="row  margin-zero" ng-if="eventSelected.contact.meta.enabled==true">
-        <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+        <div class="col-sm-12 {{eventSelected.template_meta.panel_hover_css}}"
              id="contact"
              ng-include="'view1/preview/form_preview/contactDetails_template1.html'">
         </div>
@@ -89,13 +93,13 @@
     <!--ATTENDEES-->
     <div id="attendees">
         <div class="row  margin-zero" ng-if="eventSelected.template_meta.type == 'template1_seminar'">
-            <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+            <div class="col-sm-12 {{eventSelected.template_meta.panel_hover_css}}"
                  ng-include="'view1/preview/form_preview/seminarattendees_template1.html'">
             </div>
         </div>
 
         <div class="row  margin-zero" ng-if="eventSelected.template_meta.type == 'template1_workshops'">
-            <div class="col-md-12 {{eventSelected.template_meta.panel_hover_css}}"
+            <div class="col-sm-12 {{eventSelected.template_meta.panel_hover_css}}"
                  ng-include="'view1/preview/form_preview/workshopattendees_template2.html'">
             </div>
         </div>

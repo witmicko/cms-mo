@@ -22,24 +22,32 @@ angular.module('preview', ['ui.bootstrap'])
             /*
              * Gets the objects from parse
              */
+            
+            $scope.eventConfigurations = [];
+            $scope.eventConfigurations.push(testSeminar().results[0]);
+            $scope.eventSelected = $scope.eventConfigurations[0];
+            $scope.current_cId = $scope.eventSelected.cId;
 
-            // $http({
-            //     method: 'GET',
-            //     url: ' https://api.parse.com/1/classes/event/',
-            //     headers: {
-            //         'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
-            //         'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
-            //     }
-            // }).then(function successCallback(response) {
-            //     console.log(response.data.results);
-            //     $scope.eventConfigurations.push(response.data.results);
-            //     // this callback will be called asynchronously
-            //     // when the response is available
-            // }, function errorCallback(response) {
-            //     console.log(response);
-            //     // called asynchronously if an error occurs
-            //     // or server returns response with an error status.
-            // });
+            $scope.load_from_parse = function(){
+                $http({
+                    method: 'GET',
+                    url: ' https://api.parse.com/1/classes/event/',
+                    headers: {
+                        'X-Parse-Application-Id': 'ocaUgciKOBo2udPiIbKZ8NOqsXTrFymyQ0TsH9D8',
+                        'X-Parse-REST-API-Key': 'pa7VBoeOadxLdYfL4CZ7UC5iSBbZsUJAuU2Y9CRA',
+                    }
+                }).then(function successCallback(response) {
+                    console.log(response);
+                    var arr = response.data.results;
+                    var dd = $scope.eventConfigurations;
+                    $scope.eventConfigurations =  arr.concat(dd);
+                    console.log();
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            };
+            
+            $scope.load_from_parse();
 
             $scope.options = select_options;
             $scope.mode = "Testing Mode"; // <-- "Testing Mode" buts in buttons etc
@@ -47,20 +55,15 @@ angular.module('preview', ['ui.bootstrap'])
                 return $sce.trustAsHtml(string);
             };
 
-              // this is the list of events for the combo at the top right
-
-
-            $scope.eventConfigurations = [];
-            $scope.eventConfigurations.push(testSeminar().results[0]);
-            $scope.eventConfigurations.push(testSeminar().results[0]);
-            $scope.eventSelected = $scope.eventConfigurations[0];
             $scope.attendees = getTestData($scope.eventSelected.model_type).attendees;
             $scope.currentEditTemp = {};
 
-
-            $scope.changeOfEvent = function () {
-                console.log("changeOfEvent");
-                // $scope.eventSelected = $scope.eventConfigurations[0];
+            $scope.changeOfEvent = function (cId) {
+                console.log("changeOfEvent " + cId);
+                var event = $scope.eventConfigurations.filter(function( obj ) {
+                    return obj.cId == cId;
+                })[0];
+                $scope.eventSelected = event;
             }; // changeOfEvent
 
             $scope.showSeminarColumns = function () { // should a column or columns appear, if 0 matches prevent an error with Unavailable as appears in error message
@@ -146,7 +149,6 @@ angular.module('preview', ['ui.bootstrap'])
             $scope.offerings_line_css=[];
             $scope.offerings_line_css_change = function (data_idx, line_idx) {
                 var line = $scope.offerings_line_css[data_idx]["_"+line_idx];
-                // var data = $scope.eventSelected.overview.data[index];
                 var line_css = line.pad + " " + line.font;
                 $scope.eventSelected.offerings.data[data_idx].lines[line_idx].css = line_css;
             };
@@ -160,8 +162,8 @@ angular.module('preview', ['ui.bootstrap'])
             $scope.addOfferingsLine = function (data_idx) {
                 var line = {};
                 line.text =$scope.new_offerings_line.text;
-                var pad  = $scope.new_offerings_line.pad || "rl_padding_left_15";
-                var font = $scope.new_offerings_line.font|| "rl_font_1_5";
+                var pad  = $scope.new_offerings_line.pad  || "rl_padding_left_15";
+                var font = $scope.new_offerings_line.font || "rl_font_1_5";
                 line.css = pad + " " + font;
                 line.style = $scope.new_offerings_line.style || "";
                 $scope.eventSelected.offerings.data[data_idx].lines.push(line);
@@ -280,9 +282,9 @@ function testSeminar() { // supply a list for test events for proof of concept, 
     return {
         "results": [
             {
-                "id": 1,
-                "cId": "xyz001",
-                "name": "Seminars",
+                "id": 777,
+                "cId": "temp",
+                "name": "Seminars Example",
                 "nameLowercase": "seminars",
                 "model_type": "Seminar",
                 "template_meta": {
