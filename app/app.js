@@ -7,6 +7,7 @@ var app = angular.module('myApp', [
     'ui.router',
     'mo.resizer',
     'ui.bootstrap',
+
     'ViewStates',
     'preview',
     'angularMoment',

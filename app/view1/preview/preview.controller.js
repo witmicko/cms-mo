@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('preview', [])
+angular.module('preview', ['ui.bootstrap'])
 .controller('EventsCtrl',
     [
         '$rootScope',
@@ -12,7 +12,7 @@ angular.module('preview', [])
         '$sce',
         'moment',
         '$state',
-        '$location', 
+        '$location',
         '$anchorScroll',
         'select_options',
 
