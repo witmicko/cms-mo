@@ -382,7 +382,8 @@ angular.module('preview', ['ui.bootstrap'])
                     $location.hash('submission');
                     $anchorScroll();
                 };
-
+                $scope.json_pre = false;
+                
                 $scope.reload_event_configurations();
             }]); // EventsCtrl
 

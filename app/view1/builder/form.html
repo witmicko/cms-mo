@@ -5,5 +5,9 @@
                 <div id="form-views" ui-view></div>
             </form>
         </div>
+        <br>
+        <div ng-if="json_pre">
+            <pre>{{eventSelected | json}}</pre>
+        </div>
     </div>
 </div>
